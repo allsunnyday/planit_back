@@ -27,9 +27,9 @@ public class ContentController {
 		//api호출 
 		// 1]파싱할 url 준비
 		
-		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=NCPqTyv3znqjQjXg0mr6tqFnxmLBJcm10iYsAe66egVkZa%2F28tT1iJSvoKaq9Y8P92LAcQaoxcD5I5kTY%2Bn%2Buw%3D%3D"
+		/*String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=NCPqTyv3znqjQjXg0mr6tqFnxmLBJcm10iYsAe66egVkZa%2F28tT1iJSvoKaq9Y8P92LAcQaoxcD5I5kTY%2Bn%2Buw%3D%3D"
 				+ "&contentTypeId=12"
-				/*+ "&contentId=" +map.get("contentId").toString().trim()*/
+				+ "&contentId=" +map.get("contentId").toString().trim()
 				+ "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide"
 				+ "&defaultYN=Y"
 				+ "&firstImageYN=Y"
@@ -38,9 +38,9 @@ public class ContentController {
 				+ "&addrinfoYN=Y"
 				+ "&mapinfoYN=Y"
 				+ "&overviewYN=Y"
-				+ "&transGuideYN=Y";
+				+ "&transGuideYN=Y";*/
 		
-		/*String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+key
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+key
 			+"&contentTypeId=12"
 			+"&defaultYN=Y"
 			+"&overviewYN=Y"
@@ -51,7 +51,7 @@ public class ContentController {
 			+ "&cat3="
 			+ "&listYN=Y"
 			+ "&MobileOS=ETC"
-			+"&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1";*/
+			+"&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1";
 		/*
 		 * 2] 페이지에 접근해줄 document객체 생성
 		 * 여기서 생성한 document객체를  통해 파싱할 url의 요소를 읽는다. 
