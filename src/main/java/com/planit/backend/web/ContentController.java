@@ -51,6 +51,7 @@ public class ContentController {
 			+ "&cat3="
 			+ "&listYN=Y"
 			+ "&MobileOS=ETC"
+			+"overviewYN=Y"
 			+"&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1";
 		/*
 		 * 2] 페이지에 접근해줄 document객체 생성

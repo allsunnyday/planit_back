@@ -13,7 +13,6 @@
 					required:true
 					  //최소문자길이
 				}
-			
 			},
 			messages:{
 				searchWord:{
