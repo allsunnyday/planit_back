@@ -1,11 +1,14 @@
 package com.planit.backend.web;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,15 @@ import com.planit.backend.service.AdminService;
 
 @Controller
 public class AdminController {
+	
+	//리소스 파일 읽어오기
+	//페이지 사이즈
+	@Value("${PAGE_SIZE}")
+	private int pageSize;
+	//블락페이지
+	@Value("${BLOCK_SIZE}")
+	private int blockPage;
+	
 	
 	@Resource(name="adminService")
 	private AdminService service;
@@ -62,31 +74,64 @@ public class AdminController {
 		// 서비스호출] 회원정보를 받아온다
 		//디비연결 한 경우 
 		AdminDTO admin=service.selectOne(map);
-		System.out.println("admin"+admin.getName());
+		System.out.println("admin"+admin.getName()+"deptname"+admin.getDeptname());
 		// 데이터저장] position=팀장인 사람일 경우 master
 		if(admin.getPosition().equals("대표")) {
 			// 직급이 대표일 경우에만 직원관리란이 보인다. 
 			session.setAttribute("master", admin.getE_id());
 		}
-		session.setAttribute("admin", admin);
+		session.setAttribute("admin", admin.getName());
 		// 뷰정보반환] 
 		return "analysis/Dashboard.tiles";
 	}
 	
 	//profile로 이동
 	@RequestMapping("/Planit/admin/Profile.do")
-	public String profile()throws Exception{
+	public String profile(HttpSession session, Model model)throws Exception{
+		Map map = new HashMap();
+		map.put("e_id", session.getAttribute("e_id"));
 		// 서비스 호출] 직원의 정보를 받아온다.
+		AdminDTO admin=service.selectOne(map);
 		// 데이터저장]
+		model.addAttribute("admininfo", admin);
 		// 뷰정보반환]
 		return "admin/Profile.tiles";
 	}
 	
 	//employee로 이동 
 	@RequestMapping("/Planit/admin/Employee.do")
-	public String employee()throws Exception{
+	public String employee(Model model,
+							HttpServletRequest req, //페이징용 메소드 전달
+							@RequestParam Map map,  //검색용 파라미터 전달
+							@RequestParam(required=false, defaultValue="1") int nowPage //페이징용 파라미터 받기   
+							)throws Exception{
+		//데이터 확인용
+		if(map.get("searchColumn")!= null) {
+			model.addAttribute("searchColumn",map.get("searchColumn"));
+			model.addAttribute("searchWord",map.get("searchWord"));
+		}
+		
+		
+		// 페이징] 
+		// [1] 전체 직원수를 불러온다  - 검색을 할경우에는 map에 searchColums / searchWord가 있다. 
+		int totalAdminCount = service.getTotalCount(map);
+		// [2] 전체 페이지 수 
+		int totalPage = (int)Math.ceil(((double)totalAdminCount/pageSize));
+		//시작 및 끝 ROWNUM구하기]
+		int start = (nowPage-1)*pageSize+1;
+		int end   = nowPage*pageSize;
+		map.put("start", start);
+		map.put("end", end);
 		// 서비스 호출] 직원의 리스트를 받아온다.
-		// 데이터저장] 
+		List<AdminDTO> list = service.selectList(map);
+		// 데이터저장]
+		String pagingString = CommonUtil.pagingBootStrapStyle(totalAdminCount, pageSize, blockPage, nowPage, req.getContextPath()+"/Planit/admin/Employee.do?");
+		model.addAttribute("list", list);
+		model.addAttribute("pagingString", pagingString);
+		model.addAttribute("totalRecordCount", totalAdminCount);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("nowPage", nowPage);
+		
 		// 뷰정보반환]
 		return "admin/Employee.tiles";
 	}

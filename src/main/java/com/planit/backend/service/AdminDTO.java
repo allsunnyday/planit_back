@@ -13,7 +13,15 @@ public class AdminDTO {
 	private String dept_no;
 	private String position;
 	private Date hiredate;
+	// 편의상 추가함 dept 테이블의 컬럼 
+	private String deptname;
 	
+	public String getDeptname() {
+		return deptname;
+	}
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
 	public String getEmp_no() {
 		return emp_no;
 	}

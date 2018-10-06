@@ -27,7 +27,9 @@
   <link href="<c:url value='/theme/css/style.css'/> " rel="stylesheet">
   <link href="<c:url value='/theme/css/style-responsive.css'/> " rel="stylesheet">
   <script src="<c:url value='/theme/lib/chart-master/Chart.js'/> "></script>
-
+  <script src="<c:url value='/theme/lib/jquery/jquery.min.js'/> "></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+ 
   <!-- =======================================================
     Template Name: Dashio
     Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
@@ -51,9 +53,8 @@
 		 </section>
   </body>
    <!-- js placed at the end of the document so the pages load faster -->
-  <script src="<c:url value='/theme/lib/jquery/jquery.min.js'/> "></script>
-
-  <script src="<c:url value='/theme/lib/bootstrap/js/bootstrap.min.js'/> "></script>
+  
+ <script src="<c:url value='/theme/lib/bootstrap/js/bootstrap.min.js'/> "></script>
   <script class="include" type="text/javascript" src="<c:url value='/theme/lib/jquery.dcjqaccordion.2.7.js'/> "></script>
   <script src="<c:url value='/theme/lib/jquery.scrollTo.min.js'/> "></script>
   <script src="<c:url value='/theme/lib/jquery.nicescroll.js'/> " type="text/javascript"></script>

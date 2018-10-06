@@ -11,7 +11,7 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
       <!--logo start-->
-      <a href="<c:url value='/'/> " class="logo"><b>PLAN<span>IT</span></b></a>
+      <a href="<c:url value='/Planit/admin/Dashboard.do'/>" class="logo"><b>PLAN<span>IT</span></b></a>
       <!--logo end-->
       <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
@@ -108,7 +108,7 @@
       </div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-        <c:if test="${not empty sessionScope.id }" var="isLogin">
+        <c:if test="${not empty sessionScope.e_id }" var="isLogin">
          	 <li><a class="logout" href="<c:url value='/Planit/admin/logout.do'/> " >Logout</a></li>
           </c:if>
         </ul>
@@ -124,7 +124,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered"><a href="<c:url value='/Planit/admin/Profile.do'/>"><img src="<c:url value='/theme/img/planit_logo.png'/> " class="img-circle" width="80"></a></p>
-          <h5 class="centered">${sessionScope.admin.name}</h5>
+          <h5 class="centered">${sessionScope.admin}</h5>
           <li class="mt">
             <a class="active" href="<c:url value='/Planit/admin/Dashboard.do'/>">
               <i class="fa fa-dashboard"></i>

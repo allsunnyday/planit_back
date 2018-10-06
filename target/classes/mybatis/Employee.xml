@@ -16,6 +16,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="adminSelectOne" parameterType="java.util.Map" resultType="adminDTO">
-		SELECT * FROM emp WHERE e_id=#{e_id}
+		select e.*, d.name as deptname from emp e join dept d on e.dept_no= d.dept_no where e_id=#{e_id}
 	</select>
+	
+	<select id="adminGetTotal" parameterType="java.util.Map" resultType="int">
+		select count(*) from (select e.*, d.name as deptname from emp e join dept d on e.dept_no= d.dept_no)
+		<if test="searchWord!=null">
+				where ${searchColumn} LIKE '%' || #{searchWord} || '%'
+		</if>
+	</select>
+	
+	<select id="adminSelectList" parameterType="java.util.Map" resultType="adminDTO">
+		select * from ( select T.*, rownum r from 
+		(SELECT  e.*, d.name as deptname FROM emp e join dept d on e.dept_no=d.dept_no
+		
+		<if test="searchWord eq 'emp_no'">
+			where e.${searchColumn} = #{searchWord}
+		</if>
+		<if test="searchWord eq 'deptname'">
+			where d.name LIKE '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchWord!=null">
+			where e.${searchColumn} LIKE '%' || #{searchWord} || '%'
+		</if>
+		ORDER BY emp_no DESC)  T) WHERE r between #{start} and #{end}
+	</select>
+	
 </mapper>

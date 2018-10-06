@@ -25,12 +25,12 @@ public class AdminDAO implements AdminService{
 
 	@Override
 	public List<AdminDTO> selectList(Map map) {
-		return null;
+		return template.selectList("adminSelectList", map);
 	}
 
 	@Override
 	public int getTotalCount(Map map) {
-		return 0;
+		return template.selectOne("adminGetTotal",map);
 	}
 
 	@Override

@@ -119,7 +119,12 @@
 					<li><a class="scroll-link" href="#how-it-works">How?</a></li>
 					<li><a class="scroll-link" href="#testimonials">Who?</a></li>
 					<li><a class="scroll-link" href="#faq">FAQ</a></li>
-					<li><a href="<c:url value='/Planit/admin/login.do'/> ">LOGIN</a></li>
+					<c:if test="${empty sessionScope.e_id}" var="isLogin">
+						<li><a href="<c:url value='/Planit/admin/login.do'/> ">LOGIN</a></li>
+					</c:if>
+					<%-- <c:if test="${not empty sessionScope.e_id}">
+						<li><a href="<c:url value="/Planit/admin/Dashboard.do"/> ">관리자 페이지 </a></li>
+					</c:if> --%>
 				</ul>
 			</div>
 		</div>

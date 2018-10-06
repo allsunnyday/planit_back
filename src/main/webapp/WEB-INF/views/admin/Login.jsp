@@ -47,11 +47,40 @@
 <script src="<c:url value='/assets/js/wow.min.js'/> "></script>
 <script src="<c:url value='/assets/js/retina-1.1.0.min.js'/> "></script>
 <script src="<c:url value='/assets/js/scripts.js'/> "></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+
 <script>
+ console.log('${sessionScope.e_id}님 반갑습니다.');
+if('${sessionScope.e_id}'!=""){
+	location.replace('<c:url value="/Planit/admin/Dashboard.do"/> ');
+} 
 	$(function() {
+		
 		$('.testimonials-container').backstretch(
 				"<c:url value='/assets/img/backgrounds/earth.jpg'/>");
 		$('html, body').css({'height':'100%', 'width':'100%'});
+		
+		$('#frm').validate({rules:{
+			e_id:{
+				required:true
+				  //최소문자길이
+			},
+			pwd:{
+				required:true
+				
+			}
+		},
+		messages:{
+			e_id:{
+				required:'아이디를 입력하세요'
+				
+			},
+			pwd:{
+				required:'비밀번호를 입력하세요'
+				
+			}	
+		}});
+		
 		
 	})
 </script>
@@ -73,7 +102,7 @@
 			<div class="collapse navbar-collapse" id="top-navbar-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="<c:url value='/'/>">PLANIT!</a></li>
-					<c:if test="${not empty sessionScope.id}">
+					<c:if test="${not empty sessionScope.e_id}">
 						<li><a href="<c:url value='/Planit/admin/logout.do'/> ">LOGOUT</a></li>
 					</c:if>
 					
@@ -84,7 +113,7 @@
 <div
 	class="testimonials-container section-container section-container-image-bg" style="height: 100%; text-align: center;">
 	<div class="container">
-		<c:if test="${not empty sessionScope.id }" var="isLogin">
+		<c:if test="${not empty sessionScope.e_id }" var="isLogin">
 			<div class="description wow" style="padding-bottom: 20px;padding-top: 10% "></div>
 			<div class="col-sm-6 col-sm-offset-3" >
 				<h1 style="color:white;font-family: 'Orbitron', sans-serif; font-size: 2em;">HELLO, PLANIT</h1>
@@ -94,17 +123,17 @@
 		<c:if test="${not isLogin }">
 		<div class="description wow" style="padding-bottom: 20px;padding-top: 25% "></div>
 		<div class="col-sm-6 col-sm-offset-3" >
-			<form role="form" action="<c:url value='/planit/admin/loginprocess.do'/>" method="post">
+			<form role="form" id="frm" action="<c:url value='/planit/admin/loginprocess.do'/>" method="post">
 				<div class="form-group">
 					<label class="sr-only login-text" for="r-form-1-first-name">ID</label>
 					<input type="text" name="e_id" style="height: 50px;"
-						placeholder="admin" class="r-form-1-first-name form-control" id="r-form-1-first-name">
+						placeholder="admin" class="r-form-1-first-name form-control" id="id">
 				</div>
 				
 				<div class="form-group">
 					<label class="sr-only login-text" for="r-form-1-last-name">PWD</label> 
-					<input type="text" name="pwd" placeholder="password" style="height: 50px;"
-						class="r-form-1-last-name form-control" id="r-form-1-last-name">
+					<input type="password" name="pwd" placeholder="password" style="height: 50px;"
+						class="r-form-1-last-name form-control" id="pass">
 				</div>
 				
 				<c:if test="${not empty loginError}"><div style="color:red; font-weight:bold">${loginError}</div></c:if>
