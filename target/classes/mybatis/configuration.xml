@@ -13,12 +13,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 -->
 	<typeAliases>
 		<typeAlias alias="adminDTO" type="com.planit.backend.service.AdminDTO"/>
+		<typeAlias alias="contentDTO" type="com.planit.backend.service.ContentDTO"/>
 	</typeAliases>
 	
 
 	<!-- mapper file location -->
 	<mappers>
 		<mapper resource="mybatis/Employee.xml" />
+		<mapper resource="mybatis/Content.xml" />
 	</mappers>
 	
 </configuration>
