@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -100,11 +102,16 @@ public class ContentController {
 		
 		return "contents/List.tiles";
 	}
-	
-	/*@RequestMapping("")
-	public String getContentList()throws Exception{
+	@ResponseBody
+	@RequestMapping(value="/tourapi/AjaxJson.do",produces="text/plain; charset=UTF-8")
+	public String callTourApi(@RequestParam Map map,
+								HttpServletRequest req,
+								@RequestParam(required=false, defaultValue="1") int nowPage
+								)throws Exception{
+		
+		System.out.println(map.get("contenttype")+","+map.get("areacode"));
 		return "";
-	}*/
+	}
 	
 	
 	
