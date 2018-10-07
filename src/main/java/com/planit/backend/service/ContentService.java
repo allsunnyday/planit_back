@@ -10,5 +10,9 @@ public interface ContentService {
 	// 관광정보를 여러개 입력
 	int insertList(List<ContentDTO> list);
 	
-	List<UpdateDTO> selectUpdateList(Map map);
+	List<Map> selectUpdateList(Map map);
+	//여러행 추가 
+	int insertContents(List<ContentDTO> contents);
+	// 관광정보를 입력할 때마다 update_content 테이블 update
+	void updateContentList(Map map);
 }

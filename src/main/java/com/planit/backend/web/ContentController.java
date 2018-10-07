@@ -126,7 +126,7 @@ public class ContentController {
 	}
 	
 	
-	@RequestMapping("/tourapi/download/JsonToCsv.do")
+	@RequestMapping(value="/tourapi/download/JsonToCsv.do",produces="text/plain; charset=UTF-8")
 	public String convertJsonToCsv(@RequestParam Map map, 
 									Model model,
 									HttpSession session)throws Exception{
@@ -174,13 +174,14 @@ public class ContentController {
 		json = (JSONObject) json.get("items");
 		JSONArray list = (JSONArray) json.get("item");
 		
-//		BufferedWriter fw = new BufferedWriter(
-//				new FileWriter(session.getServletContext().getRealPath("/resources/update")+File.separator+"test.csv", true));
+		//파일저장을 위한 로직 시작
 		BufferedWriter fw = new BufferedWriter(
 				new OutputStreamWriter(
 				new FileOutputStream(
 						session.getServletContext().getRealPath("/resources/update")
-						+File.separator+"test.csv"), "UTF-8"));
+						+File.separator+map.get("contenttype")+"_"+map.get("areacode")+".csv"), "MS949"));
+		//jsonobj로 부터 객체 얻기
+		List<ContentDTO> contents = new Vector();
 		for(int i=0; i<list.size(); i++) {
 			JSONObject jsonobj = (JSONObject)list.get(i);
 			fw.write(jsonobj.get("contentid")+","
@@ -201,11 +202,38 @@ public class ContentController {
 					+jsonobj.get("zipcode")
 					);
 			fw.newLine();
+			/// contentDTO
+			ContentDTO dto = new ContentDTO();
+			dto.setContentid(jsonobj.get("contentid").toString());
+			dto.setContenttype(jsonobj.get("contenttypeid").toString());
+			dto.setTitle(jsonobj.get("title").toString());
+			dto.setTel(jsonobj.get("tel")==null?"":jsonobj.get("tel").toString());
+			dto.setAreacode(jsonobj.get("areacode")==null?"null":jsonobj.get("areacode").toString());
+			dto.setAddr1(jsonobj.get("addr1")==null?"":jsonobj.get("addr1").toString());
+			dto.setAddr2(jsonobj.get("addr2")==null?"":jsonobj.get("addr2").toString());
+			dto.setCat1(jsonobj.get("cat1")==null?"":jsonobj.get("cat1").toString());
+			dto.setCat2(jsonobj.get("cat2")==null?"":jsonobj.get("cat2").toString());
+			dto.setCat3(jsonobj.get("cat3")==null?"":jsonobj.get("cat3").toString());
+			dto.setMapx(jsonobj.get("mapx")==null?"0":jsonobj.get("mapx").toString());
+			dto.setMapy(jsonobj.get("mapy")==null?"0":jsonobj.get("mapy").toString());
+			dto.setFirstimage(jsonobj.get("firstimage")==null?"":jsonobj.get("firstimage").toString());
+			dto.setFirstimage2(jsonobj.get("firstimage2")==null?"":jsonobj.get("firstimage2").toString());
+			dto.setSigungucode(jsonobj.get("sigungucode")==null?"":jsonobj.get("sigungucode").toString());
+			dto.setZipcode(jsonobj.get("zipcode")==null?"":jsonobj.get("zipcode").toString());
+			contents.add(dto);
 		}
+		
+		
 		
 		fw.flush();
 		fw.close();
 		
+		int affected = service.insertContents(contents);
+		if(affected!=-1) {
+			System.out.println("success");
+			//update_content 테이블을 업데이트한다. 
+			service.updateContentList(map);
+		}
 		return "contents/ConvertComplete.tiles";
 	}
 	
@@ -213,11 +241,18 @@ public class ContentController {
 	@ResponseBody
 	@RequestMapping(value="/tourapi/update/UpdateList.do",produces="text/plain; charset=UTF-8")
 	public String updateList(@RequestParam Map map)throws Exception{
-		List<UpdateDTO> list = service.selectUpdateList(map);
-		// 날짜 데이터 변경?
+		List<Map> list = service.selectUpdateList(map);
+		// 날짜 데이터 변경
+		for(Map content : list) {
+			content.put("UP_TO_DATE", content.get("UP_TO_DATE").toString());
+		}
+			
 		System.out.println(JSONArray.toJSONString(list));
 		return JSONArray.toJSONString(list);
 	}
 	
-	
+	@RequestMapping("/tourapir/update/CheckUpdate.do")
+	public String checkUpdate(@RequestParam Map map,Model model)throws Exception{
+		return "contents/List.tiles";
+	}
 }

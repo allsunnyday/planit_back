@@ -7,7 +7,7 @@ var isDateSelected=false;
 var totalContent;	
 		$(function(){
 			// validate :  관광타입과 지역을 선택해야만 조회가 가능하다 
-			/* $('#frm').validate({rules:{
+			$('#frm').validate({rules:{
 				contenttype:{
 					required:true},
 				areacode:{
@@ -21,14 +21,14 @@ var totalContent;
 				areacode:{
 					required:'지역을 선택하세요'
 				}
-			}}); */
+			}});
 			console.log('refresh!!!');
 			
 		});
 		
 		// tour api를 호출하는 함수 
 		var callTourAPI = function(){
-			/* if($('#frm').valid()){ */
+			if($('#frm').valid()){
 				$.ajax({
 					url:"<c:url value='/tourapi/AjaxJson.do'/>",
 					type:"post",
@@ -40,7 +40,7 @@ var totalContent;
 								,request.status,request.responseText,error,status);
 					}
 				});
-			/* } */
+			}
 		};
 		// 데이터 json을 csv로 저장하기 위한 함수 
 		var saveContent=function(){
@@ -120,8 +120,8 @@ var totalContent;
             		
             		<div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">관광타입</label>
-	                  <div class="col-sm-5 text-center">
-	                    <!-- <select class="form-control " id="contenttype" name="contenttype">
+	                  <div class="col-sm-5">
+	                    <select class="form-control " id="contenttype" name="contenttype">
 		                  <option value="">타입선택</option>
 		                  <option value="12">관광지</option>
 		                  <option value="14">문화시설</option>
@@ -131,15 +131,14 @@ var totalContent;
 		                  <option value="32">숙박</option>
 		                  <option value="38">쇼핑</option>
 		                  <option value="39">음식점</option>
-		                </select> -->
-		                <input type="text" id="contenttype" name="contenttype" value="${param.contenttype}" disabled>
+		                </select>
 	                  </div>
 	                </div>
 	                
             		 <div class="form-group">
 		                  <label class="col-sm-2 col-sm-2 control-label">지역</label>
-		                  <div class="col-sm-5 text-center">
-			                  <!-- <select class="form-control" id="areacode" name="areacode">
+		                  <div class="col-sm-5">
+			                  <select class="form-control" id="areacode" name="areacode">
 			                  <option value="">지역선택</option>
 			                  <option value="1">서울</option>
 			                  <option value="2">인천</option>
@@ -158,8 +157,7 @@ var totalContent;
 			                  <option value="33">전라북도</option>
 			                  <option value="33">전라남도</option>
 			                  <option value="33">제주도</option>
-			                </select> -->
-			                <input type="text" id="areacode" name="areacode" value="${param.areacode}" disabled>
+			                </select>
 		                  </div>
 		                </div>
 		                

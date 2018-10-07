@@ -29,8 +29,19 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	public List<UpdateDTO> selectUpdateList(Map map) {
+	public List<Map> selectUpdateList(Map map) {
 		return dao.selectUpdateList(map);
+	}
+
+	@Override
+	public int insertContents(List<ContentDTO> contents) {
+		return dao.insertContents(contents);
+	}
+
+	@Override
+	public void updateContentList(Map map) {
+		dao.updateContentList(map);
+		
 	}
 
 	

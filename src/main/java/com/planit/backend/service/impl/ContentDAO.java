@@ -27,13 +27,23 @@ public class ContentDAO implements ContentService {
 
 	@Override
 	public int insertList(List<ContentDTO> list) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<UpdateDTO> selectUpdateList(Map map) {
+	public List<Map> selectUpdateList(Map map) {
 		return template.selectList("updateSelectUpdate", map);
+	}
+
+	@Override
+	public int insertContents(List<ContentDTO> contents) {
+		return template.insert("contentInsertContents", contents);
+	}
+
+	@Override
+	public void updateContentList(Map map) {
+		template.update("contentUpdateContentList", map);
+		
 	}
 
 }

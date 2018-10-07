@@ -14,7 +14,44 @@
 	};
 	
 	var displayList = function(data){
-		console.log(data);
+		console.log(JSON.stringify(data));
+		var listString ='';
+		if(data.length==0){
+			listString+='<tr><td colspan="4">등록된 댓글이 없어요</td></tr>';
+	      }
+	      else{
+	    	  $.each(data, function(index, content){
+	    		listString+='<tr>'
+	    		+'<td>'
+	    		+'<a href="basic_table.html#">'+content['TYPENAME']+'</a>'
+	    		+'</td>'
+	    		+'<td class="hidden-phone">'+content['AREANAME']+'</td>'
+	    		+'<td>'+content['TOTALCOUNT']+'</td>'
+	    		+'<td><span class="label label-info label-mini">'+content['UP_TO_DATE']+'</span></td>'
+	    		+'<td>';
+	    		if(content['TOTALCOUNT']=='0'){
+	    			listString+=' <button type="submit" class="btn btn-success btn-xs new-update" '
+	    			+'title ="'+content['CONTENTTYPE']+'-'+content['AREACODE']+'-'+content['TOTALCOUNT']+'"'
+	    			+'><i class="fa fa-check"></i></button>';
+	    			
+	    		}
+	    		else{
+	    			listString+='<button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>';
+	    		}
+	    		listString+='</td></tr> ';
+	    	  });
+	      }
+		
+		$('.update-list').html(listString);
+		$('.new-update').on('click', function(){
+			//var action = "<c:url value='/tourapir/update/CheckUpdate.do'/>";
+			var arr = $(this).attr('title').split('-');
+			console.log(arr[0]);
+			location.replace("<c:url value='/tourapir/update/CheckUpdate.do?contenttype="+arr[0]+"&areacode="+arr[1]+"&totalcount="+arr[2]+"'/>");
+			
+		});
+		
+		
 	};
 
 
@@ -93,20 +130,7 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <a href="basic_table.html#">Company Ltd</a>
-                    </td>
-                    <td class="hidden-phone">Lorem Ipsum dolor</td>
-                    <td>12000.00$ </td>
-                    <td><span class="label label-info label-mini">Due</span></td>
-                    <td>
-                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                    </td>
-                  </tr>
+                <tbody class="update-list">
                   
                 </tbody>
               </table>
