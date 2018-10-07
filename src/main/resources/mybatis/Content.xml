@@ -10,6 +10,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	namespace: 위치를 적어준다.
  -->
 <mapper namespace="mybatis.Content">
-
+	
+	<select id="updateSelectUpdate" parameterType="java.util.Map" resultType="updateDTO">
+		select * from update_content u, areacode a, contenttype c 
+		where u.areacode=a.areacode and c.contenttype=u.contenttype
+		<if test="contenttype != null">
+		and u.contenttype=${contenttype}
+		</if>
+		<if test="areacode != null">
+		and u.areacode=${areacode}
+		</if>
+	</select>
 
 </mapper>
