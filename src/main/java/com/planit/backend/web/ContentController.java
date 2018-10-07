@@ -122,7 +122,7 @@ public class ContentController {
 		
 		System.out.println(map.get("contenttype")+","+map.get("areacode")+","+nowPage);
 		
-		
+		// areacode와 contenttype으로 검색하는 주소 
 		String addr="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 				+ "ServiceKey="+key  //서비스인증키
 				+ "&contentTypeId="+map.get("contenttype")  
@@ -147,22 +147,19 @@ public class ContentController {
 		StringBuffer result=new StringBuffer();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
 		String data;
+		//결과값을 한줄씩 읽어옴
 		while((data=reader.readLine())!=null) {
-			result.append(data);
+			result.append(data); 
 		}
 		reader.close();
 		in.close();
 		System.out.println(result.toString());
-		
-		
+		// 결과값을 jsonparser를 이용하여
 		JSONParser jsonparser = new JSONParser();
-
 		JSONObject jsonobject = (JSONObject) jsonparser.parse(result.toString());
-
 		JSONObject json = (JSONObject) jsonobject.get("response");
-
 		json = (JSONObject) json.get("body");
-
+		//페이징을 위한 값을 저장함 
 		String totalCount = JSONValue.toJSONString(json.get("totalCount"));
 		String pageNo = JSONValue.toJSONString(json.get("pageNo"));
 		String pagingString =
@@ -184,7 +181,6 @@ public class ContentController {
 		JSONArray list = (JSONArray) json.get("item");
 		list.add(paging);
 		System.out.println(list+"입니다");
-		
 		
 		return list.toJSONString();
 	}
