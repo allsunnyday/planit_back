@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -28,6 +29,8 @@ import com.planit.backend.service.ContentDTO;
 public class ContentController {
 
 	private String key ="NCPqTyv3znqjQjXg0mr6tqFnxmLBJcm10iYsAe66egVkZa%2F28tT1iJSvoKaq9Y8P92LAcQaoxcD5I5kTY%2Bn%2Buw%3D%3D";
+	
+	
 	@RequestMapping("/Planit/Admin/Content/List.do")
 	public String gotoContentList(@RequestParam Map map, Model model)throws Exception{ 
 		//api호출 
@@ -116,7 +119,7 @@ public class ContentController {
 								@RequestParam(required=false, defaultValue="1") int nowPage
 								)throws Exception{
 		
-		System.out.println(map.get("contenttype")+","+map.get("areacode"));
+		System.out.println(map.get("contenttype")+","+map.get("areacode")+","+nowPage);
 		
 		
 		String addr="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
@@ -175,18 +178,28 @@ public class ContentController {
 
 		String totalCount = JSONValue.toJSONString(json.get("totalCount"));
 		String pageNo = JSONValue.toJSONString(json.get("pageNo"));
-
+		String pagingString =
+				CommonUtil.pagingForTourContent(Integer.parseInt(totalCount),
+												12,
+												5,
+												nowPage,
+												req.getContextPath()+"/tourapi/AjaxJson.do?",
+												map.get("contenttype").toString(),
+												map.get("areacode").toString());
+		System.out.println(pagingString);
 		json = (JSONObject) json.get("items");
+		
+		//페이징 요소 추가 
+		Map paging  = new HashMap();
+		paging.put("pagingString", pagingString);
+		paging.put("totalCount", totalCount);
+		paging.put("nowPage", pageNo);
 		JSONArray list = (JSONArray) json.get("item");
-		System.out.println(totalCount+"입니다");
+		list.add(paging);
+		System.out.println(list+"입니다");
 		
 		//페이징
-		String pagingString = CommonUtil.pagingBootStrapStyle(Integer.parseInt(totalCount), 12, 5, nowPage, req.getContextPath()+"/tourapi/AjaxJson.do?");
 		
-		
-		model.addAttribute("pagingString",pagingString);
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("nowPage", pageNo);
 		return list.toJSONString();
 	}
 	

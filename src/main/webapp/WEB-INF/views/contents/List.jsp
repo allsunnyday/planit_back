@@ -34,7 +34,7 @@
 					url:"<c:url value='/tourapi/AjaxJson.do'/>",
 					type:"post",
 					dataType:"json",
-					data:$('#frm').serialize(),
+					data:{contenttype:$('#contenttype').val(), areacode:$('#areacode').val()},
 					success:displayContent,
 					error:function(request,status,error){
 						console.log('code:%s,message:%s,error:%s,status:%s'
@@ -46,8 +46,50 @@
 		
 		
 		var displayContent = function(data){
-			console.log(JSON.stringify(data));
+			//console.log(JSON.stringify(data));
+			var displayString = '';
+			$.each(data, function(index,element){ 
+				//console.log(JSON.stringify(element));
+				if(element['pagingString']==null){
+					displayString +='<tr>'
+					+ '<td>'+element['contenttypeid']+'</td>'
+					+ '<td>'+element['contentid']+'</td>'
+					+ '<td >'+element['title']+'</td>'
+					+ '<td >'+element['areacode']+'</td>'
+					+ '<td >'+element['sigungucode']+'</td>'
+					+ '<td>'+element['cat1']+element['cat2']+element['cat3']+'</td>'
+					+ '<td >'+element['addr1']+'</td>'
+					+'</tr>';
+				}
+				else{
+					//페이징
+					$('#pagingString').html(element['pagingString']);
+					// 페이징된 버튼에 onclick이벤트 부착
+					$('button.paging').on('click', function(){
+						var page = $(this).attr('title');
+						console.log(page);
+						$.ajax({
+							url:"<c:url value='/tourapi/AjaxJson.do'/>",
+							type:"post",
+							dataType:"json",
+							data:{contenttype:$('#contenttype').val(), areacode:$('#areacode').val(), nowPage:page},
+							success:displayContent,
+							error:function(request,status,error){
+								console.log('code:%s,message:%s,error:%s,status:%s'
+										,request.status,request.responseText,error,status);
+							}
+						});
+					});
+					 //totalcount
+					 $('.totalcount').html('총 '+element['totalCount']+'개');
+				}
+				
+				
+			});
+			$('#display').html(displayString);
 		}
+		
+		
 		
 </script>
 <!-- **********************************************************************************************************************************************************
@@ -115,14 +157,13 @@
           <!-- /col-lg-12 -->
 		</div>
 		<h3>
-			<i class="fa fa-angle-right"></i>00으로 검색한 결과
+			<i class="fa fa-angle-right" ></i><span class="totalcount">검색된 결과가 없습니다</span>
 		</h3>
 		<div class="row mt">
 			<div class="col-lg-12">
 				<div class="content-panel">
-					<h4>
-						<i class="fa fa-angle-right"></i> 직원
-					</h4>
+						<i class="fa fa-angle-right"></i> 
+					
 					<section id="unseen">
 						<table class="table table-bordered table-striped table-condensed table-text-center ">
 							<thead>
@@ -136,24 +177,14 @@
 									<th >GPS</th>
 								</tr>
 							</thead>
-							<tbody>
-								<c:forEach var="item" items="${list}">
-								<tr>
-									<td>${item.contenttype }</td>
-									<td>${item.contentid}</td>
-									<td >${item.title }</td>
-									<td >${item.areacode }</td>
-									<td >${item.sigungucode }</td>
-									<td>${item.cat1 }/${item.cat2 }/${item.cat3 }</td>
-									<td >${mapx}, ${mapy }</td>
-								</tr>
-								</c:forEach>
+							<tbody id="display">
+								
 							</tbody>
 						</table>
 						
 						
 						<div class="row">
-							<div class="col-md-11">${pagingString}</div>
+							<div class="col-md-11" id="pagingString"></div>
 						</div>
 					</section>
 				</div>
