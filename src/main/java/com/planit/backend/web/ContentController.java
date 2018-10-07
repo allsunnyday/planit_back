@@ -3,6 +3,7 @@ package com.planit.backend.web;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -154,20 +155,6 @@ public class ContentController {
 		System.out.println(result.toString());
 		
 		
-		/*ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		IOUtils.copy(in, bos);
-		in.close();
-		bos.close();
-		
-		String mbos = bos.toString("utf-8");
-		byte[] b = mbos.getBytes();
-		String s = new String(b, "utf-8");
-		
-		
-		JSONObject json = new JSONObject();
-		json.put("data", s);
-		return json.toJSONString();*/
-		
 		JSONParser jsonparser = new JSONParser();
 
 		JSONObject jsonobject = (JSONObject) jsonparser.parse(result.toString());
@@ -198,11 +185,61 @@ public class ContentController {
 		list.add(paging);
 		System.out.println(list+"입니다");
 		
-		//페이징
 		
 		return list.toJSONString();
 	}
 	
+	
+	@RequestMapping("/tourapi/download/JsonToCsv.do")
+	public String convertJsonToCsv(@RequestParam Map map, 
+									Model model,
+									HttpServletRequest req)throws Exception{
+		
+		System.out.println(map.get("contenttype")+","+map.get("areacode")+","+map.get("totalCount"));
+		
+		
+		
+		/*String addr="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
+				+ "ServiceKey="+key  //서비스인증키
+				+ "&contentTypeId="+map.get("contenttype")  
+				+ "&areaCode="+map.get("areacode")
+				+ "&sigunguCode="   //시구군코드
+				+ "&cat1=&cat2=&cat3="  //대/중/소분류
+				+ "&listYN=Y"   //목록 구분 (Y=목록, N=개수)
+				+ "&MobileOS=ETC"  //IOS (아이폰), AND (안드로이드), WIN (윈도우폰), ETC
+				+ "&MobileApp=TourAPI3.0_Guide" //서비스명=어플명
+				+ "&_type=json"  //json타입으로 결과를 받음 
+				+ "&arrange=A"  //정렬구분(A=제목순, B=조회순, C=수정일순, D=생성일순)
+				+ "&numOfRows="+map.get("totalCount")
+				+ "&pageNo=1";
+		
+		//클라이언트로 보낸 textdata, json에 넣을 떄 쭉 나열하는듯?
+		
+		URL url = new URL(addr);
+		//URL로부터 자바로 데이터 읽어오도록 URL객체로 스트림열기
+		InputStream in = url.openStream();
+		// 데이터 읽어 오기 
+		StringBuffer result=new StringBuffer();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+		String data;
+		while((data=reader.readLine())!=null) {
+			result.append(data);
+		}
+		reader.close();
+		in.close();
+		System.out.println(result.toString());
+		
+		
+		JSONParser jsonparser = new JSONParser();
+
+		JSONObject jsonobject = (JSONObject) jsonparser.parse(result.toString());
+		JSONObject json = (JSONObject) jsonobject.get("response");
+		json = (JSONObject) json.get("body");
+		json = (JSONObject) json.get("items");
+		JSONArray list = (JSONArray) json.get("item");*/
+		
+		return "contents/ConvertComplete.tiles";
+	}
 	
 	
 }

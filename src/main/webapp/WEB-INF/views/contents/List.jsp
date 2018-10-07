@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
-	
-	
+
+var isDateSelected=false;
+var totalContent;	
 		$(function(){
-			
 			
 			$('#frm').validate({rules:{
 				contenttype:{
@@ -23,8 +23,6 @@
 				}
 			}});
 			console.log('refresh!!!');
-			
-			
 			
 		});
 		
@@ -44,9 +42,23 @@
 			}
 		};
 		
+		var saveContent=function(){
+			if(!isDateSelected){
+				alert("데이터를 조회해주세요");
+				return;
+			}
+			if(confirm('데이터를 csv파일로 저장할까요?')){
+				location.replace('<c:url value="/tourapi/download/JsonToCsv.do?totalCount='+totalContent
+									+'&contenttype='+$('#contenttype').val()
+									+'&areacode='+$('#areacode').val()
+									+'"/>');
+			}
+		};
+		
 		
 		var displayContent = function(data){
 			//console.log(JSON.stringify(data));
+			isDateSelected=true;
 			var displayString = '';
 			$.each(data, function(index,element){ 
 				//console.log(JSON.stringify(element));
@@ -82,6 +94,7 @@
 					});
 					 //totalcount
 					 $('.totalcount').html('총 '+element['totalCount']+'개');
+					 totalContent=element['totalCount'];
 				}
 				
 				
@@ -98,7 +111,7 @@
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper">
-		<h3 style="text-align: center">content 관리 </h3>
+		<h3 style="text-align: center">content 등록 </h3>
 		<!-- /row -->
 		 <div class="row mt">
           <div class="col-lg-12">
@@ -149,6 +162,7 @@
 		                </div>
 		                
 						<button type="button" onclick="callTourAPI();" value="submit" class="btn btn-theme"> 조 회 </button>
+						<button type="button" onclick="saveContent();" value="submit" class="btn btn-theme">전체 저장 </button>
 						
                 </form>
             </div>
