@@ -196,9 +196,7 @@ public class ContentController {
 									HttpServletRequest req)throws Exception{
 		
 		System.out.println(map.get("contenttype")+","+map.get("areacode")+","+map.get("totalCount"));
-		
-		
-		
+		// 저장
 		/*String addr="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 				+ "ServiceKey="+key  //서비스인증키
 				+ "&contentTypeId="+map.get("contenttype")  
