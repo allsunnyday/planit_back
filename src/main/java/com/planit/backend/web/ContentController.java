@@ -234,7 +234,7 @@ public class ContentController {
 			//update_content 테이블을 업데이트한다. 
 			service.updateContentList(map);
 		}
-		return "contents/ConvertComplete.tiles";
+		return "forward:/Planit/Admin/Content/List.do";
 	}
 	
 	// 관광정보를 디비에 업데이트 했는지 확인하는 테이블에서 리스트를 조회한다.

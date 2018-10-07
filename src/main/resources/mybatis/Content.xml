@@ -66,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<update id="contentUpdateContentList" parameterType="java.util.Map">
-		update update_content set totalCount=#{totalCount} where contenttype=#{contenttype} and areacode=#{areacode}
+		update update_content set totalCount=#{totalCount}, up_to_date=sysdate where contenttype=#{contenttype} and areacode=#{areacode}
 	</update>
 
 </mapper>
