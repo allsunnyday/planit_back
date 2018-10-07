@@ -1,7 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script>
+	
+	
+		$(function(){
+			
+			
+			$('#frm').validate({rules:{
+				contenttype:{
+					required:true},
+				areacode:{
+					required:true
+				}
+			},
+			messages:{
+				contenttype:{
+					required:'지역을 선택하세요'
+				},
+				areacode:{
+					required:'지역을 선택하세요'
+				}
+			}});
+			console.log('refresh!!!');
+			
+			
+			
+		});
+		
+		var callTourAPI = function(){
+			if($('#frm').valid()){
+				$.ajax({
+					url:"<c:url value='/tourapi/AjaxJson.do'/>",
+					type:"post",
+					dataType:"json",
+					data:$('#frm').serialize(),
+					success:displayContent,
+					error:function(request,status,error){
+						console.log('code:%s,message:%s,error:%s,status:%s'
+								,request.status,request.responseText,error,status);
+					}
+				});
+			}
+		};
+		
+		
+		var displayContent = function(data){
+			console.log(JSON.stringify(data));
+		}
+		
+</script>
 <!-- **********************************************************************************************************************************************************
         MAIN CONTENT :: 직원 관리 
         *********************************************************************************************************************************************************** -->
@@ -10,36 +58,62 @@
 	<section class="wrapper">
 		<h3 style="text-align: center">content 관리 </h3>
 		<!-- /row -->
-		<!-- INLINE FORM ELELEMNTS -->
-		<div class="row mt">
-			<div class="col-lg-6 col-lg-offset-3">
-				<div class="form-panel center-block">
-					<div class="center-block">
-					<h4 class="mb"> 검 색</h4>
-					</div>
-					<form class="form-inline" role="form">
-						<div class="form-group">
-							<label class="sr-only" for="searchColumns">분류</label> 
-							<select class="form-control" id="searchColumns">
-								<option value="1">관광지</option>
-								<option value="2">행사</option>
-								<option value="3">숙박</option>
-								<option value="4">음식점</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="exampleInputPassword2"></label>
-							<input type="password" class="form-control"
-								id="exampleInputPassword2" placeholder="키워드">
-						</div>
-						<button type="submit" class="btn btn-theme">검색</button>
-					</form>
-				</div>
-				<!-- /form-panel -->
-			</div>
-			<!-- /col-lg-12 -->
+		 <div class="row mt">
+          <div class="col-lg-12">
+            <div class="form-panel">
+            	<form class="form-horizontal style-form" id="frm" >
+            		
+            		<div class="form-group">
+	                  <label class="col-sm-2 col-sm-2 control-label">관광타입</label>
+	                  <div class="col-sm-5">
+	                    <select class="form-control " id="contenttype" name="contenttype">
+		                  <option value="">타입선택</option>
+		                  <option value="12">관광지</option>
+		                  <option value="14">문화시설</option>
+		                  <option value="15">축제공연</option>
+		                  <option value="25">여행코스</option>
+		                  <option value="28">레포츠</option>
+		                  <option value="32">숙박</option>
+		                  <option value="38">쇼핑</option>
+		                  <option value="39">음식점</option>
+		                </select>
+	                  </div>
+	                </div>
+	                
+            		 <div class="form-group">
+		                  <label class="col-sm-2 col-sm-2 control-label">지역</label>
+		                  <div class="col-sm-5">
+			                  <select class="form-control" id="areacode" name="areacode">
+			                  <option value="">지역선택</option>
+			                  <option value="1">서울</option>
+			                  <option value="2">인천</option>
+			                  <option value="3">대전</option>
+			                  <option value="4">대구</option>
+			                  <option value="5">광주</option>
+			                  <option value="6">부산</option>
+			                  <option value="7">울산</option>
+			                  <option value="8">세종특별자치시</option>
+			                  <option value="31">경기도</option>
+			                  <option value="32">강원도</option>
+			                  <option value="33">충청북도</option>
+			                  <option value="33">충청남도</option>
+			                  <option value="33">경상북도</option>
+			                  <option value="33">경상남도</option>
+			                  <option value="33">전라북도</option>
+			                  <option value="33">전라남도</option>
+			                  <option value="33">제주도</option>
+			                </select>
+		                  </div>
+		                </div>
+		                
+						<button type="button" onclick="callTourAPI();" value="submit" class="btn btn-theme"> 조 회 </button>
+						
+                </form>
+            </div>
+            <!-- /form-panel -->
+          </div>
+          <!-- /col-lg-12 -->
 		</div>
-		<!-- /row -->
 		<h3>
 			<i class="fa fa-angle-right"></i>00으로 검색한 결과
 		</h3>
@@ -76,6 +150,11 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						
+						
+						<div class="row">
+							<div class="col-md-11">${pagingString}</div>
+						</div>
 					</section>
 				</div>
 				<!-- /content-panel -->
