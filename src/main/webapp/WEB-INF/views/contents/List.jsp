@@ -5,6 +5,8 @@
 	
 	
 		$(function(){
+			
+			
 			$('#frm').validate({rules:{
 				contenttype:{
 					required:true},
@@ -20,9 +22,11 @@
 					required:'지역을 선택하세요'
 				}
 			}});
+			console.log('refresh!!!');
+			
+			
+			
 		});
-		
-
 		
 		var callTourAPI = function(){
 			if($('#frm').valid()){
@@ -31,17 +35,20 @@
 					type:"post",
 					dataType:"json",
 					data:$('#frm').serialize(),
-					success:function(data){
-						console.log(data);
-					},
-					error:function(request,error){
-						console.log('상태코드:',request.status);
-						console.log('서버로 부터 받은 데이타:',request.responseText);
-						console.log('에러:',error);
+					success:displayContent,
+					error:function(request,status,error){
+						console.log('code:%s,message:%s,error:%s,status:%s'
+								,request.status,request.responseText,error,status);
 					}
 				});
 			}
 		};
+		
+		
+		var displayContent = function(data){
+			console.log(JSON.stringify(data));
+		}
+		
 </script>
 <!-- **********************************************************************************************************************************************************
         MAIN CONTENT :: 직원 관리 
@@ -99,7 +106,7 @@
 		                  </div>
 		                </div>
 		                
-						<button onclick="callTourAPI();" class="btn btn-theme"> 조 회 </button>
+						<button type="button" onclick="callTourAPI();" value="submit" class="btn btn-theme"> 조 회 </button>
 						
                 </form>
             </div>
