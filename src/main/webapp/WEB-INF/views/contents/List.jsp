@@ -6,7 +6,7 @@
 var isDateSelected=false;
 var totalContent;	
 		$(function(){
-			
+			// validate :  관광타입과 지역을 선택해야만 조회가 가능하다 
 			$('#frm').validate({rules:{
 				contenttype:{
 					required:true},
@@ -16,7 +16,7 @@ var totalContent;
 			},
 			messages:{
 				contenttype:{
-					required:'지역을 선택하세요'
+					required:'관광타입을 선택하세요'
 				},
 				areacode:{
 					required:'지역을 선택하세요'
@@ -26,6 +26,7 @@ var totalContent;
 			
 		});
 		
+		// tour api를 호출하는 함수 
 		var callTourAPI = function(){
 			if($('#frm').valid()){
 				$.ajax({
@@ -41,7 +42,7 @@ var totalContent;
 				});
 			}
 		};
-		
+		// 데이터 json을 csv로 저장하기 위한 함수 
 		var saveContent=function(){
 			if(!isDateSelected){
 				alert("데이터를 조회해주세요");
@@ -55,7 +56,7 @@ var totalContent;
 			}
 		};
 		
-		
+		// callback함수 조회 및 다음 페이지 조회시 
 		var displayContent = function(data){
 			//console.log(JSON.stringify(data));
 			isDateSelected=true;
@@ -92,7 +93,7 @@ var totalContent;
 							}
 						});
 					});
-					 //totalcount
+					 //totalcount를 화면에 노출시킨다. 
 					 $('.totalcount').html('총 '+element['totalCount']+'개');
 					 totalContent=element['totalCount'];
 				}
