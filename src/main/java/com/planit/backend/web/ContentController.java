@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.planit.backend.service.ContentDTO;
 
@@ -106,6 +107,7 @@ public class ContentController {
 		
 		return "contents/List.tiles";
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/tourapi/AjaxJson.do",produces="text/plain; charset=UTF-8")

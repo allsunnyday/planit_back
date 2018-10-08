@@ -174,7 +174,7 @@
               <span>컨텐츠관리</span>
               </a>
             <ul class="sub">
-              <li><a href="<c:url value='/Planit/Admin/Content/List.do'/> ">관광정보</a></li>
+              <li><a href="<c:url value='/Planit/Admin/Content/List.do?search=list'/> ">관광정보</a></li>
             </ul>
           </li>
           <li class="sub-menu">
