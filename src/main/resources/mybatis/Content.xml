@@ -10,6 +10,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	namespace: 위치를 적어준다.
  -->
 <mapper namespace="mybatis.Content">
-
+	
+	<select id="updateSelectUpdate" parameterType="java.util.Map" resultType="java.util.Map">
+		select u.*, a.kor as areaname, c.kor as typename from update_content u, areacode a, contenttype c 
+		where u.areacode=a.areacode and c.contenttype=u.contenttype
+		<if test="contenttype != null">
+		and u.contenttype=${contenttype}
+		</if>
+		<if test="areacode != null">
+		and u.areacode=${areacode}
+		</if>
+	</select>
+	
+	<update id="contentInsertContents" parameterType="java.util.List">
+		
+		<foreach collection="list" item="element" index="index" open="INSERT ALL" separator=" "  close="SELECT * FROM DUAL">
+		into content(
+			contentid,
+			contenttype,
+			title, 
+			tel, 
+			areacode, 
+			addr1,
+			addr2,
+			cat1, 
+			cat2, 
+			cat3,
+			mapx,
+			mapy, 
+			firstimage,
+			firstimage2,
+			sigungucode,
+			zipcode)
+		values
+			(
+			#{element.contentid},
+			#{element.contenttype},
+			#{element.title},
+			#{element.tel},
+			#{element.areacode},
+			#{element.addr1},
+			#{element.addr2},
+			#{element.cat1},
+			#{element.cat2},
+			#{element.cat3},
+			#{element.mapx},
+			#{element.mapy},
+			#{element.firstimage},
+			#{element.firstimage2},
+			#{element.sigungucode},
+			#{element.zipcode}
+			)
+		</foreach>
+		
+	</update>
+	
+	<update id="contentUpdateContentList" parameterType="java.util.Map">
+		update update_content set totalCount=#{totalCount}, up_to_date=sysdate where contenttype=#{contenttype} and areacode=#{areacode}
+	</update>
 
 </mapper>
