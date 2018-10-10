@@ -80,7 +80,7 @@
 		    			+'<td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>'
 		    			+'<td class="view-message dont-show"><a href="#">'
 		    			+content['NAME']+'<span class="label label-danger pull-right">urgent</span></a></td>'
-		    			+'<td class="view-message"><a href="<c:url value=\'/Planit/Admin/BBS/AskView.do?ask_no='+content['ASK_NO']+'\' />  " > '+content['TITLE']+'</a></td>'
+		    			+'<td class="view-message"><a href="#" > '+content['TITLE']+'</a></td>'
 		    			+' <td class="view-message inbox-small-cells">'+content['STATUS']+'</td>'
 		    			+' <td class="view-message text-right">'+content['ASKDATE']+'</td>'
 		             	+'</tr>';
@@ -141,7 +141,7 @@
               </div>
             </section>
            </div>
-         </div>
+         
           
           <div class="col-sm-9">
             <section class="panel">
