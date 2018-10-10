@@ -19,13 +19,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by ask_no desc 
 	</select>
 	
-	<select id="askSelectPatnerAsk" parameterType="java.util.Map" resultType="partnerAskDTO">
+	<select id="askSelectPatnerAsk" parameterType="java.util.Map" resultType="java.util.Map">
 		select a.* , name from p_ask_planit a join partner p on a.p_id=p.p_id 
    		 
    		 <if test="status != null">
    		 where status=#{status}
    		 </if>
    		 order by ask_no desc 
+	</select>
+	
+	<select id="askSelectAskList" parameterType="java.util.Map" resultType="java.util.Map">
+	
+		select a.*, name from u_ask_planit a join member m on a.id=m.id
+	
+		<if test="status != null">
+	   		 where status=#{status}
+	   	 </if>
+		order by ask_no desc
+	
+	
 	</select>
 	
 

@@ -1,7 +1,9 @@
 package com.planit.backend.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +41,7 @@ public class BbsController {
 		
 		// p_ask_planit  -- 새로운 글 새수만 
 		map.put("status", "waited");
-		List<PartnerAskDTO> partnerAsks = askService.selectPartnerAskList(map); 
+		List<Map> partnerAsks = askService.selectPartnerAskList(map); 
 		System.out.println(partnerAsks.size()+"개 있습니다.");
 		
 		// 데이터 저장
@@ -57,40 +59,44 @@ public class BbsController {
 	@ResponseBody
 	@RequestMapping(value="/planit/bbs/asklist.do", produces="text/plain; charset=UTF-8")
 	public String askList(@RequestParam Map map, HttpServletRequest req) throws Exception{
+			System.out.println(map.get("whoAsk"));
 		
-		if(map.get("whoAsk").equals("user")) {
-			List<UserAskDTO> userAsks = askService.selectUserAskList(map);
-			int uWatiedNumber=0;
-			for(UserAskDTO dto: userAsks) {
-				if(dto.getStatus().equals("waited"))
-					uWatiedNumber++;
+			if(map.get("whoAsk").equals("user")) {
+				List<Map> userAsks = askService.selectAskList(map);
+				int userAskNum = 0;
+				for(Map record: userAsks) {
+					record.put("ASKDATE", record.get("ASKDATE").toString());
+					if(record.get("STATUS").toString().equals("waited")) userAskNum++;
+				}
+				Map numMap = new HashMap();
+				numMap.put("userAskNum", userAskNum);
+				map.put("status", "waited");
+				numMap.put("partnerAskNum", askService.selectPartnerAskList(map).size());
+				userAsks.add(numMap);
+				return JSONArray.toJSONString(userAsks);
 			}
-			
-			// p_ask_planit  -- 새로운 글 새수만 
-			map.put("status", "waited");
-			List<PartnerAskDTO> partnerAsks = askService.selectPartnerAskList(map);
-			req.setAttribute("pWatiedNumber", partnerAsks.size());
-			req.setAttribute("uWatiedNumber", uWatiedNumber);
-			return JSONArray.toJSONString(userAsks);
-		}
-		else if(map.get("whoAsk").equals("partner")) {
-			List<PartnerAskDTO> partnerAsks = askService.selectPartnerAskList(map);
-			int pWatiedNumber=0;
-			for(PartnerAskDTO dto: partnerAsks) {
-				if(dto.getStatus().equals("waited"))
-					pWatiedNumber++;
+			else {
+				List<Map> partnerAsk = askService.selectPartnerAskList(map);
+				int partnerAskNum = 0;
+				for(Map record: partnerAsk) {
+					record.put("ASKDATE", record.get("ASKDATE").toString());
+					if(record.get("STATUS").toString().equals("waited")) partnerAskNum++;
+				
+				}
+				Map numMap = new HashMap();
+				numMap.put("partnerAskNum", partnerAskNum);
+				map.put("status", "waited");
+				numMap.put("userAskNum", askService.selectAskList(map).size());
+				partnerAsk.add(numMap);
+				return JSONArray.toJSONString(partnerAsk);
 			}
-			map.put("status", "waited");
-			List<UserAskDTO> userAsks = askService.selectUserAskList(map);
-			
-			req.setAttribute("pWatiedNumber", pWatiedNumber);
-			req.setAttribute("uWatiedNumber", userAsks.size());
-			return JSONArray.toJSONString(partnerAsks);
-		}
 		
-		
-		
-		return null;
+	}
+	
+	
+	@RequestMapping("/Planit/Admin/BBS/AskView.do")
+	public String askView()throws Exception{
+		return "bbs/AskBbsView.tiles";
 	}
 	
 }

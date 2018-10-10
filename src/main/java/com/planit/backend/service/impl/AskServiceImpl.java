@@ -31,13 +31,18 @@ public class AskServiceImpl implements AskService {
 	
 	//기업사용자
 	@Override
-	public List<PartnerAskDTO> selectPartnerAskList(Map map) {
+	public List<Map> selectPartnerAskList(Map map) {
 		return dao.selectPartnerAskList(map);
 	}
 
 	@Override
 	public PartnerAskDTO selectPartnerAskOne(Map map) {
 		return dao.selectPartnerAskOne(map);
+	}
+
+	@Override
+	public List<Map> selectAskList(Map map) {
+		return dao.selectAskList(map);
 	}
 
 }

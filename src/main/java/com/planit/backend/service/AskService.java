@@ -12,8 +12,10 @@ public interface AskService {
 	UserAskDTO selectUserAskOne(Map map);
 	
 	
-	
 	//기업 사용자
-	List<PartnerAskDTO> selectPartnerAskList(Map map);
+	List<Map> selectPartnerAskList(Map map);
 	PartnerAskDTO selectPartnerAskOne(Map map);
+	
+	//공통
+	List<Map> selectAskList(Map map);
 }

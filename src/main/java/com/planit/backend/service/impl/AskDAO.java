@@ -32,13 +32,19 @@ public class AskDAO implements AskService{
 
 	// 기업 사용자 
 	@Override
-	public List<PartnerAskDTO> selectPartnerAskList(Map map) {
+	public List<Map> selectPartnerAskList(Map map) {
 		return template.selectList("askSelectPatnerAsk", map);
 	}
 
 	@Override
 	public PartnerAskDTO selectPartnerAskOne(Map map) {
 		return null;
+	}
+
+	@Override
+	public List<Map> selectAskList(Map map) {
+		
+		return template.selectList("askSelectAskList", map);
 	}
 
 	
