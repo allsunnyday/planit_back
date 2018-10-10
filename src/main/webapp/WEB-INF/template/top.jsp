@@ -184,7 +184,7 @@
               </a>
             <ul class="sub">
               <li><a href="#">공지사항</a></li>
-              <li><a href="#">문의게시판</a></li>
+              <li><a href="<c:url value='/Planit/Admin/BBS/AskList.do'/> ">문의게시판</a></li>
               <li><a href="#">정보수정건의</a></li>
             </ul>
           </li>
