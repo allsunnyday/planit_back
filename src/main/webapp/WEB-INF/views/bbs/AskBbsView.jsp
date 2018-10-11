@@ -170,10 +170,11 @@
                     </div>
                   </div>
                 </div>
+                
                 <div class="mail-sender">
                   <div class="row">
                     <div class="col-md-8">
-                      <img src="img/ui-zac.jpg" alt="">
+                      <img src="img/ui-zac.jpg" alt="사용자이미지">
                       <strong>Zac Doe</strong>
                       <span>[zac@youremail.com]</span> to
                       <strong>me</strong>
@@ -191,41 +192,7 @@
                   <p>"Good night!" said the uncle. "I look to the pleasure of seeing you again in the morning. Good repose! Light Monsieur my nephew to his chamber there!--And burn Monsieur my nephew in his bed, if you will," he added to himself, before
                     he rang his little bell again, and summoned his valet to his own bedroom.</p>
                 </div>
-                <div class="attachment-mail">
-                  <p>
-                    <span><i class="fa fa-paperclip"></i> 2 attachments — </span>
-                    <a href="#">Download all attachments</a> |
-                    <a href="#">View all images</a>
-                  </p>
-                  <ul>
-                    <li>
-                      <a class="atch-thumb" href="#">
-                        <img src="img/instagram.jpg">
-                        </a>
-                      <a class="name" href="#">
-                        IMG_001.jpg
-                        <span>20KB</span>
-                        </a>
-                      <div class="links">
-                        <a href="#">View</a> -
-                        <a href="#">Download</a>
-                      </div>
-                    </li>
-                    <li>
-                      <a class="atch-thumb" href="#">
-                        <img src="img/weather.jpg">
-                        </a>
-                      <a class="name" href="#">
-                        IMG_001.jpg
-                        <span>20KB</span>
-                        </a>
-                      <div class="links">
-                        <a href="#">View</a> -
-                        <a href="#">Download</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+                
                 <div class="compose-btn pull-left">
                   <a href="mail_compose.html" class="btn btn-sm btn-theme"><i class="fa fa-reply"></i> Reply</a>
                   <button class="btn btn-sm "><i class="fa fa-arrow-right"></i> Forward</button>
