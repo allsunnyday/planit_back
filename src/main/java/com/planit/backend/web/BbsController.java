@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class BbsController {
 													)throws Exception{
 		// 서비스 호출 
 		// u_ask_planit  -- 리스트 및  새로운 글 개수 
-		List<UserAskDTO> userAsks = askService.selectUserAskList(map);
+		/*List<UserAskDTO> userAsks = askService.selectUserAskList(map);
 		int uWatiedNumber=0;
 		for(UserAskDTO dto: userAsks) {
 			if(dto.getStatus().equals("waited"))
@@ -47,7 +48,7 @@ public class BbsController {
 		// 데이터 저장
 		model.addAttribute("userAsk", userAsks);
 		model.addAttribute("uWatiedNumber", uWatiedNumber);
-		model.addAttribute("pWatiedNumber", partnerAsks.size());  
+		model.addAttribute("pWatiedNumber", partnerAsks.size()); */ 
 		
 		//리스트 화면에서는 기본적으로 사용자 문의 게시판이 먼저 보인다.
 		return "bbs/AskBbsList.tiles";
@@ -93,10 +94,31 @@ public class BbsController {
 		
 	}
 	
-	
-	@RequestMapping("/Planit/Admin/BBS/AskView.do")
-	public String askView()throws Exception{
-		return "bbs/AskBbsView.tiles";
+	@ResponseBody
+	@RequestMapping(value="/Planit/Admin/BBS/AskView.do", produces="text/plain; charset=UTF-8")
+	public String askView(@RequestParam Map map)throws Exception{
+		System.out.println(map.get("whoAsk")+"가"+map.get("ask_no")+"을 물었습니다.");
+		JSONObject json = new JSONObject();
+		if("user".equals(map.get("whoAsk").toString())) {
+			UserAskDTO record = askService.selectUserAskOne(map);
+			json.put("ask_no", record.getAsk_no());
+			json.put("title", record.getTitle());
+			json.put("id", record.getId());
+			json.put("name", record.getName());
+			json.put("content", record.getContent());
+			json.put("askdate", record.getAskdate().toString());
+		
+		}else {  //partner
+			PartnerAskDTO record = askService.selectPartnerAskOne(map);
+			json.put("ask_no", record.getAsk_no());
+			json.put("title", record.getTitle());
+			json.put("id", record.getP_id());
+			json.put("name", record.getName());
+			json.put("content", record.getContent());
+			json.put("askdate", record.getAskdate().toString());
+		}
+		
+		return json.toJSONString();
 	}
 	
 }

@@ -40,5 +40,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
+	<select id="askSelectUserOne" parameterType="java.util.Map" resultType="userAskDTO">
+		select a.*, name from u_ask_planit a join member m on a.id=m.id
+		where ask_no=#{ask_no}
+	</select>
+	
+	<select id="askSelectPartnerOne" parameterType="java.util.Map" resultType="partnerAskDTO">
+		select a.*, name from p_ask_planit a join  partner p on a.p_id=p.p_id 
+		where ask_no=#{ask_no}
+	</select>
+	
 
 </mapper>

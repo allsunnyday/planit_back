@@ -27,7 +27,7 @@ public class AskDAO implements AskService{
 
 	@Override
 	public UserAskDTO selectUserAskOne(Map map) {
-		return null;
+		return template.selectOne("askSelectUserOne", map);
 	}
 
 	// 기업 사용자 
@@ -38,7 +38,7 @@ public class AskDAO implements AskService{
 
 	@Override
 	public PartnerAskDTO selectPartnerAskOne(Map map) {
-		return null;
+		return template.selectOne("askSelectPartnerOne", map);
 	}
 
 	@Override
