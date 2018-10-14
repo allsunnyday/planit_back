@@ -183,9 +183,9 @@
               <span>게시판관리</span>
               </a>
             <ul class="sub">
-              <li><a href="#">공지사항</a></li>
+              <li><a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>">공지사항</a></li>
               <li><a href="<c:url value='/Planit/Admin/BBS/AskList.do'/> ">문의게시판</a></li>
-              <li><a href="#">정보수정건의</a></li>
+              <li><a href="<c:url value='/Planit/Admin/BBS/RequestUpList.do'/>">정보수정건의</a></li>
             </ul>
           </li>
           <li class="sub-menu">

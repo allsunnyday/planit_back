@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
 	
-	var showUpdateList = function(){
+	var showUpdateList = function(item){
 		$.ajax({
 			url:"<c:url value='/tourapi/update/UpdateList.do'/> ",
-			
+			data:{contenttype:item},
 			dataType:'json',
 			type:'post',
 			success:displayList
@@ -53,10 +53,49 @@
 		
 		
 	};
+	
+	var callTourAPI=function(){
+		if($('#frm').valid()){
+			var contenttype = $('#contenttype').val();
+			var areacode = $('#areacode').val();
+			if (areacode==''){
+				showUpdateList(contenttype);
+			}
+			else{
+				$.ajax({
+					url:"<c:url value='/tourapi/update/UpdateList.do'/> ",
+					data:{contenttype:contenttype, areacode:areacode},
+					dataType:'json',
+					type:'post',
+					success:displayList
+				});
+				
+			}
+		}
+	};
 
 
 	$(function(){
-		showUpdateList();
+		showUpdateList('12');
+		
+		$('#contenttype').change(function(e){
+			console.log($(this).val()+"선택");
+			//showUpdateList($(this).val());
+		});
+		
+		
+		$('#frm').validate({rules:{
+			contenttype:{
+				required:true}
+			
+		},
+		messages:{
+			contenttype:{
+				required:'관광타입을 선택하세요'
+			}
+			
+		}});
+		console.log('refresh!!!');
 	});
 		
 </script>

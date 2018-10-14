@@ -26,7 +26,7 @@ public class BbsController {
 	@Resource(name="askService")
 	private AskService askService;
 	
-
+	// 이동
 	@RequestMapping("/Planit/Admin/BBS/AskList.do")
 	public String gotoAskList(@RequestParam Map map	// 데이터를 보내기 위한 모델
 													)throws Exception{
@@ -35,7 +35,18 @@ public class BbsController {
 		return "bbs/AskBbsList.tiles";
 	}
 	
+	// <li><a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>">공지사항</a></li>
+//    <li><a href="<c:url value='/Planit/Admin/BBS/AskList.do'/> ">문의게시판</a></li>
+//    <li><a href="<c:url value='/Planit/Admin/BBS/RequestUpList.do'/>">정보수정건의</a></li>
+	@RequestMapping("/Planit/Admin/BBS/NoticeList.do")
+	public String gotoNoticeList()throws Exception{
+		return "bbs/notice/NoticeBbsList.tiles";
+	}
 	
+	@RequestMapping("/Planit/Admin/BBS/RequestUpList.do")
+	public String gotoRequestUp() throws Exception{
+		return "bbs/requestup/RequestUpList.tiles";
+	}
 	
 	
 	@ResponseBody
@@ -101,5 +112,8 @@ public class BbsController {
 		
 		return json.toJSONString();
 	}
+	
+	/////////
+	
 	
 }
