@@ -6,7 +6,6 @@
 	var showUpdateList = function(){
 		$.ajax({
 			url:"<c:url value='/tourapi/update/UpdateList.do'/> ",
-			
 			dataType:'json',
 			type:'post',
 			success:displayList

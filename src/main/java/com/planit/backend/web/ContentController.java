@@ -223,8 +223,6 @@ public class ContentController {
 			contents.add(dto);
 		}
 		
-		
-		
 		fw.flush();
 		fw.close();
 		
@@ -241,6 +239,7 @@ public class ContentController {
 	@ResponseBody
 	@RequestMapping(value="/tourapi/update/UpdateList.do",produces="text/plain; charset=UTF-8")
 	public String updateList(@RequestParam Map map)throws Exception{
+		
 		List<Map> list = service.selectUpdateList(map);
 		// 날짜 데이터 변경
 		for(Map content : list) {
