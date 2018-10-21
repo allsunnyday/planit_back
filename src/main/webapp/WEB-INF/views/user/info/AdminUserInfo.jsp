@@ -61,7 +61,7 @@
       	<!-- 결과 를 뿌려주는 곳  -->
         <h3><i class="fa fa-angle-right"></i> 결과 </h3>
         <!-- SORTABLE TO DO LIST -->
-        <div class="row mt mb">
+       <!--  <div class="row mt mb">
           <div class="col-md-12">
             <section class="task-panel tasks-widget">
               <div class="panel-heading">
@@ -74,7 +74,6 @@
               <div class="panel-body">
                 <div class="task-content">
                   <ul id="sortable" class="task-list">
-                    
                     <li class="list-primary">
                       <i class=" fa fa-ellipsis-v"></i>
                       <div class="task-checkbox">
@@ -100,9 +99,52 @@
               </div>
             </section>
           </div>
-          <!--/col-md-12 -->
+          /col-md-12
+        </div> -->
+        <div class="row mt">
+          <div class="col-md-12">
+            <div class="content-panel">
+              <table class="table table-striped table-advance table-hover">
+                <thead>
+                  <tr>
+                    <th><i class="fa fa-bullhorn"></i> ID</th>
+                    <th class="hidden-phone"><i class="fa fa-question-circle"></i> Descrition</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <c:if test="${empty list}" var="isEmpty">
+					<tr>
+						<td colspan="3" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
+					</tr>
+				</c:if>
+				<c:if test="${not isEmpty}">
+					<c:forEach var="record" items="${list}" varStatus="loop">
+	                  <tr>
+	                    <td>
+	                      <a href="basic_table.html#">${record.id}</a>
+	                    </td>
+	                    <td class="hidden-phone">${record.name}</td>
+	                    <td>
+	                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
+	                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+	                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+	                    </td>
+	                  </tr>
+                  	</c:forEach>
+				</c:if>
+                </tbody>
+              </table>
+            </div>
+            <!-- /content-panel -->
+          </div>
+          <!-- /col-md-12 -->
         </div>
         <!-- /row -->
+      		   <div class=" add-task-row">
+                  <a class="btn btn-success btn-sm pull-left" href="#">Add..</a>
+                  <a class="btn btn-default btn-sm pull-right" href="l#">전체보기</a>
+                </div>
       </section>
       <!-- /wrapper -->
     </section>
