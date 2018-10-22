@@ -40,7 +40,7 @@ import sun.util.resources.cldr.ar.CalendarData_ar_LB;
 public class ContentController {
 
 	private String key ="NCPqTyv3znqjQjXg0mr6tqFnxmLBJcm10iYsAe66egVkZa%2F28tT1iJSvoKaq9Y8P92LAcQaoxcD5I5kTY%2Bn%2Buw%3D%3D";
-	
+
 	@Resource(name="contentService")
 	private ContentService service;
 	
@@ -223,8 +223,6 @@ public class ContentController {
 			contents.add(dto);
 		}
 		
-		
-		
 		fw.flush();
 		fw.close();
 		
@@ -241,6 +239,7 @@ public class ContentController {
 	@ResponseBody
 	@RequestMapping(value="/tourapi/update/UpdateList.do",produces="text/plain; charset=UTF-8")
 	public String updateList(@RequestParam Map map)throws Exception{
+		
 		List<Map> list = service.selectUpdateList(map);
 		// 날짜 데이터 변경
 		for(Map content : list) {

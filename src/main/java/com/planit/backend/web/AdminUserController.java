@@ -1,16 +1,44 @@
 package com.planit.backend.web;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.planit.backend.service.AdminUserDTO;
+import com.planit.backend.service.AdminUserService;
 
 @Controller
 public class AdminUserController {
 	
+	@Resource(name="adminUserService")
+	private AdminUserService service;
+	
 	// 일반 사용자 정보 관리 화면
-	@RequestMapping("/Planit/Admin/AdminUserInfo.do")
-	public String userInfo()throws Exception{
+	@RequestMapping(value="/Planit/Admin/AdminUserInfo.do", produces="text/plain; charset=UTF-8")
+	public String userInfo(Model model)throws Exception{
+		System.out.println("userInfo호출");
+		List<AdminUserDTO> list = service.selectInfoList();
+		model.addAttribute("list", list);
+		
 		return "/user/info/AdminUserInfo.tiles";
 	}
+	
+	//회원 정보 삭제
+	@RequestMapping("/Planit/Admin/AdminUserDelete.do")
+	public String deleteInfo(@RequestParam Map map) throws Exception{
+		AdminUserDTO dto = new AdminUserDTO();
+		dto.setId(dto.getId());
+		int affected = service.delete(dto);
+		
+		return "/Planit/Admin/AdminUserInfo.do";
+	}
+	
 	// 사용자 즐겨찾기 
 	@RequestMapping("/Planit/Admin/AdminFavorites.do")
 	public String userFavorite()throws Exception{
@@ -23,7 +51,10 @@ public class AdminUserController {
 	}
 	
 	@RequestMapping("/Planit/Admin/Book/List.do")
-	public String userReservation()throws Exception{
+	public String userReservation(Model model)throws Exception{
+		List<AdminUserDTO> list = service.selectReservationList();
+		model.addAttribute("list", list);
+		
 		return "/user/reservation/AdminReservation.tiles";
 	}
 	
@@ -31,4 +62,5 @@ public class AdminUserController {
 	public String userReview()throws Exception{
 		return "/user/review/AdminReview.tiles";
 	}
+	
 }
