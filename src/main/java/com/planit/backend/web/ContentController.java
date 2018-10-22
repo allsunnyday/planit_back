@@ -200,6 +200,7 @@ public class ContentController {
 					+jsonobj.get("firstimage2")+","
 					+jsonobj.get("sigungucode")+","
 					+jsonobj.get("zipcode")
+					
 					);
 			fw.newLine();
 			/// contentDTO
@@ -220,6 +221,7 @@ public class ContentController {
 			dto.setFirstimage2(jsonobj.get("firstimage2")==null?"":jsonobj.get("firstimage2").toString());
 			dto.setSigungucode(jsonobj.get("sigungucode")==null?"":jsonobj.get("sigungucode").toString());
 			dto.setZipcode(jsonobj.get("zipcode")==null?"":jsonobj.get("zipcode").toString());
+			
 			contents.add(dto);
 		}
 		

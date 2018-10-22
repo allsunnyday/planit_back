@@ -25,7 +25,14 @@ public class ContentDTO {
 	private String overview ;
 	private String imagename ;
 	private String originimgurl;
+	private String viewcount;
 	
+	public String getViewcount() {
+		return viewcount;
+	}
+	public void setViewcount(String viewcount) {
+		this.viewcount = viewcount;
+	}
 	public String getContentid() {
 		return contentid;
 	}
