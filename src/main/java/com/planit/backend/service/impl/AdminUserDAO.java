@@ -19,10 +19,15 @@ public class AdminUserDAO implements AdminUserService{
 	private SqlSessionTemplate template;
 
 	@Override
-	public List<AdminUserDTO> selectList(Map map) {
-		return template.selectList("AdminUserInfoList", map);
+	public List<AdminUserDTO> selectInfoList() {
+		return template.selectList("AdminUserInfoList");
 	}
-
+	
+	@Override
+	public List<AdminUserDTO> selectReservationList() {
+		return template.selectList("AdminUserReservationList");
+	}	
+	
 	@Override
 	public int getTotalCount(Map map) {
 		return template.selectOne("", map);
