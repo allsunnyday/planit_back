@@ -6,7 +6,48 @@
 			일반 사용자 관리 화면
 	***********************************	
  -->
- 
+ <script>
+ 	/* for (var i in document.getElementByName("chklst")){
+ 		if(document.getElementsByName("chklst")[i].checked){
+ 			alert(document.getElementsByName("chklst")[i].value);
+ 		}
+ 	} */
+ /* 
+ 	function checkDel() {
+		var chkFirList = document.getElementsByName("chklst");
+		var arrFir = new Array();
+		var cnt = 0;
+		for(var idx - chkFirList.length -1 ; 0<= idx; idx--){
+			if(chkFirList[idx].checked){
+				arrFir[cnt] = chkFirList[idx].value;
+				cnt++;
+			}
+		} 
+	}*/
+	
+	var checkboxValues=[];
+	$("input[name='chklst']:checked").each(function(i) {
+		checkboxValues.push($(this).val());
+	});
+ 	
+	var allData ={"checkArray": checkboxValues};
+	
+	function showSelectedValues() {
+		alert($("input[name='chklst']:checked").val());
+	}
+	
+	/* $.ajax({
+		url: <c:url value=''/>,
+		data: allData,
+		success: function(data){
+			alert("완료");
+			
+		} 
+		
+		
+	})*/
+ 	
+ </script>
  <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
@@ -61,7 +102,7 @@
       	<!-- 결과 를 뿌려주는 곳  -->
         <h3><i class="fa fa-angle-right"></i> 결과 </h3>
         <!-- SORTABLE TO DO LIST -->
-        <div class="row mt mb">
+       <!--  <div class="row mt mb">
           <div class="col-md-12">
             <section class="task-panel tasks-widget">
               <div class="panel-heading">
@@ -74,7 +115,6 @@
               <div class="panel-body">
                 <div class="task-content">
                   <ul id="sortable" class="task-list">
-                    
                     <li class="list-primary">
                       <i class=" fa fa-ellipsis-v"></i>
                       <div class="task-checkbox">
@@ -100,9 +140,56 @@
               </div>
             </section>
           </div>
-          <!--/col-md-12 -->
+          /col-md-12
+        </div> -->
+        <div class="row mt">
+          <div class="col-md-12">
+            <div class="content-panel">
+              <table class="table table-striped table-advance table-hover">
+                <thead>
+                  <tr>
+                  	<th></th>
+                    <th><i class="fa fa-bullhorn"></i> ID</th>
+                    <th class="hidden-phone"><i class="fa fa-question-circle"></i> Name</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <c:if test="${empty list}" var="isEmpty">
+					<tr>
+						<td colspan="3" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
+					</tr>
+				</c:if>
+				<c:if test="${not isEmpty}">
+				<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
+					<c:forEach var="record" items="${list}" varStatus="loop">
+	                  <tr>
+	                 	 <td><input type="checkbox" class="list-child" name="chklst" value="${record.id}" /></td>
+	                    <td>
+	                      <a href="#"  style="text-align: center;">${record.id}</a>
+	                    </td>
+	                    <td class="hidden-phone" >${record.name}</td>
+	                    <td>
+	                      <button class="btn btn-primary btn-xs" title="edit"><i class="fa fa-pencil"></i></button>
+	                      <button class="btn btn-success btn-xs" title="profile"><i class="fa fa-check"></i></button>
+	                      <button class="btn btn-danger btn-xs" title="delete"><i class="fa fa-trash-o "></i></button>
+	                    </td>
+	                  </tr>
+                  	</c:forEach>
+				</form>
+				</c:if>
+                </tbody>
+              </table>
+            </div>
+            <!-- /content-panel -->
+          </div>
+          <!-- /col-md-12 -->
         </div>
         <!-- /row -->
+      		   <div class=" add-task-row">
+                  <a class="btn btn-success btn-sm pull-left" href="#">Add..</a>
+                  <a class="btn btn-default btn-sm pull-right" href="l#">전체보기</a>
+                </div>
       </section>
       <!-- /wrapper -->
     </section>

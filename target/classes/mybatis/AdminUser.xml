@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.AdminUser">
+	<select id="AdminUserInfoList" resultType="AdminUserDTO">
+		SELECT id, name FROM MEMBER ORDER BY id
+	</select>
+	
+	<delete id="AdminUserInfoDelete" parameterType="java.util.Map">
+		DELETE member WHERE id=#{id}
+	</delete>
+	
+	
+	
+	
+	<select id="AdminUserReservationList" resultType="AdminUserDTO">
+		SELECT id, name,
+	</select>
+	
+	
+
+</mapper>

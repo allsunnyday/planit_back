@@ -6,7 +6,10 @@
 	var showUpdateList = function(item){
 		$.ajax({
 			url:"<c:url value='/tourapi/update/UpdateList.do'/> ",
+<<<<<<< HEAD
 			data:{contenttype:item},
+=======
+>>>>>>> refs/remotes/origin/bluejiin
 			dataType:'json',
 			type:'post',
 			success:displayList
