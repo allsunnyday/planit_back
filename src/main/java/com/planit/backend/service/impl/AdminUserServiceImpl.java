@@ -20,10 +20,6 @@ public class AdminUserServiceImpl implements AdminUserService{
 	public List<AdminUserDTO> selectInfoList() {
 		return dao.selectInfoList();
 	}
-	@Override
-	public List<AdminUserDTO> selectReservationList() {
-		return dao.selectReservationList();
-	}
 
 	@Override
 	public int getTotalCount(Map map) {
