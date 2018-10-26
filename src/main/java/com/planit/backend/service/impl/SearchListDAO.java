@@ -11,9 +11,9 @@ import com.planit.backend.service.SerachListService;
 @Repository
 public class SearchListDAO implements SerachListService{
 	
-	@Resource(name="template")
+	/*@Resource(name="template")
 	private SqlSessionTemplate template;
-
+*/
 	@Override
 	public String selectOne(SearchListDTO dto) {
 		return null;

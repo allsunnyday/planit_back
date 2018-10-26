@@ -9,10 +9,10 @@ import com.planit.backend.service.SerachListService;
 
 @Service("serarchListsService")
 public class SearchListServiceImpl implements SerachListService {
-
+/*
 	@Resource(name="serachListDAO")
 	private SearchListDAO dao;
-	
+	*/
 	
 	@Override
 	public String selectOne(SearchListDTO dto) {
