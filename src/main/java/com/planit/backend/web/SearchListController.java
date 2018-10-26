@@ -13,7 +13,7 @@ public class SearchListController {
 	private String key ="NCPqTyv3znqjQjXg0mr6tqFnxmLBJcm10iYsAe66egVkZa%2F28tT1iJSvoKaq9Y8P92LAcQaoxcD5I5kTY%2Bn%2Buw%3D%3D";
 	
 	
-	@RequestMapping("/Planit/Admin/Content/List.do")
+	/*@RequestMapping("/Planit/Admin/Content/List.do")
 	public String listlsit(@RequestParam Map map,Model model) throws Exception{
 	String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+key
 			+"&contentTypeId=12"
@@ -34,7 +34,7 @@ public class SearchListController {
 		
 		return null;
 	}
-
+*/
 	
 	
 }////////searchListController
