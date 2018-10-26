@@ -15,12 +15,20 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="adminDTO" type="com.planit.backend.service.AdminDTO"/>
 		<typeAlias alias="contentDTO" type="com.planit.backend.service.ContentDTO"/>
 		<typeAlias alias="updateDTO" type="com.planit.backend.service.UpdateDTO"/>
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/bluejiin
 		<typeAlias alias="partnerAskDTO" type="com.planit.backend.service.PartnerAskDTO"/>
 		<typeAlias alias="userAskDTO" type="com.planit.backend.service.UserAskDTO"/>
+<<<<<<< HEAD
 
 		<typeAlias alias="adminUserDTO" type="com.planit.backend.service.AdminUserDTO"/>
 
+=======
+		<typeAlias alias="adminUserDTO" type="com.planit.backend.service.AdminUserDTO"/>
+		<typeAlias alias="adminReservationDTO" type="com.planit.backend.service.AdminReservationDTO"/>
+>>>>>>> refs/remotes/origin/bluejiin
 		
 	</typeAliases>
 	
@@ -29,11 +37,18 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="mybatis/Employee.xml" />
 		<mapper resource="mybatis/Content.xml" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/bluejiin
 		<mapper resource="mybatis/Ask.xml"/>
+<<<<<<< HEAD
 
 		<mapper resource="mybatis/AdminUser.xml" />
 
+=======
+		<mapper resource="mybatis/AdminUser.xml" />
+>>>>>>> refs/remotes/origin/bluejiin
 	</mappers>
 	
 </configuration>

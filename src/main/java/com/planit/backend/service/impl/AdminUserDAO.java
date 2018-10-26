@@ -24,11 +24,6 @@ public class AdminUserDAO implements AdminUserService{
 	}
 	
 	@Override
-	public List<AdminUserDTO> selectReservationList() {
-		return template.selectList("AdminUserReservationList");
-	}	
-	
-	@Override
 	public int getTotalCount(Map map) {
 		return template.selectOne("", map);
 	}

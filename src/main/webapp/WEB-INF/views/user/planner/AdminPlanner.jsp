@@ -61,48 +61,59 @@
       	<!-- 결과 를 뿌려주는 곳  -->
         <h3><i class="fa fa-angle-right"></i> 결과 </h3>
         <!-- SORTABLE TO DO LIST -->
-        <div class="row mt mb">
+         <div class="row mt">
           <div class="col-md-12">
-            <section class="task-panel tasks-widget">
-              <div class="panel-heading">
-                <div class="pull-left">
-                  <h5><i class="fa fa-tasks"></i> 사용자 </h5>
-                </div>
-                <br>
-              </div>
-              
-              <div class="panel-body">
-                <div class="task-content">
-                  <ul id="sortable" class="task-list">
-                    
-                    <li class="list-primary">
-                      <i class=" fa fa-ellipsis-v"></i>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">정현선</span>
-                        <span class="badge bg-theme">관리자</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-primary btn-xs fa fa-pencil" title="edit"></button>
-                          <button class="btn btn-success btn-xs fa fa-check" title="profile"></button>
-                          <button class="btn btn-danger btn-xs fa fa-trash-o" title="delete"></button>
-                        </div>
-                      </div>
-                    </li>
-                    
-                  </ul>
-                </div>
-                <div class=" add-task-row">
+            <div class="content-panel">
+              <table class="table table-striped table-advance table-hover">
+                <thead>
+                  <tr>
+                  	<th></th>
+                    <th><i class="fa fa-rocket"></i> Planner_ID</th>
+                    <th><i class="fa fa-rocket"></i> ID</th>
+                    <th><i class="fa fa-star"></i> Days</th>
+                    <th class="hidden-phone"><i class="fa fa-eye"></i> ViewCount</th>
+                    <th class="hidden-phone"><i class="fa fa-calendar-o"></i> PostDate</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <c:if test="${empty list}" var="isEmpty">
+					<tr>
+						<td colspan="3" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
+					</tr>
+				</c:if>
+				<c:if test="${not isEmpty}">
+				<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
+					<c:forEach var="record" items="${list}" varStatus="loop">
+	                  <tr>
+	                 	 <td><input type="checkbox" class="list-child" name="chklst" value="${record.planner_id}" /></td>
+	                    <td>
+	                      <a href="#"  style="text-align: center;">${record.id}</a>
+	                    </td>
+	                    <td class="hidden-phone" >${record.days}</td>
+	                    <td class="hidden-phone" >${record.view_count}</td>
+	                    <td class="hidden-phone" >${record.postdate}</td>
+	                    <td>
+	                      <button class="btn btn-primary btn-xs" title="edit"><i class="fa fa-pencil"></i></button>
+	                      <button class="btn btn-success btn-xs" title="profile"><i class="fa fa-check"></i></button>
+	                      <button class="btn btn-danger btn-xs" title="delete"><i class="fa fa-trash-o "></i></button>
+	                    </td>
+	                  </tr>
+                  	</c:forEach>
+				</form>
+				</c:if>
+                </tbody>
+              </table>
+            </div>
+            <!-- /content-panel -->
+          </div>
+          <!-- /col-md-12 -->
+        </div>
+        <!-- /row -->
+      		   <div class=" add-task-row">
                   <a class="btn btn-success btn-sm pull-left" href="#">Add..</a>
                   <a class="btn btn-default btn-sm pull-right" href="l#">전체보기</a>
                 </div>
-              </div>
-            </section>
-          </div>
-          <!--/col-md-12 -->
-        </div>
-        <!-- /row -->
       </section>
       <!-- /wrapper -->
     </section>

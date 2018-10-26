@@ -34,7 +34,9 @@ public class AdminUserController {
 	public String deleteInfo(@RequestParam Map map) throws Exception{
 		AdminUserDTO dto = new AdminUserDTO();
 		dto.setId(dto.getId());
-		int affected = service.delete(dto);
+		if(service.delete(dto)==1) {
+			return "/Planit/Admin/AdminUserInfo.do";
+		}
 		
 		return "/Planit/Admin/AdminUserInfo.do";
 	}
@@ -50,13 +52,7 @@ public class AdminUserController {
 		return "/user/planner/AdminPlanner.tiles";
 	}
 	
-	@RequestMapping("/Planit/Admin/Book/List.do")
-	public String userReservation(Model model)throws Exception{
-		List<AdminUserDTO> list = service.selectReservationList();
-		model.addAttribute("list", list);
-		
-		return "/user/reservation/AdminReservation.tiles";
-	}
+	
 	
 	@RequestMapping("/Planit/Admin/AdminReview.do")
 	public String userReview()throws Exception{
