@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.AdminUser">
+	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
+		SELECT * FROM MEMBER ORDER BY regidate
+	</select>
+	
+	<delete id="AdminUserInfoDelete" parameterType="java.util.Map">
+		DELETE member WHERE id=#{id}
+	</delete>
+	
+	<select id="AdminUserReservationList" resultType="AdminReservationDTO">
+		SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
+	</select>
+	
+	<select id="AdminUserPlannerList">
+			
+	</select>
+	
+	
+
+</mapper>

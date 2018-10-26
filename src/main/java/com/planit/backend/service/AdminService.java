@@ -18,5 +18,6 @@ public interface AdminService {
 	int insert(AdminDTO dto);
 	int update(AdminDTO dto);
 	int delete(AdminDTO dto);
+
 	
 }
