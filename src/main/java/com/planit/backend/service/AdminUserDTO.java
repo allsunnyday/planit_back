@@ -14,6 +14,17 @@ public class AdminUserDTO {
 	private String age;
 	private int star;
 	private String name;
+	private String liked_t_id;
+	private String contentid;
+	private String title;
+	private String planner_id;
+	private String days;
+	private String view_count;
+	private java.sql.Date postdate;
+	private String review_id;
+	private String liked;
+	
+	
 
 	public String getId() {
 		return id;
@@ -101,6 +112,78 @@ public class AdminUserDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getLiked_t_id() {
+		return liked_t_id;
+	}
+
+	public void setLiked_t_id(String liked_t_id) {
+		this.liked_t_id = liked_t_id;
+	}
+
+	public String getContentid() {
+		return contentid;
+	}
+
+	public void setContentid(String contentid) {
+		this.contentid = contentid;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPlanner_id() {
+		return planner_id;
+	}
+
+	public void setPlanner_id(String planner_id) {
+		this.planner_id = planner_id;
+	}
+
+	public String getDays() {
+		return days;
+	}
+
+	public void setDays(String days) {
+		this.days = days;
+	}
+
+	public String getView_count() {
+		return view_count;
+	}
+
+	public void setView_count(String view_count) {
+		this.view_count = view_count;
+	}
+
+	public java.sql.Date getPostdate() {
+		return postdate;
+	}
+
+	public void setPostdate(java.sql.Date postdate) {
+		this.postdate = postdate;
+	}
+
+	public String getReview_id() {
+		return review_id;
+	}
+
+	public void setReview_id(String review_id) {
+		this.review_id = review_id;
+	}
+
+	public String getLiked() {
+		return liked;
+	}
+
+	public void setLiked(String liked) {
+		this.liked = liked;
 	}
 
 }

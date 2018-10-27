@@ -79,25 +79,21 @@
                 <tbody>
                 <c:if test="${empty list}" var="isEmpty">
 					<tr>
-						<td colspan="3" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
+						<td colspan="30" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
 					</tr>
 				</c:if>
-				<c:if test="${not isEmpty}">
+			<c:if test="${not isEmpty}">
 				<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
 					<c:forEach var="record" items="${list}" varStatus="loop">
 	                  <tr>
-	                 	 <td><input type="checkbox" class="list-child" name="chklst" value="${record.planner_id}" /></td>
-	                    <td>
-	                      <a href="#"  style="text-align: center;">${record.id}</a>
-	                    </td>
-	                    <td class="hidden-phone" >${record.days}</td>
-	                    <td class="hidden-phone" >${record.view_count}</td>
-	                    <td class="hidden-phone" >${record.postdate}</td>
-	                    <td>
-	                      <button class="btn btn-primary btn-xs" title="edit"><i class="fa fa-pencil"></i></button>
-	                      <button class="btn btn-success btn-xs" title="profile"><i class="fa fa-check"></i></button>
-	                      <button class="btn btn-danger btn-xs" title="delete"><i class="fa fa-trash-o "></i></button>
-	                    </td>
+		                 	<td><input type="checkbox" class="list-child" name="chklst" value="${record.planner_id}" /></td>
+		                    <td>
+		                      <a href="#"  style="text-align: center;">${record.planner_id}</a>
+		                    </td>
+		                    <td class="hidden-phone" >${record.id}</td>
+		                    <td class="hidden-phone" >${record.days}</td>
+		                    <td class="hidden-phone" >${record.view_count}</td>
+		                    <td class="hidden-phone" >${record.postdate}</td>
 	                  </tr>
                   	</c:forEach>
 				</form>

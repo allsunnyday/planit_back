@@ -63,7 +63,7 @@
                   	<th></th>
                     <th><i class="fa fa-star"></i> ID</th>
                     <th class="hidden-phone"><i class="fa fa-star-o"></i> Name</th>
-                    <th></th>
+                    <th><i calss="fa fa-map"></i>즐겨찾기 목록</th>                    
                   </tr>
                 </thead>
                 <tbody>
@@ -72,38 +72,38 @@
 						<td colspan="3" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
 					</tr>
 				</c:if>
-				<c:if test="${not isEmpty}">
+                <c:if test="${not isEmpty}">
 				<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
 					<c:forEach var="record" items="${list}" varStatus="loop">
 	                  <tr>
-	                 	 <td><input type="checkbox" class="list-child" name="chklst" value="${record.planner_id}" /></td>
+	                 	 <td><input type="checkbox" class="list-child" name="chklst" value="${record.id}" /></td>
 	                    <td>
 	                      <a href="#"  style="text-align: center;">${record.id}</a>
 	                    </td>
 	                    <td class="hidden-phone" >${record.name}</td>
-	                    <td class="hidden-phone" >${record.viewcount}</td>
-	                    
-	                    <td>
-	                      <button class="btn btn-primary btn-xs" title="edit"><i class="fa fa-pencil"></i></button>
-	                      <button class="btn btn-success btn-xs" title="profile"><i class="fa fa-check"></i></button>
-	                      <button class="btn btn-danger btn-xs" title="delete"><i class="fa fa-trash-o "></i></button>
-	                    </td>
+	                    <td class="hidden-phone" >${record.title}</td>
 	                  </tr>
                   	</c:forEach>
 				</form>
 				</c:if>
                 </tbody>
               </table>
+          
             </div>
             <!-- /content-panel -->
+             
           </div>
           <!-- /col-md-12 -->
+         
         </div>
         <!-- /row -->
       		   <div class=" add-task-row">
                   <a class="btn btn-success btn-sm pull-left" href="#">Add..</a>
                   <a class="btn btn-default btn-sm pull-right" href="l#">전체보기</a>
                 </div>
+                    <div class="row">
+							<div class="col-md-11">${pagingString}</div>
+						</div>
       </section>
       <!-- /wrapper -->
     </section>

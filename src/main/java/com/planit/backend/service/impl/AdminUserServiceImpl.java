@@ -17,8 +17,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	private AdminUserDAO dao;
 
 	@Override
-	public List<AdminUserDTO> selectInfoList() {
-		return dao.selectInfoList();
+	public List<AdminUserDTO> selectInfoList(Map map) {
+		return dao.selectInfoList(map);
 	}
 
 	@Override
@@ -49,6 +49,16 @@ public class AdminUserServiceImpl implements AdminUserService{
 	public int delete(AdminUserDTO dto) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<AdminUserDTO> selectPlannerList(Map map) {
+		return dao.selectPlannerList(map);
+	}
+
+	@Override
+	public List<AdminUserDTO> selectReviewList(Map map) {
+		return dao.selectReviewList(map);
 	}
 	
 	

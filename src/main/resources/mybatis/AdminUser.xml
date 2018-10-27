@@ -4,8 +4,23 @@
 
 <mapper namespace="mybatis.AdminUser">
 	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		SELECT * FROM MEMBER ORDER BY regidate
+		select * from member m join liked_tour lt on lt.id =
+		m.id join content c on c.contentid = lt.contentid  
+		
+		ORDER BY regidate
 	</select>
+	
+	<select id="SelectPlannerList" parameterType="java.util.Map" resultType="AdminUserDTO">
+		select * from member m join planner p on m.id=m.id
+		order by view_count 
+	</select>
+	
+	<select id="SelectReviewList" parameterType="java.util.Map" resultType="AdminUserDTO">
+		select * from member m join liked_review lr on m.id=lr.id 
+		join review r on r.review_id = lr.review_id
+		order by view_count
+	</select>
+	
 	
 	<delete id="AdminUserInfoDelete" parameterType="java.util.Map">
 		DELETE member WHERE id=#{id}
@@ -18,6 +33,8 @@
 	<select id="AdminUserPlannerList">
 			
 	</select>
+	
+
 	
 	
 
