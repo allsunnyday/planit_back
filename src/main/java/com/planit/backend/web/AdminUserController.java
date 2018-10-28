@@ -48,7 +48,7 @@ public class AdminUserController {
 		
 //		String[] ageArray = ages.spliterator(",");
 		/*
-		for(int i=0; i<ages.size(); i++) {
+		for(int i=0; i<ages.size(); i++) { 
 			map.put("age", ages);
 		}*/
 		
