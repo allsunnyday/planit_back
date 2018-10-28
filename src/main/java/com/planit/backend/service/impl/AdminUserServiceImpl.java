@@ -17,8 +17,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	private AdminUserDAO dao;
 
 	@Override
-	public List<AdminUserDTO> selectInfoList() {
-		return dao.selectInfoList();
+	public List<AdminUserDTO> selectInfoList(Map map) {
+		return dao.selectInfoList(map);
 	}
 
 	@Override

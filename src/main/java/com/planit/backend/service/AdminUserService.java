@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface AdminUserService {	
 	//Info목록용
-	List<AdminUserDTO> selectInfoList();
+	List<AdminUserDTO> selectInfoList(Map map);
 	
 	//총합(페이징)
 	int getTotalCount(Map map);

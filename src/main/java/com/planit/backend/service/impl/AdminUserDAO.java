@@ -19,10 +19,9 @@ public class AdminUserDAO implements AdminUserService{
 	private SqlSessionTemplate template;
 
 	@Override
-	public List<AdminUserDTO> selectInfoList() {
-		return template.selectList("AdminUserInfoList");
+	public List<AdminUserDTO> selectInfoList(Map map) {
+		return template.selectList("AdminUserInfoList",map);
 	}
-	
 	@Override
 	public int getTotalCount(Map map) {
 		return template.selectOne("", map);
@@ -47,7 +46,6 @@ public class AdminUserDAO implements AdminUserService{
 	public int delete(AdminUserDTO dto) {
 		return template.delete("", dto);
 	}
-	
 	
 
 }

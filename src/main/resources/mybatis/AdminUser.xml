@@ -4,8 +4,26 @@
 
 <mapper namespace="mybatis.AdminUser">
 	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		SELECT * FROM MEMBER ORDER BY regidate
+		SELECT * FROM MEMBER   
+			<if test="gender!=null and age==null">
+				WHERE gender = #{gender}       
+			</if>
+			<if test="gender==null and age!=null">
+				WHERE trunc(age/10,0)*10    
+				<foreach collection="age" item="ages" index="i" open="IN(" separator="," close=")">
+					#{ages[i]}   
+				</foreach>
+			</if>
+			
+			<if test="age!=null and gender!=null">
+				WHERE gender=#{gender} AND (trunc(age/10,0)*10   
+				<foreach collection="age" item="ages" index="i" open="IN(" separator="," close=")">
+					#{ages[i]}    
+				</foreach>
+			</if>
+		      ORDER BY regidate
 	</select>
+	
 	
 	<delete id="AdminUserInfoDelete" parameterType="java.util.Map">
 		DELETE member WHERE id=#{id}
