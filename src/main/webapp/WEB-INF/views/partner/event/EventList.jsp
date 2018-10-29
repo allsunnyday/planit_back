@@ -18,7 +18,7 @@
                 <ul class="nav nav-pills nav-stacked mail-nav">
                   <li class="active"><a href="inbox.html"> <i class="fa fa-inbox"></i> 진행중인 이벤트  <span class="label label-theme pull-right inbox-notification">3</span></a></li>
                   <li><a href="#"> <i class="fa fa-envelope-o"></i> 이벤트 요청건</a></li>
-                  <li><a href="#"> <i class="fa fa-file-text-o"></i> 기한만료 이벤트 <span class="label label-info pull-right inbox-notification">8</span></a></a>
+                  <li><a href="#"> <i class="fa fa-file-text-o"></i> 기한만료 이벤트 <span class="label label-info pull-right inbox-notification">8</span></a>
                   </li>
                   <li><a href="#"> <i class="fa fa-exclamation-circle"></i> 이벤트 관련 공지사항 </a></li>
                 </ul>
