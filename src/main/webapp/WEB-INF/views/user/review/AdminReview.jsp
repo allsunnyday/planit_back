@@ -63,42 +63,47 @@
         <!-- SORTABLE TO DO LIST -->
         <div class="row mt mb">
           <div class="col-md-12">
-            <section class="task-panel tasks-widget">
-              <div class="panel-heading">
-                <div class="pull-left">
-                  <h5><i class="fa fa-tasks"></i> 사용자 </h5>
-                </div>
-                <br>
-              </div>
-              
-              <div class="panel-body">
-                <div class="task-content">
-                  <ul id="sortable" class="task-list">
-                    
-                    <li class="list-primary">
-                      <i class=" fa fa-ellipsis-v"></i>
-                      <div class="task-checkbox">
-                        <input type="checkbox" class="list-child" value="" />
-                      </div>
-                      <div class="task-title">
-                        <span class="task-title-sp">정현선</span>
-                        <span class="badge bg-theme">관리자</span>
-                        <div class="pull-right hidden-phone">
-                          <button class="btn btn-primary btn-xs fa fa-pencil" title="edit"></button>
-                          <button class="btn btn-success btn-xs fa fa-check" title="profile"></button>
-                          <button class="btn btn-danger btn-xs fa fa-trash-o" title="delete"></button>
-                        </div>
-                      </div>
-                    </li>
-                    
-                  </ul>
-                </div>
-                <div class=" add-task-row">
-                  <a class="btn btn-success btn-sm pull-left" href="#">Add..</a>
-                  <a class="btn btn-default btn-sm pull-right" href="l#">전체보기</a>
-                </div>
-              </div>
-            </section>
+            <div class="content-panel">
+              <table class="table table-striped table-advance table-hover">
+                <thead>
+                  <tr>
+                  	<th></th>
+                    <th><i class="fa fa-star"></i> reviewID</th>
+                     <th><i class="fa fa-star"></i> ID</th>
+                    <th class="hidden-phone"><i class="fa fa-star-o"></i> Name</th>
+                    <th><i calss="fa fa-map"></i>title</th>        
+                        <th><i calss="fa fa-map"></i>viewcount</th> 
+                        <th><i calss="fa fa-map"></i>postdate</th>         
+                  </tr>
+                </thead>
+                <tbody>
+                <c:if test="${empty list}" var="isEmpty">
+					<tr>
+						<td colspan="3" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
+					</tr>
+				</c:if>
+                <c:if test="${not isEmpty}">
+				<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
+					<c:forEach var="record" items="${list}" varStatus="loop">
+	                  <tr>
+	                 	 <td><input type="checkbox" class="list-child" name="chklst" value="${record.review_id}" /></td>
+	                 	 
+	                    <td>
+	                      <a href="#"  style="text-align: center;">${record.review_id}</a>
+	                    </td>
+	                    <td class="hidden-phone" >${record.id}</td>
+	                    <td class="hidden-phone" >${record.name}</td>
+	                    <td class="hidden-phone" >${record.title}</td>
+	                    <td class="hidden-phone" >${record.view_count}</td>
+	                    <td class="hidden-phone" >${record.postdate}</td>
+	                  </tr>
+                  	</c:forEach>
+				</form>
+				</c:if>
+                </tbody>
+              </table>
+          
+            </div>
           </div>
           <!--/col-md-12 -->
         </div>

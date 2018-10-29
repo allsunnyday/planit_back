@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	*변경사항*
+	mapper 파일의 완전한 경로 . xml은 생략
+	ibatis와는 다르게 id값에 '.'를 사용하지 못함
+	namespace: 위치를 적어준다.
+ -->
+<mapper namespace="mybatis.Ask">
+	
+	<select id="askSelectUserAsk" parameterType="java.util.Map" resultType="userAskDTO">
+		select u.*, name from u_ask_planit u join member m on u.id=m.id
+		 <if test="status != null">
+   		 where status=#{status}
+   		 </if>
+		order by ask_no desc 
+	</select>
+	
+	<select id="askSelectPatnerAsk" parameterType="java.util.Map" resultType="java.util.Map">
+		select a.* , name from p_ask_planit a join partner p on a.p_id=p.p_id 
+   		 
+   		 <if test="status != null">
+   		 where status=#{status}
+   		 </if>
+   		 order by ask_no desc 
+	</select>
+	
+	<select id="askSelectAskList" parameterType="java.util.Map" resultType="java.util.Map">
+	
+		select a.*, name from u_ask_planit a join member m on a.id=m.id
+	
+		<if test="status != null">
+	   		 where status=#{status}
+	   	 </if>
+		order by ask_no desc
+	
+	
+	</select>
+	
+	<select id="askSelectUserOne" parameterType="java.util.Map" resultType="userAskDTO">
+		select a.*, name from u_ask_planit a join member m on a.id=m.id
+		where ask_no=#{ask_no}
+	</select>
+	
+	<select id="askSelectPartnerOne" parameterType="java.util.Map" resultType="partnerAskDTO">
+		select a.*, name from p_ask_planit a join  partner p on a.p_id=p.p_id 
+		where ask_no=#{ask_no}
+	</select>
+	
+
+</mapper>
