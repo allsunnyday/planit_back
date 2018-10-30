@@ -8,7 +8,7 @@
 		(select a.*, rownum r from
 			(select * from member m join liked_tour lt on lt.id =
 				m.id join content c on c.contentid = lt.contentid)a)
-		where r between 1 and 100
+		where r between #{start} and #{end}
 		ORDER BY regidate
 	</select>
 	

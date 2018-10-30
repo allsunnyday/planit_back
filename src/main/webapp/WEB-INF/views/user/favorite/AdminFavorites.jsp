@@ -57,10 +57,9 @@
 					</tr>
 				</c:if>
                 <c:if test="${not isEmpty}">
-				<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
-					<c:forEach var="record" items="${list}" varStatus="loop">
+					<c:forEach var="record" items="${list}">
 	                  <tr>
-	                 	 <td><input type="checkbox" class="list-child" name="chklst" value="${record.id}" /></td>
+	                 	 <td><input type="checkbox" class="list-child" name="chklst" value="" /></td>
 	                    <td>
 	                      <a href="#"  style="text-align: center;">${record.id}</a>
 	                    </td>
@@ -68,7 +67,6 @@
 	                    <td class="hidden-phone" >${record.title}</td>
 	                  </tr>
                   	</c:forEach>
-				</form>
 				</c:if>
                 </tbody>
               </table>
