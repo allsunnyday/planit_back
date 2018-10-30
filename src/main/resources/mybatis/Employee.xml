@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select e.*, d.name as deptname from emp e join dept d on e.dept_no= d.dept_no where e_id=#{e_id}
 	</select>
 	
-	<select id="adminGetTotal" parameterType="java.util.Map" resultType="int">
+	<select id="adminGetTotal" parameterType="java.util.Map" resultType="int"> 
 		select count(*) from (select e.*, d.name as deptname from emp e join dept d on e.dept_no= d.dept_no)
 		<if test="searchWord!=null">
 				where ${searchColumn} LIKE '%' || #{searchWord} || '%'

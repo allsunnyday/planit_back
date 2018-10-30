@@ -164,7 +164,7 @@
             <ul class="sub">
               <li><a href="<c:url value='/Planit/Admin/partner/List.do'/> ">기업회원</a></li>
               <li><a href="<c:url value='/Planit/Admin/Event/List.do'/> ">이벤트관리</a></li>
-              <li><a href="<c:url value='/Planit/Admin/partner/List.do'/> ">숙박예약관리</a></li>
+              <li><a href="<c:url value='/Planit/Admin/Reservation/List.do'/> ">숙박예약관리</a></li>
               
             </ul>
           </li>
@@ -174,7 +174,7 @@
               <span>컨텐츠관리</span>
               </a>
             <ul class="sub">
-              <li><a href="<c:url value='/Planit/Admin/Content/List.do'/> ">관광정보</a></li>
+              <li><a href="<c:url value='/Planit/Admin/Content/List.do?search=list'/> ">관광정보</a></li>
             </ul>
           </li>
           <li class="sub-menu">
@@ -183,9 +183,9 @@
               <span>게시판관리</span>
               </a>
             <ul class="sub">
-              <li><a href="#">공지사항</a></li>
-              <li><a href="#">문의게시판</a></li>
-              <li><a href="#">정보수정건의</a></li>
+              <li><a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>">공지사항</a></li>
+              <li><a href="<c:url value='/Planit/Admin/BBS/AskList.do'/> ">문의게시판</a></li>
+              <li><a href="<c:url value='/Planit/Admin/BBS/RequestUpList.do'/>">정보수정건의</a></li>
             </ul>
           </li>
           <li class="sub-menu">

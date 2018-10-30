@@ -1,15 +1,23 @@
 package com.planit.backend.web;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,92 +28,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.planit.backend.service.ContentDTO;
+import com.planit.backend.service.ContentService;
+import com.planit.backend.service.UpdateDTO;
+
+import sun.util.resources.cldr.ar.CalendarData_ar_LB;
 
 
 @Controller
 public class ContentController {
 
 	private String key ="NCPqTyv3znqjQjXg0mr6tqFnxmLBJcm10iYsAe66egVkZa%2F28tT1iJSvoKaq9Y8P92LAcQaoxcD5I5kTY%2Bn%2Buw%3D%3D";
+
+	@Resource(name="contentService")
+	private ContentService service;
+	
+	
 	@RequestMapping("/Planit/Admin/Content/List.do")
 	public String gotoContentList(@RequestParam Map map, Model model)throws Exception{ 
-		//api호출 
-		// 1]파싱할 url 준비
 		
-		/*String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=NCPqTyv3znqjQjXg0mr6tqFnxmLBJcm10iYsAe66egVkZa%2F28tT1iJSvoKaq9Y8P92LAcQaoxcD5I5kTY%2Bn%2Buw%3D%3D"
-				+ "&contentTypeId=12"
-				+ "&contentId=" +map.get("contentId").toString().trim()
-				+ "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide"
-				+ "&defaultYN=Y"
-				+ "&firstImageYN=Y"
-				+ "&areacodeYN=Y"
-				+ "&catcodeYN=Y"
-				+ "&addrinfoYN=Y"
-				+ "&mapinfoYN=Y"
-				+ "&overviewYN=Y"
-				+ "&transGuideYN=Y";*/
-		
-		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+key
-			+"&contentTypeId=12"
-			+"&defaultYN=Y"
-			+"&overviewYN=Y"
-			+ "&areaCode="
-			+ "&sigunguCode="
-			+ "&cat1=A01"
-			+ "&cat2="
-			+ "&cat3="
-			+ "&listYN=Y"
-			+ "&MobileOS=ETC"
-			+"overviewYN=Y"
-			+"&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1";
-		/*
-		 * 2] 페이지에 접근해줄 document객체 생성
-		 * 여기서 생성한 document객체를  통해 파싱할 url의 요소를 읽는다. 
-		 * doc.getDocumentElement().getNodeName())를 출력하면 위 XML의 최상위 tag값을 가져온다. 여기서는 <result>가 최상위 tag값이다.
-
-		 */
-		/*DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dbuilder = dbFactory.newDocumentBuilder();
-		Document doc = dbuilder.parse(url);
-		
-		//root tag
-		doc.getDocumentElement().normalize();
-		System.out.println("Root element: "+doc.getDocumentElement().getNodeName());  // Root element: result
-		
-		//3] 파싱할 정보가 있는 tag에 접근
-		NodeList nlist = doc.getElementsByTagName("item");
-		System.out.println("파싱할 리스트 수"+nlist.getLength());*/
-		List<ContentDTO> list  = new Vector<ContentDTO>();
-		
-		/*for(int temp = 0; temp < nlist.getLength(); temp ++) {
-			Node nNode = nlist.item(temp);
-			if(nNode.getNodeType() == Node.ELEMENT_NODE) {
-				Element eElement = (Element) nNode;
-				System.out.println("eElement"+eElement.toString());
-				ContentDTO dto = new ContentDTO();
-				dto.setContentid(CommonUtil.getTagValue("contentid", eElement));
-				dto.setContenttype(CommonUtil.getTagValue("contenttypeid", eElement));
-				dto.setCat1(CommonUtil.getTagValue("cat1", eElement));
-				dto.setCat2(CommonUtil.getTagValue("cat2", eElement));
-				dto.setCat3(CommonUtil.getTagValue("cat3", eElement));
-				dto.setFirstimage(CommonUtil.getTagValue("firstimage", eElement));
-				dto.setFirstimage2(CommonUtil.getTagValue("firstimage2", eElement));
-				dto.setMapx(CommonUtil.getTagValue("mapx", eElement));
-				dto.setMapy(CommonUtil.getTagValue("mapy", eElement));
-				dto.setOverview(CommonUtil.getTagValue("overview", eElement));
-				dto.setTitle(CommonUtil.getTagValue("title", eElement));
-				dto.setZipcode(CommonUtil.getTagValue("zipcode", eElement));
-				
-				model.addAttribute("mapx", dto.getMapx());
-				model.addAttribute("mapy", dto.getMapy());
-				list.add(dto);
-			}
-		}*/
-		model.addAttribute("list", list);
-		
-		return "contents/List.tiles";
+		return "contents/UpdateList.tiles";
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/tourapi/AjaxJson.do",produces="text/plain; charset=UTF-8")
@@ -116,9 +62,9 @@ public class ContentController {
 								@RequestParam(required=false, defaultValue="1") int nowPage
 								)throws Exception{
 		
-		System.out.println(map.get("contenttype")+","+map.get("areacode"));
+		System.out.println(map.get("contenttype")+","+map.get("areacode")+","+nowPage);
 		
-		
+		// areacode와 contenttype으로 검색하는 주소 
 		String addr="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 				+ "ServiceKey="+key  //서비스인증키
 				+ "&contentTypeId="+map.get("contenttype")  
@@ -143,6 +89,77 @@ public class ContentController {
 		StringBuffer result=new StringBuffer();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
 		String data;
+		//결과값을 한줄씩 읽어옴
+		while((data=reader.readLine())!=null) {
+			result.append(data); 
+		}
+		reader.close();
+		in.close();
+		System.out.println(result.toString());
+		// 결과값을 jsonparser를 이용하여
+		JSONParser jsonparser = new JSONParser();
+		JSONObject jsonobject = (JSONObject) jsonparser.parse(result.toString());
+		JSONObject json = (JSONObject) jsonobject.get("response");
+		json = (JSONObject) json.get("body");
+		//페이징을 위한 값을 저장함 
+		String totalCount = JSONValue.toJSONString(json.get("totalCount"));
+		String pageNo = JSONValue.toJSONString(json.get("pageNo"));
+		String pagingString =
+				CommonUtil.pagingForTourContent(Integer.parseInt(totalCount),
+												12,
+												5,
+												nowPage,
+												req.getContextPath()+"/tourapi/AjaxJson.do?",
+												map.get("contenttype").toString(),
+												map.get("areacode").toString());
+		System.out.println(pagingString);
+		json = (JSONObject) json.get("items");
+		
+		//페이징 요소 추가 
+		Map paging  = new HashMap();
+		paging.put("pagingString", pagingString);
+		paging.put("totalCount", totalCount);
+		paging.put("nowPage", pageNo);
+		JSONArray list = (JSONArray) json.get("item");
+		list.add(paging);
+		System.out.println(list+"입니다");
+		
+		return list.toJSONString();
+	}
+	
+	
+	@RequestMapping(value="/tourapi/download/JsonToCsv.do",produces="text/plain; charset=UTF-8")
+	public String convertJsonToCsv(@RequestParam Map map, 
+									Model model,
+									HttpSession session)throws Exception{
+		
+		System.out.println(map.get("contenttype")+","+map.get("areacode")+","+map.get("totalCount"));
+		System.out.println(session.getServletContext().getRealPath("/resources/update"));
+		
+		// 저장
+		String addr="http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
+				+ "ServiceKey="+key  //서비스인증키
+				+ "&contentTypeId="+map.get("contenttype")  
+				+ "&areaCode="+map.get("areacode")
+				+ "&sigunguCode="   //시구군코드
+				+ "&cat1=&cat2=&cat3="  //대/중/소분류
+				+ "&listYN=Y"   //목록 구분 (Y=목록, N=개수)
+				+ "&MobileOS=ETC"  //IOS (아이폰), AND (안드로이드), WIN (윈도우폰), ETC
+				+ "&MobileApp=TourAPI3.0_Guide" //서비스명=어플명
+				+ "&_type=json"  //json타입으로 결과를 받음 
+				+ "&arrange=A"  //정렬구분(A=제목순, B=조회순, C=수정일순, D=생성일순)
+				+ "&numOfRows="+map.get("totalCount")
+				+ "&pageNo=1";
+		
+		//클라이언트로 보낸 textdata, json에 넣을 떄 쭉 나열하는듯?
+		
+		URL url = new URL(addr);
+		//URL로부터 자바로 데이터 읽어오도록 URL객체로 스트림열기
+		InputStream in = url.openStream();
+		// 데이터 읽어 오기 
+		StringBuffer result=new StringBuffer();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"));
+		String data;
 		while((data=reader.readLine())!=null) {
 			result.append(data);
 		}
@@ -151,45 +168,94 @@ public class ContentController {
 		System.out.println(result.toString());
 		
 		
-		/*ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		IOUtils.copy(in, bos);
-		in.close();
-		bos.close();
-		
-		String mbos = bos.toString("utf-8");
-		byte[] b = mbos.getBytes();
-		String s = new String(b, "utf-8");
-		
-		
-		JSONObject json = new JSONObject();
-		json.put("data", s);
-		return json.toJSONString();*/
-		
 		JSONParser jsonparser = new JSONParser();
 
 		JSONObject jsonobject = (JSONObject) jsonparser.parse(result.toString());
-
 		JSONObject json = (JSONObject) jsonobject.get("response");
-
 		json = (JSONObject) json.get("body");
-
-		String totalCount = JSONValue.toJSONString(json.get("totalCount"));
-		String pageNo = JSONValue.toJSONString(json.get("pageNo"));
-
 		json = (JSONObject) json.get("items");
 		JSONArray list = (JSONArray) json.get("item");
-		System.out.println(totalCount+"입니다");
 		
-		//페이징
-		String pagingString = CommonUtil.pagingBootStrapStyle(Integer.parseInt(totalCount), 12, 5, nowPage, req.getContextPath()+"/tourapi/AjaxJson.do?");
+		//파일저장을 위한 로직 시작
+		BufferedWriter fw = new BufferedWriter(
+				new OutputStreamWriter(
+				new FileOutputStream(
+						session.getServletContext().getRealPath("/resources/update")
+						+File.separator+map.get("contenttype")+"_"+map.get("areacode")+".csv"), "MS949"));
+		//jsonobj로 부터 객체 얻기
+		List<ContentDTO> contents = new Vector();
+		for(int i=0; i<list.size(); i++) {
+			JSONObject jsonobj = (JSONObject)list.get(i);
+			fw.write(jsonobj.get("contentid")+","
+					+jsonobj.get("contenttypeid")+","
+					+jsonobj.get("title")+","
+					+jsonobj.get("tel")+","
+					+jsonobj.get("areacode")+","
+					+jsonobj.get("addr1")+","
+					+jsonobj.get("addr2")+","
+					+jsonobj.get("cat1")+","
+					+jsonobj.get("cat2")+","
+					+jsonobj.get("cat3")+","
+					+jsonobj.get("mapx")+","
+					+jsonobj.get("mapy")+","
+					+jsonobj.get("firstimage")+","
+					+jsonobj.get("firstimage2")+","
+					+jsonobj.get("sigungucode")+","
+					+jsonobj.get("zipcode")
+					
+					);
+			fw.newLine();
+			/// contentDTO
+			ContentDTO dto = new ContentDTO();
+			dto.setContentid(jsonobj.get("contentid").toString());
+			dto.setContenttype(jsonobj.get("contenttypeid").toString());
+			dto.setTitle(jsonobj.get("title").toString());
+			dto.setTel(jsonobj.get("tel")==null?"":jsonobj.get("tel").toString());
+			dto.setAreacode(jsonobj.get("areacode")==null?"null":jsonobj.get("areacode").toString());
+			dto.setAddr1(jsonobj.get("addr1")==null?"":jsonobj.get("addr1").toString());
+			dto.setAddr2(jsonobj.get("addr2")==null?"":jsonobj.get("addr2").toString());
+			dto.setCat1(jsonobj.get("cat1")==null?"":jsonobj.get("cat1").toString());
+			dto.setCat2(jsonobj.get("cat2")==null?"":jsonobj.get("cat2").toString());
+			dto.setCat3(jsonobj.get("cat3")==null?"":jsonobj.get("cat3").toString());
+			dto.setMapx(jsonobj.get("mapx")==null?"0":jsonobj.get("mapx").toString());
+			dto.setMapy(jsonobj.get("mapy")==null?"0":jsonobj.get("mapy").toString());
+			dto.setFirstimage(jsonobj.get("firstimage")==null?"":jsonobj.get("firstimage").toString());
+			dto.setFirstimage2(jsonobj.get("firstimage2")==null?"":jsonobj.get("firstimage2").toString());
+			dto.setSigungucode(jsonobj.get("sigungucode")==null?"":jsonobj.get("sigungucode").toString());
+			dto.setZipcode(jsonobj.get("zipcode")==null?"":jsonobj.get("zipcode").toString());
+			
+			contents.add(dto);
+		}
 		
+		fw.flush();
+		fw.close();
 		
-		model.addAttribute("pagingString",pagingString);
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("nowPage", pageNo);
-		return list.toJSONString();
+		int affected = service.insertContents(contents);
+		if(affected!=-1) {
+			System.out.println("success");
+			//update_content 테이블을 업데이트한다. 
+			service.updateContentList(map);
+		}
+		return "forward:/Planit/Admin/Content/List.do";
 	}
 	
+	// 관광정보를 디비에 업데이트 했는지 확인하는 테이블에서 리스트를 조회한다.
+	@ResponseBody
+	@RequestMapping(value="/tourapi/update/UpdateList.do",produces="text/plain; charset=UTF-8")
+	public String updateList(@RequestParam Map map)throws Exception{
+		
+		List<Map> list = service.selectUpdateList(map);
+		// 날짜 데이터 변경
+		for(Map content : list) {
+			content.put("UP_TO_DATE", content.get("UP_TO_DATE").toString());
+		}
+			
+		System.out.println(JSONArray.toJSONString(list));
+		return JSONArray.toJSONString(list);
+	}
 	
-	
+	@RequestMapping("/tourapir/update/CheckUpdate.do")
+	public String checkUpdate(@RequestParam Map map,Model model)throws Exception{
+		return "contents/List.tiles";
+	}
 }
