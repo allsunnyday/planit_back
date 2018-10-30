@@ -22,7 +22,6 @@ public class AdminUserDAO implements AdminUserService{
 	public List<AdminUserDTO> selectInfoList(Map map) {
 		return template.selectList("AdminUserInfoList",map);
 	}
-	
 	@Override
 	public int getTotalCount(Map map) {
 		return template.selectOne("getTotal", map);
@@ -57,7 +56,6 @@ public class AdminUserDAO implements AdminUserService{
 	public List<AdminUserDTO> selectReviewList(Map map) {
 		return template.selectList("SelectReviewList",map);
 	}
-	
 	
 
 }

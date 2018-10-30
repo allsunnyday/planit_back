@@ -3,15 +3,7 @@
 
 
 <mapper namespace="mybatis.AdminUser">
-	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from
-		(select a.*, rownum r from
-			(select * from member m join liked_tour lt on lt.id =
-				m.id join content c on c.contentid = lt.contentid)a)
-		where r between #{start} and #{end}
-		ORDER BY regidate
-	</select>
-	
+
 	<select id="SelectPlannerList" parameterType="java.util.Map" resultType="AdminUserDTO">
 		select * from member m join planner p on m.id=m.id
 		order by view_count 
@@ -29,10 +21,10 @@
 	</delete>
 	
 	<select id="AdminUserReservationList" resultType="AdminReservationDTO">
-		SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id
-		 FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id
-		 AND p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
-	</select>
+      SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND 
+      p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
+   </select>
+
 	
 	<select id="AdminUserPlannerList">
 			
@@ -44,5 +36,30 @@
 	</select>
 	
 	
+  <select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
+      SELECT * FROM MEMBER   
+         <if test="gender!=null and ages==null">
+            WHERE gender = #{gender}       
+         </if>
+         <if test="gender==null and ages!=null">
+            WHERE trunc(age/10,0)*10    
+            <foreach collection="ages" item="element" index="i" open="IN(" separator="," close=")">
+               #{element}   
+            </foreach>
+         </if>
+         
+         <if test="ages!=null and gender!=null">
+            WHERE gender=#{gender} AND trunc(age/10,0)*1
+            <foreach collection="ages" item="element" index="i" open="IN(" separator="," close=")">
+               #{element}    
+            </foreach>
+         </if>
+            ORDER BY regidate
+   </select>
+
+   
+   
+   
+   
 
 </mapper>
