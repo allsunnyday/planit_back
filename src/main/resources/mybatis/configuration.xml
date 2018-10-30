@@ -19,7 +19,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
       <typeAlias alias="userAskDTO" type="com.planit.backend.service.UserAskDTO"/>
       <typeAlias alias="adminUserDTO" type="com.planit.backend.service.AdminUserDTO"/>
       <typeAlias alias="adminReservationDTO" type="com.planit.backend.service.AdminReservationDTO"/>
+
       
+      <typeAlias alias="partnerDTO" type="com.planit.backend.service.PartnerDTO"/>
+      <typeAlias alias="photobookDTO" type="com.planit.backend.service.PhotoBookDTO"/>
+
    </typeAliases>
    
 
@@ -29,6 +33,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
       <mapper resource="mybatis/Content.xml" />
       <mapper resource="mybatis/Ask.xml"/>
       <mapper resource="mybatis/AdminUser.xml" />
+
+
+      <mapper resource="mybatis/Partner.xml" />
+       <mapper resource="mybatis/Photobook.xml" />
+
    </mappers>
    
 </configuration>

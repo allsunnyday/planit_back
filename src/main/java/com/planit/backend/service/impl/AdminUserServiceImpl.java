@@ -23,8 +23,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 
 	@Override
 	public int getTotalCount(Map map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.getTotalCount(map);
 	}
 
 	@Override
@@ -49,6 +48,16 @@ public class AdminUserServiceImpl implements AdminUserService{
 	public int delete(AdminUserDTO dto) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<AdminUserDTO> selectPlannerList(Map map) {
+		return dao.selectPlannerList(map);
+	}
+
+	@Override
+	public List<AdminUserDTO> selectReviewList(Map map) {
+		return dao.selectReviewList(map);
 	}
 	
 	

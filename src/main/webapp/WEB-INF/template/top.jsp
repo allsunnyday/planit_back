@@ -164,7 +164,7 @@
             <ul class="sub">
               <li><a href="<c:url value='/Planit/Admin/partner/List.do'/> ">기업회원</a></li>
               <li><a href="<c:url value='/Planit/Admin/Event/List.do'/> ">이벤트관리</a></li>
-              <li><a href="<c:url value='/Planit/Admin/partner/List.do'/> ">숙박예약관리</a></li>
+              <li><a href="<c:url value='/Planit/Admin/Reservation/List.do'/> ">숙박예약관리</a></li>
               
             </ul>
           </li>
@@ -174,7 +174,7 @@
               <span>컨텐츠관리</span>
               </a>
             <ul class="sub">
-              <li><a href="<c:url value='/Planit/Admin/Content/List.do'/> ">관광정보</a></li>
+              <li><a href="<c:url value='/Planit/Admin/Content/List.do?search=list'/> ">관광정보</a></li>
             </ul>
           </li>
           <li class="sub-menu">
