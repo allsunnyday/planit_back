@@ -25,7 +25,7 @@ public class AdminUserDAO implements AdminUserService{
 	
 	@Override
 	public int getTotalCount(Map map) {
-		return template.selectOne("", map);
+		return template.selectOne("getTotal", map);
 	}
 
 	@Override

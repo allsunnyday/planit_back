@@ -4,9 +4,11 @@
 
 <mapper namespace="mybatis.AdminUser">
 	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from member m join liked_tour lt on lt.id =
-		m.id join content c on c.contentid = lt.contentid  
-		
+		select * from
+		(select a.*, rownum r from
+			(select * from member m join liked_tour lt on lt.id =
+				m.id join content c on c.contentid = lt.contentid)a)
+		where r between 1 and 100
 		ORDER BY regidate
 	</select>
 	
@@ -27,14 +29,19 @@
 	</delete>
 	
 	<select id="AdminUserReservationList" resultType="AdminReservationDTO">
-		SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
+		SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id
+		 FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id
+		 AND p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
 	</select>
 	
 	<select id="AdminUserPlannerList">
 			
 	</select>
 	
-
+	<select id="getTotal" parameterType="java.util.Map" resultType="int">
+		select count(*) from member
+       
+	</select>
 	
 	
 

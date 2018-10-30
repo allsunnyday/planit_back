@@ -17,66 +17,37 @@
 							class="form-control search-btn ">
 					</form>
 				</div>
+				
 				<div class="room-desk">
 					<h4 class="pull-left">파워 업체 </h4>
 					<a href="#" class="pull-right btn btn-theme02">+ Create Room</a>
+					<c:forEach var="record" items="${desclist}">
 					<div class="room-box">
 						<h5 class="text-primary">
-							업체명: <a href="<c:url value='/Planit/Admin/partner/View.do'/>" >경복궁게스트하우스</a>
+							업체명: <a href="<c:url value='/Planit/Admin/partner/View.do'/>" > ${record.roomtitle } </a>
 						</h5>
-						<p>서울특별시 광화문.</p>
+						<p>${record.address }</p>
 						<p>
-							<span class="text-muted">Admin :</span> Sam Soffes | <span
-								class="text-muted">평점 :</span> 5.0 | <span
-								class="text-muted">최근 리뷰 :</span> 2 min ago
+							<span class="text-muted">Admin :</span> ${record.p_id }  | 
+							<span class="text-muted">평점 :</span> ${record.rating } | 
 						</p>
 					</div>
-					<div class="room-box">
-						<h5 class="text-primary">
-							업체명: <a href="<c:url value='/Planit/Admin/partner/View.do'/>">곰하나루펜션</a>
-						</h5>
-						<p>충청남도 공주시</p>
-						<p>
-							<span class="text-muted">Admin :</span> Sam Soffes | <span
-								class="text-muted">평점 :</span> 4.8 | 
-								<span class="text-muted">최근 리뷰 :</span> 15 min ago
-						</p>
-					</div>
-					<div class="room-box">
-						<h5 class="text-primary">
-							업체명: <a href="<c:url value='/Planit/Admin/partner/View.do'/>">속초마을</a>
-						</h5>
-						<p>강릉시 </p>
-						<p>
-							<span class="text-muted">Admin :</span> Sam Soffes | <span
-								class="text-muted">평점 :</span> 4.2 | 
-								<span class="text-muted">최근 리뷰 :</span> 15 min ago
-						</p>
-					</div>
+					</c:forEach>
 				</div>
+				
 				<div class="room-desk">
 					<h4 class="pull-left">미달업체[평점이 낮은 업체로 관리가 필요합니다.]</h4>
 					<div class="room-box">
+					<c:forEach items="${asclist }" var="record1">
 						<h5 class="text-primary">
-							업체명: <a href="<c:url value='/Planit/Admin/partner/View.do'/>">제주도</a>
+							업체명: <a href="<c:url value='/Planit/Admin/partner/View.do'/>">${record1.roomtitle }</a>
 						</h5>
-						<p>제주도 게스트 하우스입니다.</p>
+						<p>${record1.address }</p>
 						<p>
-							<span class="text-muted">Admin :</span> Sam Soffes | <span
-								class="text-muted">평점 :</span> 1.3 | 
-								<span class="text-muted">LastActivity :</span> 15 min ago
+							<span class="text-muted">Admin :</span> ${record1.p_id } | <span
+								class="text-muted">평점 :</span> ${record1.rating } | 
 						</p>
-					</div>
-					<div class="room-box">
-						<h5 class="text-primary">
-							업체명: <a href="<c:url value='/Planit/Admin/partner/View.do'/>">목포항</a>
-						</h5>
-						<p>목포항 펜션입니다</p>
-						<p>
-							<span class="text-muted">Admin :</span> Sam Soffes | <span
-								class="text-muted">평점 :</span> 1.0 | 
-								<span class="text-muted">최근 리뷰 :</span> 15 min ago
-						</p>
+						</c:forEach>
 					</div>
 				</div>
 			</aside>

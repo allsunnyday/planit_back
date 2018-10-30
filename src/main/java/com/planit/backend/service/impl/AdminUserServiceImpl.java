@@ -23,8 +23,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 
 	@Override
 	public int getTotalCount(Map map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.getTotalCount(map);
 	}
 
 	@Override

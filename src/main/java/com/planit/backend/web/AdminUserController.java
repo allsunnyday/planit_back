@@ -61,8 +61,6 @@ public class AdminUserController {
 		
 	
 		// 이 페이지에 맞게 바꾸기
-		if(map.get("areacode")!=null)
-			System.out.println(map.get("areacode"));
 		if(map.get("searchColumn")!= null) {
 			model.addAttribute("searchColumn",map.get("searchColumn"));
 			model.addAttribute("searchWord",map.get("searchWord"));
