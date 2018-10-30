@@ -3,40 +3,41 @@
 
 
 <mapper namespace="mybatis.AdminUser">
-	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		SELECT * FROM MEMBER   
-			<if test="gender!=null and age==null">
-				WHERE gender = #{gender}       
-			</if>
-			<if test="gender==null and age!=null">
-				WHERE trunc(age/10,0)*10    
-				<foreach collection="age" item="ages" index="i" open="IN(" separator="," close=")">
-					#{ages[i]}   
-				</foreach>
-			</if>
-			
-			<if test="age!=null and gender!=null">
-				WHERE gender=#{gender} AND (trunc(age/10,0)*10   
-				<foreach collection="age" item="ages" index="i" open="IN(" separator="," close=")">
-					#{ages[i]}    
-				</foreach>
-			</if>
-		      ORDER BY regidate
-	</select>
-	
-	
-	<delete id="AdminUserInfoDelete" parameterType="java.util.Map">
-		DELETE member WHERE id=#{id}
-	</delete>
-	
-	<select id="AdminUserReservationList" resultType="AdminReservationDTO">
-		SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
-	</select>
-	
-	<select id="AdminUserPlannerList">
-			
-	</select>
-	
-	
+   <select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
+      SELECT * FROM MEMBER   
+         <if test="gender!=null and ages==null">
+            WHERE gender = #{gender}       
+         </if>
+         <if test="gender==null and ages!=null">
+            WHERE trunc(age/10,0)*10    
+            <foreach collection="ages" item="element" index="i" open="IN(" separator="," close=")">
+               #{element}   
+            </foreach>
+         </if>
+         
+         <if test="ages!=null and gender!=null">
+            WHERE gender=#{gender} AND trunc(age/10,0)*1 
+            <foreach collection="ages" item="element" index="i" open="IN(" separator="," close=")">
+               #{element}    
+            </foreach>
+         </if>
+            ORDER BY regidate
+   </select>
+   
+   
+   <delete id="AdminUserInfoDelete" parameterType="java.util.Map">
+      DELETE member WHERE id=#{id}
+   </delete>
+   
+   <select id="AdminUserReservationList" resultType="AdminReservationDTO">
+      SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND 
+      p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
+   </select>
+   
+   <select id="AdminUserPlannerList">
+         
+   </select>
+   
+   
 
 </mapper>
