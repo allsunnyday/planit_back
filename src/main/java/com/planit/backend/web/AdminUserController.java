@@ -44,7 +44,7 @@ public class AdminUserController {
 		map.put("gender", map.get("gender").toString());//성별 넣기
 		System.out.println(ages);
 		List<Map> collections = new Vector<Map>(); //파라미터 넘기기용 map
-		List<AdminUserDTO> list = new ArrayList<>();//값 parsing용
+		List<AdminUserDTO> list = new ArrayList();//값 parsing용
 		
 //		String[] ageArray = ages.spliterator(",");
 		/*
