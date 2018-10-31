@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -40,21 +41,97 @@ public class BbsController {
 	// <li><a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>">공지사항</a></li>
 //    <li><a href="<c:url value='/Planit/Admin/BBS/AskList.do'/> ">문의게시판</a></li>
 //    <li><a href="<c:url value='/Planit/Admin/BBS/RequestUpList.do'/>">정보수정건의</a></li>
-	@RequestMapping("/Planit/Admin/BBS/NoticeList.do")
-	public String gotoNoticeList(Model model)throws Exception{
-		System.out.println("여기들어오긴 하냐");
-		List<Map> noticeList=bbsService.selectNoticeList();
-		System.out.println("noticeList:"+noticeList==null?"없다":"있다");
-		model.addAttribute("noticeList", noticeList);
-		
-		return "bbs/notice/NoticeBbsList.tiles";
-	}
 	
 	@RequestMapping("/Planit/Admin/BBS/RequestUpList.do")
 	public String gotoRequestUp() throws Exception{
 		return "bbs/requestup/RequestUpList.tiles";
 	}
 	
+	
+	/////////************************************공지사항
+
+	//[공지사항 리스트 페이지]
+	@RequestMapping("/Planit/Admin/BBS/NoticeList.do")
+	public String gotoNoticeList(Model model)throws Exception{
+		System.out.println("여기들어오긴 하냐");
+		
+		List<Map> noticeList=bbsService.selectNoticeList();
+		for(Map list:noticeList) {
+			list.put("POSTDATE", list.get("POSTDATE").toString().subSequence(0, 10));
+		}
+		System.out.println("noticeList:"+noticeList==null?"없다":"있다");
+		model.addAttribute("noticeList", noticeList);
+		
+		return "bbs/notice/NoticeBbsList.tiles";
+	}
+	//[공지사항 상세보기 페이지]
+	@RequestMapping("/Planit/Admin/BBS/NoticeView.do")
+	public String gotoNoticeView(@RequestParam Map map,Model model) throws Exception{
+		System.out.println(map.get("no"));		
+		Map noticeView=bbsService.selectNoticeView(map);
+		
+		model.addAttribute("noticeView",noticeView);
+		return "bbs/notice/NoticeBbsView.tiles";
+	}
+//[공지사항 수정 페이지]
+	@RequestMapping("/Planit/Admin/BBS/NoticeEdit.do")
+	public String gotoNoticeEdit(@RequestParam Map map,Model model) throws Exception{
+		System.out.println(map.get("no")==null?"no가 없다":"no가 있다");
+		System.out.println(map.get("no"));		
+		Map noticeView=bbsService.selectNoticeView(map);
+		
+		model.addAttribute("noticeView",noticeView);
+		return "bbs/notice/NoticeBbsEdit.tiles";
+	}
+//[공지사항 수정프로세스]
+	@RequestMapping("/Planit/Admin/BBS/NoticeEditProcess.do")
+	public String noticeEditProcess(@RequestParam Map map,Model model) throws Exception{
+		System.out.println("NO파라미터:"+map.get("no")==null?"no가 없다":"no가 있다");
+		System.out.println("여기 들어오는거야 ㅜㅜ?"+map.get("no"));
+		System.out.println(map.get("no"));
+		System.out.println(map.get("title"));
+		System.out.println(map.get("content"));
+		int editOK=bbsService.noticeEdit(map);
+		return "forward:/Planit/Admin/BBS/NoticeView.do";
+	}
+//[공지사항 작성 페이지]
+	@RequestMapping("/Planit/Admin/BBS/NoticeWrite.do")
+	public String gotoNoticeWrite() throws Exception{
+	
+		return "bbs/notice/NoticeBbsWrite.tiles";
+	}
+//[공지사항 작성프로세스]
+	@RequestMapping("/Planit/Admin/BBS/NoticeWriteProcess.do")
+	public String noticeWriteProcess(@RequestParam Map map,Model model,HttpSession session) throws Exception{
+		map.put("e_id", session.getAttribute("e_id"));
+		System.out.println("겟아이디1:"+session.getAttribute("e_id"));
+		System.out.println("djdjdjdjdjdjd"+bbsService.getEMP_NO(map));
+
+		map.put("emp_no", (bbsService.getEMP_NO(map)).get("EMP_NO"));
+		int noticeWrite=bbsService.noticeWrite(map);
+		
+		return "forward:/Planit/Admin/BBS/NoticeList.do";
+	}
+//[공지사항 삭제 페이지]
+	@RequestMapping("/Planit/Admin/BBS/NoticeDelete.do")
+	public String gotoNoticeDelete(@RequestParam Map map,Model model) throws Exception{
+		System.out.println(map.get("no"));		
+		int noticeDelete=bbsService.noticeDelite(map);
+		return "forward:/Planit/Admin/BBS/NoticeList.do";
+	}
+	
+	/////////************************************문의게시판
+	
+//[문의게시판 리스트 페이지]
+	@RequestMapping("/Planit/Admin/BBS/AskList.do")
+	public String gotoAskList(@RequestParam Map map, HttpServletRequest req)throws Exception{
+		
+
+		return "bbs/notice/NoticeBbsList.tiles";
+	}
+}
+/*
+ * 
 	
 	@ResponseBody
 	@RequestMapping(value="/planit/bbs/asklist.do", produces="text/plain; charset=UTF-8")
@@ -118,9 +195,4 @@ public class BbsController {
 		}
 		
 		return json.toJSONString();
-	}
-	
-	/////////
-	
-	
-}
+	}*/

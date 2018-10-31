@@ -22,4 +22,70 @@ public class BbsDAO implements BbsService {
 		return template.selectList("BbsNoticeList");
 	}
 
+	@Override
+	public Map selectNoticeView(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("BbsNoticeView", map);
+	}
+
+	@Override
+	public int noticeWrite(Map map) {
+		// TODO Auto-generated method stub
+		return template.insert("BbsNoticeWrite", map);
+	}
+
+	@Override
+	public int noticeEdit(Map map) {
+		// TODO Auto-generated method stub
+		return template.update("BbsNoticeEdit", map);
+	}
+
+	@Override
+	public int noticeDelite(Map map) {
+		// TODO Auto-generated method stub
+		return template.delete("BbsNoticeDelete",map);
+	}
+
+	@Override
+	public Map getEMP_NO(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("BbsGetEmpID", map);
+	}
+
+	@Override
+	public List<Map> selectUserAskList(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("BbsUserAskList", map);
+	}
+
+	@Override
+	public List<Map> selectPartnerAskList(Map map) {
+		// TODO Auto-generated method stub
+		return template.selectList("BbsPartnerAskList", map);
+	}
+
+	@Override
+	public Map selectAskView(Map map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int askWrite(Map map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int askEdit(Map map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int askDelite(Map map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

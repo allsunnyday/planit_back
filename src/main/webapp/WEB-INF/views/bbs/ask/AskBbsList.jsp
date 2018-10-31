@@ -11,16 +11,24 @@
           <div class="col-sm-3">
             <section class="panel">
               <div class="panel-body">
-                <a href="<c:url value='/Planit/Admin/BBS/NoticeWrite.do'/>" id="write-notice" class="btn btn-compose">
-                  <i class="fa fa-pencil"></i>  공지사항 작성  
+                <a href="mail_compose.html" class="btn btn-compose">
+                  <i class="fa fa-pencil"></i>  문의 게시판  
                 </a>
                 <ul class="nav nav-pills nav-stacked mail-nav">
                   <li class="user-ask active">
-                  	<a href="#" id="user-ask" > <i class="fa fa-inbox"></i> 현재 공지된 게시글  </a>
+                  	<a href="#" id="user-ask" > <i class="fa fa-inbox"></i> 사용자 문의 게시판  
+                  	<span class="label label-theme pull-right inbox-notification new-u-num">${uWatiedNumber}</span></a>
                   </li>
                   <li class="partner-ask ">
-                  	<a href="#" id="partner-ask" > <i class="fa fa-envelope-o"></i> 지난 게시글 </a>
+                  	<a href="#" id="partner-ask" > <i class="fa fa-envelope-o"></i> 기업 문의 게시판 
+                  	<span class="label label-theme pull-right inbox-notification new-p-num">${pWatiedNumber}</span></a>
                   </li>
+                  <li>
+                  	<a href="#"> <i class="fa fa-file-text-o"></i> 답변 완료 게시판  <span class="label label-info pull-right inbox-notification">8</span></a>
+                  </li>
+                  <!-- <li>
+                  	<a href="#"> <i class="fa fa-exclamation-circle"></i> 이벤트 관련 공지사항 </a>
+                  </li> -->
                 </ul>
               </div>
             </section>
