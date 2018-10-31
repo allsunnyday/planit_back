@@ -10,7 +10,8 @@ public interface AdminUserService {
 	List<AdminUserDTO> selectPlannerList(Map map);
 	//리뷰
 	List<AdminUserDTO> selectReviewList(Map map);
-	
+	//즐겨찾기
+	List<AdminUserDTO> selectFavoriteList(Map map);
 	//총합(페이징)
 	int getTotalCount(Map map);
 	

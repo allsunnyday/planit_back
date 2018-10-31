@@ -5,16 +5,20 @@
 <mapper namespace="mybatis.AdminUser">
 
 	<select id="SelectPlannerList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from member m join planner p on m.id=m.id
-		order by view_count 
+		select * from(select t.*, rownum r from(select * from planner order by view_count)t) 
+		where r between #{start} and #{end}
 	</select>
 	
 	<select id="SelectReviewList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from member m join liked_review lr on m.id=lr.id 
-		join review r on r.review_id = lr.review_id
-		order by view_count
+		select * from(select t.*, rownum a from(select * from member m join liked_review lr on m.id=lr.id 
+		join review r on r.review_id = lr.review_id order by view_count)t) where a between #{start} and #{end}
+		
 	</select>
 	
+	
+	<select id="SelectFavoriteList" parameterType="java.util.Map" resultType="AdminUserDTO">
+		select * from liked_tour lt join content c on lt.contentid = c.contentid
+	</select>
 	
 	<delete id="AdminUserInfoDelete" parameterType="java.util.Map">
 		DELETE member WHERE id=#{id}
@@ -31,13 +35,15 @@
 	</select>
 	
 	<select id="getTotal" parameterType="java.util.Map" resultType="int">
-		select count(*) from member
-       
+		select count(*) from liked_tour 
+       <if test="searchColumn !=null">
+    		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+    	</if>	
 	</select>
 	
 	
   <select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
-      SELECT * FROM MEMBER   
+      SELECT * FROM MEMBER  
          <if test="gender!=null and ages==null">
             WHERE gender = #{gender}       
          </if>

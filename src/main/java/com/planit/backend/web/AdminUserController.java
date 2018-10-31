@@ -82,7 +82,7 @@ public class AdminUserController {
 		int end  = nowPage*pageSize;
 		map.put("start", start);
 		map.put("end", end);
-		List<AdminUserDTO> list = service.selectInfoList(map);
+		List<AdminUserDTO> list = service.selectFavoriteList(map);
 		String pagingString = CommonUtil.pagingBootStrapStyle(
 							totalCount,
 							pageSize, 

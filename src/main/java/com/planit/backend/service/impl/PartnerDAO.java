@@ -38,8 +38,4 @@ public class PartnerDAO implements PartnerService {
 		return template.selectList("reservation");
 	}
 
-	@Override
-	public List<PartnerDTO> selectPartnerAscList(Map map) {
-		return template.selectList("ascList",map);
-	}
 }

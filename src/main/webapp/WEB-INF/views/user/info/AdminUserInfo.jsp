@@ -130,7 +130,11 @@
 				</form>
 				</c:if>
                 </tbody>
+                
               </table>
+               <div class="row">
+					<div class="col-md-12">${pagingString}</div>
+				</div>
             </div>
             <!-- /content-panel -->
           </div>

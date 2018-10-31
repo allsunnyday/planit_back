@@ -10,30 +10,13 @@
  <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
-      <h3><i class="fa fa-angle-right"></i> 예약 관리 </h3>
+      <h3><i class="fa fa-angle-right"></i> 일반 사용자 숙박예약 관리 </h3>
       	<!-- INPUT MESSAGES -->
         <div class="row mt">
           <div class="col-lg-12">
             <div class="form-panel">
               <h4 class="mb"><i class="fa fa-angle-right"></i> 검 색</h4>
               <hr>
-	              <label class="col-sm-2 col-sm-2 control-label">사용자별 예약 횟수</label>
-	              <label class="checkbox-inline ">
-	                <input type="checkbox" name="optionsRadios" id="inlineCheckbox1" value="option1"> 1회 미만
-	                </label>
-	              <label class="checkbox-inline">
-	                <input type="checkbox" name="optionsRadios" id="inlineCheckbox2" value="option2"> 5회 이하
-	                </label>
-	              <label class="checkbox-inline">
-	                <input type="checkbox" name="optionsRadios" id="inlineCheckbox3" value="option3"> 10회 이하
-	                </label>
-	              <label class="checkbox-inline">
-	                <input type="checkbox" name="optionsRadios" id="inlineCheckbox4" value="option4"> 15회 이하
-	                </label>
-	              <label class="checkbox-inline">
-	                <input type="checkbox" name="optionsRadios" id="inlineCheckbox4" value="option5"> 20회 이하
-	                </label>
-                <hr>
                 	 <label class="col-sm-2 col-sm-2 control-label">status별</label>
 	              <label class="checkbox-inline ">
 	                <input type="checkbox" name="optionsRadios2" id="inlineCheckbox1" value="option1"> Refund

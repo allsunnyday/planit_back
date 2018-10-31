@@ -15,7 +15,6 @@ public interface PartnerService {
 	
 	int getTotalCount(Map map);
 
-	List<PartnerDTO> selectPartnerAscList(Map map);
 	
 	
 }

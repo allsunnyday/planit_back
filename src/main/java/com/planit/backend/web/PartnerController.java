@@ -50,7 +50,8 @@ public class PartnerController {
 			}
 			
 			// 페이징] 
-			int totalEventCount = service.getTotalCount(map);
+			//int totalEventCount = service.getTotalCount(map);
+			int totalEventCount = 8;
 			// [2] 전체 페이지 수 
 			int totalPage = (int)Math.ceil(((double)totalEventCount/pageSize));
 			//시작 및 끝 ROWNUM구하기]
@@ -76,27 +77,41 @@ public class PartnerController {
 	
 	/******************기업회원 리스트 ********************/
 	@RequestMapping("/Planit/Admin/partner/List.do")
-	public String partnerList(Model model,@RequestParam Map map)throws Exception{
+	public String partnerList(Model model,
+			HttpServletRequest req, //페이징용 메소드 전달
+			@RequestParam Map map,  //검색용 파라미터 전달
+			@RequestParam(required=false, defaultValue="1") int nowPage)throws Exception{
 		
+			
+			//데이터 확인용
+			if(map.get("searchColumn")!= null) {
+			model.addAttribute("searchColumn",map.get("searchColumn"));
+			model.addAttribute("searchWord",map.get("searchWord"));
+			}
+			
+			// 페이징] 
+			//int totalEventCount = service.getTotalCount(map);
+			int totalEventCount = 8;
+			// [2] 전체 페이지 수 
+			int totalPage = (int)Math.ceil(((double)totalEventCount/pageSize));
 			//시작 및 끝 ROWNUM구하기]
-			int start = 1;
-			int end = 3;
+			int start = (nowPage-1)*pageSize+1;
+			int end   = nowPage*pageSize;
 			map.put("start", start);
 			map.put("end", end);
+			// 서비스 호출] 직원의 리스트를 받아온다.
 			List<PartnerDTO> desclist = service.selectPartnerDescList(map);
-			List<PartnerDTO> asclist = service.selectPartnerAscList(map);
-			
+			// 데이터저장]
+			String pagingString = CommonUtil.pagingBootStrapStyle(totalEventCount, pageSize,
+								blockPage, nowPage,
+								req.getContextPath()+"/Planit/Admin/Event/List.do?");
+			model.addAttribute("desclist", desclist);
+			model.addAttribute("pagingString", pagingString);
+			model.addAttribute("totalRecordCount", totalEventCount);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("nowPage", nowPage);
 			
 			// 데이터저장]
-			
-			model.addAttribute("start",start);
-			model.addAttribute("end",end);
-			model.addAttribute("desclist", desclist);
-			model.addAttribute("asclist", asclist);
-			
-		
-		
-		
 		return "partner/partnerinfo/PartnerList.tiles";
 	}
 	

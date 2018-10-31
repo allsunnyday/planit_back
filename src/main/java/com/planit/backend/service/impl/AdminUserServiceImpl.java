@@ -59,6 +59,11 @@ public class AdminUserServiceImpl implements AdminUserService{
 	public List<AdminUserDTO> selectReviewList(Map map) {
 		return dao.selectReviewList(map);
 	}
+
+	@Override
+	public List<AdminUserDTO> selectFavoriteList(Map map) {
+		return dao.selectFavoriteList(map);
+	}
 	
 	
 

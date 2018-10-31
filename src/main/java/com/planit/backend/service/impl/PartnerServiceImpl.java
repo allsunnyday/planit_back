@@ -41,9 +41,5 @@ public class PartnerServiceImpl implements PartnerService{
 	}
 
 
-	@Override
-	public List<PartnerDTO> selectPartnerAscList(Map map) {
-		return dao.selectPartnerAscList(map);
-	}
 
 }

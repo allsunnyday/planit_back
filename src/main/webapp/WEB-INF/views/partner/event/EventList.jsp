@@ -13,41 +13,21 @@
             <section class="panel">
               <div class="panel-body">
                 <a href="mail_compose.html" class="btn btn-compose">
-                  <i class="fa fa-pencil"></i>  이벤트 폼 작성 
+                  <i class="fa fa-pencil"></i>  이벤트 폼  
                   </a>
                 <ul class="nav nav-pills nav-stacked mail-nav">
-                  <li class="active"><a href="inbox.html"> <i class="fa fa-inbox"></i> 진행중인 이벤트  <span class="label label-theme pull-right inbox-notification">3</span></a></li>
+                  <li class="active"><a href="<c:url value='/Planit/Admin/Event/List.do'/>"> <i class="fa fa-inbox"></i> 진행중인 이벤트  <span class="label label-theme pull-right inbox-notification">${totalRecordCount }</span></a></li>
                   <li><a href="#"> <i class="fa fa-envelope-o"></i> 이벤트 요청건</a></li>
-                  <li><a href="#"> <i class="fa fa-file-text-o"></i> 기한만료 이벤트 <span class="label label-info pull-right inbox-notification">8</span></a>
-                  </li>
-                  <li><a href="#"> <i class="fa fa-exclamation-circle"></i> 이벤트 관련 공지사항 </a></li>
                 </ul>
               </div>
             </section>
-           <!--  왼쪽 하단 -->
-           <!--  <section class="panel">
-              <div class="panel-body">
-                <a href="#"> + Add More</a>
-                <div class="inbox-body text-center inbox-action">
-                  <div class="btn-group">
-                    <a class="btn mini btn-default" href="javascript:;">
-                   		 위치좋음
-                      </a>
-                  </div>
-                  <div class="btn-group">
-                    <a class="btn mini btn-default" href="javascript:;">
-                      	위치좋음
-                      </a>
-                  </div>
-                </div>
-              </div>
-            </section> -->
+         
           </div>
           <div class="col-sm-9">
             <section class="panel">
               <header class="panel-heading wht-bg">
                 <h4 class="gen-case">
-                    Inbox (3)
+                    이벤트 목록
                     <form action="#" class="pull-right mail-src-position">
                       <div class="input-append">
                         <input type="text" class="form-control " placeholder="Search Mail">
@@ -58,7 +38,7 @@
               <div class="panel-body minimal">
                 <div class="mail-option">
                   <div class="chk-all">
-                    <li><span>총 :&nbsp ${totalRecordCount }</span></li>
+                    <span>총 :&nbsp ${totalRecordCount }개</span>
                 </div>
                 </div>
                 
@@ -70,22 +50,20 @@
                         <td class="inbox-small-cells">
                           <input type="checkbox" class="mail-checkbox">
                         </td>
-                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
                         <td class="view-message  dont-show">파트너사명</td>
                         <td class="view-message ">이벤트명</td>
-                        <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                        <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip">status</i></td>
                         <td class="view-message  text-right">기한(18/09-19/09) </td>
                       </tr>
                       
-                      <c:forEach var="record" items="${list }">
+                      <c:forEach var="record" items="${list}">
 	                      <tr class="unread">
 	                        <td class="inbox-small-cells">
 	                          <input type="checkbox" class="mail-checkbox">
 	                        </td>
-	                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
 	                        <td class="view-message dont-show"><a href="mail_view.html">${record.p_id }</a></td>
 	                        <td class="view-message"><a href="mail_view.html">${record.title }</a></td>
-	                        <td class="view-message inbox-small-cells"></td>
+	                        <td class="view-message inbox-small-cells">${record.status }</td>
 	                        <td class="view-message text-right">${record.reqdate}</td>
 	                      </tr>
                       </c:forEach>
@@ -102,3 +80,9 @@
     </section>
     <!-- /MAIN CONTENT -->
     <!--main content end-->
+    
+    <script>
+    console.log('${list}');
+    console.log('${totalRecordCount}');
+    
+    </script>

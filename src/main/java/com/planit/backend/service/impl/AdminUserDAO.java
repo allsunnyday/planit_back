@@ -56,6 +56,10 @@ public class AdminUserDAO implements AdminUserService{
 	public List<AdminUserDTO> selectReviewList(Map map) {
 		return template.selectList("SelectReviewList",map);
 	}
+	@Override
+	public List<AdminUserDTO> selectFavoriteList(Map map) {
+		return template.selectList("SelectFavoriteList",map);
+	}
 	
 
 }
