@@ -6,7 +6,30 @@
 			일반 사용자 관리 화면
 	***********************************	
  -->
+ <script>
+  $(function(){
+	  $('#search').click(function(){
+		  //alert('ttt: '+$('#searchForm input:checked').val()))
+		  $.ajax({
+			  url:'<c:url value="/Planit/Admin/Book/List.do"/>',
+			  data:{status:$('#searchForm input:checked').val()},
+			  datatType:'json',
+			  type:'post',
+			  success:function(data){
+			    	 displayReservation(data,'#checklist'); 
+			     },
+			  error:function(request, status, error){
+			    	 console.log('error:'+error);
+			     }
+		  })
+	  });
+  });
+		 var displayReservation = function(data){
+			 consoloe.log(JSON.stringify(data))
+		 }
  
+ 
+ </script>
  <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
@@ -16,20 +39,17 @@
           <div class="col-lg-12">
             <div class="form-panel">
               <h4 class="mb"><i class="fa fa-angle-right"></i> 검 색</h4>
-              <hr>
-                	 <label class="col-sm-2 col-sm-2 control-label">status별</label>
-	              <label class="checkbox-inline ">
-	                <input type="checkbox" name="optionsRadios2" id="inlineCheckbox1" value="option1"> Refund
-	                </label>
-	              <label class="checkbox-inline">
-	                <input type="checkbox" name="optionsRadios2" id="inlineCheckbox2" value="option2"> Cancel
-	                </label>
-	              <label class="checkbox-inline">
-	                <input type="checkbox" name="optionsRadios2" id="inlineCheckbox3" value="option3"> paid
-	                </label>
-              <hr>
-           
-              <br>
+              		<form id="searchForm" action="#">
+						<hr>
+						<label class="col-sm-2 col-sm-2 control-label">status별</label>
+						<label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox1" value="refund"> refund</label>
+					    <label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox2" value="cancel"> cancel</label> 
+					    <label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox3" value="paid"> paid</label> 
+						<hr>
+						<button id="search" class="btn btn-default">조회</button>
+						<button id="searchAll" class="btn btn-primary">전체 조회</button>
+					</form>
+				<br>
             </div>
             <!-- /form-panel -->
           </div>
@@ -73,11 +93,6 @@
 	                    <td class="hidden-phone" >${record.roomtitle}</td>
 	                    <td class="hidden-phone" >${record.status}</td>
 	                    <td class="hidden-phone" >${record.bookdate}</td>
-	                    <td>
-	                      <button class="btn btn-primary btn-xs" title="edit"><i class="fa fa-pencil"></i></button>
-	                      <button class="btn btn-success btn-xs" title="profile"><i class="fa fa-check"></i></button>
-	                      <button class="btn btn-danger btn-xs" title="delete"><i class="fa fa-trash-o"></i></button>
-	                    </td>
 	                  </tr>
                   	</c:forEach>
 				</form>

@@ -19,8 +19,8 @@ public class AdminReservationDAO implements AdminReservationService{
 	private SqlSessionTemplate template;
 
 	@Override
-	public List<AdminReservationDTO> selectReservationList() {
-		return template.selectList("AdminUserReservationList");
+	public List<AdminReservationDTO> selectReservationList(Map map) {
+		return template.selectList("AdminUserReservationList",map);
 	}
 
 	@Override

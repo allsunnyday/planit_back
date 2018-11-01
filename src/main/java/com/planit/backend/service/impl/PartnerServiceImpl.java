@@ -24,8 +24,7 @@ public class PartnerServiceImpl implements PartnerService{
 
 	@Override
 	public int getTotalCount(Map map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.getTotalCount(map);
 	}
 
 
@@ -36,8 +35,14 @@ public class PartnerServiceImpl implements PartnerService{
 
 
 	@Override
-	public List<PartnerDTO> selectReservationList() {
-		return dao.selectReservationList();
+	public List<PartnerDTO> selectReservationList(Map map) {
+		return dao.selectReservationList(map);
+	}
+
+
+	@Override
+	public List<PartnerDTO> selectEventRequestList(Map map) {
+		return dao.selectEventRequestList(map);
 	}
 
 

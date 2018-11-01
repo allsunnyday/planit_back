@@ -45,10 +45,8 @@ public class AdminController {
 								)throws Exception{
 		//  디비 연결을 했을 시에 
 		boolean flag=service.isMember(map);
-		
 		// 디비연결 안했을 경우 
 		//boolean flag=true;
-		
 		if(!flag) {
 			model.addAttribute("loginError", "아이디 비번 불일치"); // 비회원
 			return "admin/Login";  // 타일즈 적용 안함 
@@ -66,24 +64,7 @@ public class AdminController {
 		return "forward:/";  //home으로 이동 
 	}
 	
-	//dashboard로 이동 
-	@RequestMapping("/Planit/admin/Dashboard.do")
-	public String dashboard(HttpSession session, Model model)throws Exception{
-		Map map = new HashMap();
-		map.put("e_id", session.getAttribute("e_id"));
-		// 서비스호출] 회원정보를 받아온다
-		//디비연결 한 경우 
-		AdminDTO admin=service.selectOne(map);
-		System.out.println("admin"+admin.getName()+"deptname"+admin.getDeptname());
-		// 데이터저장] position=팀장인 사람일 경우 master
-		if(admin.getPosition().equals("대표")) {
-			// 직급이 대표일 경우에만 직원관리란이 보인다. 
-			session.setAttribute("master", admin.getE_id());
-		}
-		session.setAttribute("admin", admin.getName());
-		// 뷰정보반환] 
-		return "analysis/Dashboard.tiles";
-	}
+
 	
 	//profile로 이동
 	@RequestMapping("/Planit/admin/Profile.do")

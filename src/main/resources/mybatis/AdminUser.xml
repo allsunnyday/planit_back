@@ -5,67 +5,119 @@
 <mapper namespace="mybatis.AdminUser">
 
 	<select id="SelectPlannerList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from(select t.*, rownum r from(select * from planner order by view_count)t) 
-		where r between #{start} and #{end}
-	</select>
-	
-	<select id="SelectReviewList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from(select t.*, rownum a from(select * from member m join liked_review lr on m.id=lr.id 
-		join review r on r.review_id = lr.review_id order by view_count)t) where a between #{start} and #{end}
+		<if test="days !=null and days > 9">
+			 select * from planner <![CDATA[ where days >= #{days} ]]> order by view_count desc 
+		</if>
+		<if test="days !=null and days lte 9">
+			 select * from planner <![CDATA[ where days <= #{days} ]]> order by view_count desc
+		</if>
+		<if test="days ==null">
+			select * from planner order by view_count desc
+		</if>
 		
 	</select>
-	
-	
-	<select id="SelectFavoriteList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from liked_tour lt join content c on lt.contentid = c.contentid
-	</select>
-	
-	<delete id="AdminUserInfoDelete" parameterType="java.util.Map">
-		DELETE member WHERE id=#{id}
-	</delete>
-	
-	<select id="AdminUserReservationList" resultType="AdminReservationDTO">
-      SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND 
-      p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
-   </select>
 
-	
-	<select id="AdminUserPlannerList">
-			
+	<select id="SelectReviewList" parameterType="java.util.Map" resultType="AdminUserDTO">
+		select * from(select t.*, rownum a from(select * from
+		member m join liked_review lr on m.id=lr.id
+		join review r on r.review_id = lr.review_id order by view_count)t)
+		<if test="start !=null">
+		 where a
+		between #{start} and #{end}
+		</if>
+	</select>
+
+	<delete id="AdminUserInfoDelete" parameterType="java.util.Map">
+		DELETE member
+		WHERE id=#{id}
+	</delete>
+
+	<select id="AdminUserReservationList" resultType="AdminReservationDTO">
+		SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM
+		planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND
+		p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
+	</select>
+
+	<select id="hotTour" parameterType="java.util.Map" resultType="AdminUserDTO">
+		select * from liked_tour lt join content c on lt.contentid = c.contentid
+		where liked_t_id = (select max(liked_t_id) as lt from liked_tour)
 	</select>
 	
+	<select id="hotPlanner" parameterType="java.util.Map" resultType="AdminUserDTO">
+<!-- 		select * from  planner where view_count = (select max(view_count) as p from planner) -->
+<!-- 		select MAX(view_count),id from planner group by view_count -->
+select MAX(liked),liked from planner group by liked
+	</select>
+	
+	<select id="hotReview" parameterType="java.util.Map" resultType="AdminUserDTO">
+		select * from review where liked = (select max(liked) as p from review)
+	</select>
+	
+	
+
+
+	<select id="noticeCount"  parameterType="java.util.Map" resultType="int">
+		select count(*) from u_ask_planit
+	</select>
+
+<!-- 	<select id="genderlist" parameterType="java.util.Map" resultType="AdminUserDTO"> -->
+<!-- 			select * from member -->
+<!-- 			<if test="gender == m">	 -->
+<!-- 				where gender= #{gender} -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+
+
 	<select id="getTotal" parameterType="java.util.Map" resultType="int">
 		select count(*) from liked_tour 
-       <if test="searchColumn !=null">
-    		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
-    	</if>	
+		<if test="searchColumn !=null">
+			WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+		</if>
 	</select>
 	
-	
-  <select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
-      SELECT * FROM MEMBER  
-         <if test="gender!=null and ages==null">
-            WHERE gender = #{gender}       
-         </if>
-         <if test="gender==null and ages!=null">
-            WHERE trunc(age/10,0)*10    
-            <foreach collection="ages" item="element" index="i" open="IN(" separator="," close=")">
-               #{element}   
-            </foreach>
-         </if>
-         
-         <if test="ages!=null and gender!=null">
-            WHERE gender=#{gender} AND trunc(age/10,0)*1
-            <foreach collection="ages" item="element" index="i" open="IN(" separator="," close=")">
-               #{element}    
-            </foreach>
-         </if>
-            ORDER BY regidate
-   </select>
+	<select id="getPlannerTotal" parameterType="java.util.Map" resultType="int">
+		select count(*) from planner 
+	</select>
 
-   
-   
-   
-   
+	<select id="memberCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from member 
+	</select>	
+
+
+	
+
+	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
+		SELECT * FROM MEMBER
+		<if test="gender!=null and ages==null">
+			WHERE gender = #{gender}
+		</if>
+		<if test="gender==null and ages!=null">
+			WHERE trunc(age/10,0)*10
+			<foreach collection="ages" item="element" index="i"
+				open="IN(" separator="," close=")">
+				#{element}
+			</foreach>
+		</if>
+
+		<if test="ages!=null and gender!=null">
+			WHERE gender=#{gender} AND trunc(age/10,0)*1
+			<foreach collection="ages" item="element" index="i"
+				open="IN(" separator="," close=")">
+				#{element}
+			</foreach>
+		</if>
+		ORDER BY regidate
+	</select>
+
+
+	<select id="SelectFavoriteList" parameterType="java.util.Map" resultType="AdminUserDTO">
+		select * from liked_tour lt join member m on m.id = lt.id join content c on c.contentid = lt.contentid
+	</select>
+	
+	<select id="genderlist" parameterType="java.util.Map" resultType="AdminUserDTO">
+		select * from member 
+	</select>
+
+
 
 </mapper>

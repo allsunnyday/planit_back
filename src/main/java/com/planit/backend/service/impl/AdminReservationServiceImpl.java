@@ -17,8 +17,8 @@ public class AdminReservationServiceImpl implements AdminReservationService{
 	private AdminReservationDAO dao;
 
 	@Override
-	public List<AdminReservationDTO> selectReservationList() {
-		return dao.selectReservationList();
+	public List<AdminReservationDTO> selectReservationList(Map map) {
+		return dao.selectReservationList(map);
 	}
 
 	@Override
