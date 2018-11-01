@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +30,17 @@ public class BbsController {
 	private AskService askService;
 	@Resource(name="bbsService")
 	private BbsService bbsService;
+	@Value("${PAGE_SIZE}")
+	private int pageSize;
+	//블락페이지
+	@Value("${BLOCK_SIZE}")
+	private int blockPage;
+	
 	// 이동
 	@RequestMapping("/Planit/Admin/BBS/AskList.do")
-	public String gotoAskList(@RequestParam Map map	// 데이터를 보내기 위한 모델
-													)throws Exception{
-		
+	public String gotoAskList(@RequestParam Map map)throws Exception{
 		//리스트 화면에서는 기본적으로 사용자 문의 게시판이 먼저 보인다.
-		return "bbs/AskBbsList.tiles";
+		return "forward:/Planit/Admin/BBS/UserAskList.do";
 	}
 	
 	// <li><a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>">공지사항</a></li>
@@ -122,12 +127,155 @@ public class BbsController {
 	
 	/////////************************************문의게시판
 	
-//[문의게시판 리스트 페이지]
-	@RequestMapping("/Planit/Admin/BBS/AskList.do")
-	public String gotoAskList(@RequestParam Map map, HttpServletRequest req)throws Exception{
+//[문의게시판 유저 문의 페이지]
+	@RequestMapping("/Planit/Admin/BBS/UserAskList.do")
+	public String gotoUserAskList(Model model,//리퀘스트 영역 저장용
+			HttpServletRequest req,//페이징용 메소드에 전달
+			@RequestParam Map map,//검색용 파라미터 받기
+			@RequestParam(required=false,defaultValue="1") int nowPage//페이징용 nowPage파라미터 받기용
+			,HttpSession session)throws Exception{
+		System.out.println("gotoUserAskList여기 들어오냐");
 		
+		//------------[검색 및 페이징]-----------------
+		if(map.get("searchColumn")!= null) {
+			model.addAttribute("searchColumn",map.get("searchColumn"));
+			model.addAttribute("searchWord",map.get("searchWord"));
+			}
+			
+			// 페이징] 
+			int totalEventCount = bbsService.getTotalCount(map);
+			
+			// [2] 전체 페이지 수 
+			int totalCount = (int)Math.ceil(((double)totalEventCount/pageSize));
+			//시작 및 끝 ROWNUM구하기]
+			int start = (nowPage-1)*pageSize+1;
+			int end   = nowPage*pageSize;
+			map.put("start", start);
+			map.put("end", end);
+		
+		//---------[데이터베이스에서 값 가져오기]-----------
+		map.put("status","waited");
+		List<Map> userAskList=bbsService.selectUserAskList(map);
+		System.out.println(userAskList==null?"userAskList은 null":"userAskList은 null아님");
+		for(Map list:userAskList) {
+			list.put("ASKDATE", list.get("ASKDATE").toString().subSequence(0, 10));
+		}
+		String pagingString = CommonUtil.pagingBootStrapStyle(totalEventCount, pageSize,
+				blockPage, nowPage,
+				req.getContextPath()+"/Planit/Admin/BBS/UserAskList.do?");
+		
+		//----------[모델저장해서 내보내기]--------------
+		model.addAttribute("userAskList", userAskList);
+		model.addAttribute("pagingString", pagingString);
+	    model.addAttribute("totalRecordCount", totalCount);
+	    model.addAttribute("pageSize", pageSize);
+	    model.addAttribute("nowPage", nowPage);
+		return "bbs/ask/AskBbsList.tiles";
+	}
+	
+//[문의게시판 파트너 문의 페이지]
+	@RequestMapping("/Planit/Admin/BBS/PartnerAskList.do")
+	public String gotoPartnerAskList(Model model,//리퀘스트 영역 저장용
+			HttpServletRequest req,//페이징용 메소드에 전달
+			@RequestParam Map map,//검색용 파라미터 받기
+			@RequestParam(required=false,defaultValue="1") int nowPage//페이징용 nowPage파라미터 받기용
+			,HttpSession session)throws Exception{
+		if(map.get("searchColumn")!= null) {
+			model.addAttribute("searchColumn",map.get("searchColumn"));
+			model.addAttribute("searchWord",map.get("searchWord"));
+			}
+			
+			// 페이징] 
+			int totalEventCount = bbsService.getTotalCount(map);
+			
+			// [2] 전체 페이지 수 
+			int totalCount = (int)Math.ceil(((double)totalEventCount/pageSize));
+			//시작 및 끝 ROWNUM구하기]
+			int start = (nowPage-1)*pageSize+1;
+			int end   = nowPage*pageSize;
+			map.put("start", start);
+			map.put("end", end);
+		
+	
+		map.put("status","waited");
+		List<Map> partnerAskList=bbsService.selectPartnerAskList(map);
+		for(Map list:partnerAskList) {
+			list.put("ASKDATE", list.get("ASKDATE").toString().subSequence(0, 10));
+		}
+		System.out.println(partnerAskList==null?"userAskList은 null":"userAskList은 null아님");
 
-		return "bbs/notice/NoticeBbsList.tiles";
+		String pagingString = CommonUtil.pagingBootStrapStyle(totalEventCount, pageSize,
+				blockPage, nowPage,
+				req.getContextPath()+"/Planit/Admin/BBS/PartnerAskList.do?");
+		model.addAttribute("partnerAskList", partnerAskList);
+		model.addAttribute("pagingString", pagingString);
+	    model.addAttribute("totalRecordCount", totalCount);
+	    model.addAttribute("pageSize", pageSize);
+	    model.addAttribute("nowPage", nowPage);
+		return "bbs/ask/AskBbsPartnerList.tiles";
+	}
+//[문의게시판 유저-파트너 상세보기 페이지]
+	@RequestMapping("/Planit/Admin/BBS/UserAskView.do")
+	public String gotoUserAskView(@RequestParam Map map,Model model)throws Exception{
+		map.put("status","waited");
+		System.out.println(map.get("ASK_NO"));
+		int ask_no = Integer.parseInt(map.get("ASK_NO").toString());
+		System.out.println(ask_no); 
+		Map userAskView=bbsService.selectAskUserView(ask_no);
+		userAskView.put("ASKDATE", userAskView.get("ASKDATE").toString().subSequence(0, 10));
+	
+		model.addAttribute("askView", userAskView);
+		return "bbs/ask/AskBbsView.tiles";
+	}
+	@RequestMapping("/Planit/Admin/BBS/PartnerAskView.do")
+	public String gotoPartnerAskView(@RequestParam Map map,Model model)throws Exception{
+		map.put("status","waited");
+		System.out.println(map.get("ASK_NO"));
+		int ask_no = Integer.parseInt(map.get("ASK_NO").toString());
+		Map partnerAskView=bbsService.selectAskPartnerView(ask_no);
+		partnerAskView.put("ASKDATE", partnerAskView.get("ASKDATE").toString().subSequence(0, 10));
+		
+		model.addAttribute("askView", partnerAskView);
+		return "bbs/ask/AskBbsPartnerView.tiles";
+	}
+	@RequestMapping("/Planit/Admin/BBS/UserReplyWrite.do")
+	public String gotoUserReplyWrite(@RequestParam Map map,Model model)throws Exception{
+		int ask_no = Integer.parseInt(map.get("ASK_NO").toString());
+		System.out.println(ask_no); 
+		Map userAskView=bbsService.selectAskUserView(ask_no);
+		model.addAttribute("askView", userAskView);
+		return "bbs/ask/AskReplyWrite.tiles";
+	}
+	@RequestMapping("/Planit/Admin/BBS/PartnerReplyWrite.do")
+	public String gotoPartnerReplyWrite(@RequestParam Map map,Model model)throws Exception{
+		int ask_no = Integer.parseInt(map.get("ASK_NO").toString());
+		Map partnerAskView=bbsService.selectAskPartnerView(ask_no);
+		partnerAskView.put("ASKDATE", partnerAskView.get("ASKDATE").toString().subSequence(0, 10));
+		
+		model.addAttribute("askView", partnerAskView);
+		return "bbs/ask/PartnerAskReplyWrite.tiles";
+	}
+	@RequestMapping("/Planit/Admin/BBS/AskReplyProcess.do")
+	public String AskReplyProcess(@RequestParam Map map,Model model)throws Exception{
+		int ask_no = Integer.parseInt(map.get("ask_no").toString());
+		map.put("ask_no", ask_no);
+		map.put("status","replied");
+			//회원이 질문한 경우
+			map.put("table","u_ask_planit");
+			int isUpdate=bbsService.askReply(map);
+			return "forward:/Planit/Admin/BBS/UserAskList.do";
+	
+		
+	}
+	@RequestMapping("/Planit/Admin/BBS/AskPartnerReplyProcess.do")
+	public String AskPartnerReplyProcess(@RequestParam Map map,Model model)throws Exception{
+		int ask_no = Integer.parseInt(map.get("ask_no").toString());
+		map.put("ask_no", ask_no);
+		map.put("status","replied");
+		int isUpdate=bbsService.askPartnerReply(map);
+		return "forward:/Planit/Admin/BBS/PartnerAskList.do";
+		
+		
 	}
 }
 /*

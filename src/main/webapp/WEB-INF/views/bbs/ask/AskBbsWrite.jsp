@@ -36,8 +36,8 @@
 
           <div class="col-sm-9 s">
             <section class="panel">
-              <header class="panel-heading wht-bg asklist-head">
-          		<h5>Notice</h5>
+               <header class="panel-heading wht-bg asklist-head">
+          		<h2>문의게시판</h2>
               </header>
               <div class="panel-body minimal " id="ask-content">
 	           <form action="<c:url value='/Planit/Admin/BBS/NoticeWriteProcess.do'/>">

@@ -19,11 +19,15 @@ public interface BbsService {
 	List<Map> selectUserAskList(Map map);
 	//[문의게시판 리스트_Partner]
 	List<Map> selectPartnerAskList(Map map);
-	//[공지사항 상세보기]
-	Map selectAskView(Map map);
+	//[공지사항 상세보기_user]
+	Map selectAskUserView(int ask_no);
+	//[공지사항 상세보기_partner]
+	Map selectAskPartnerView(int ask_no);
 	//[문의게시판 입력,수정,삭제]
-	int askWrite(Map map);
-	int askEdit(Map map);
-	int askDelite(Map map);
+	int askReply(Map map);
+	int askPartnerReply(Map map);
 	
+	
+	//겟 토탈카운트
+	int getTotalCount(Map map);
 }

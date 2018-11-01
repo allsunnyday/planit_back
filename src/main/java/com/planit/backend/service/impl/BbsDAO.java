@@ -65,27 +65,33 @@ public class BbsDAO implements BbsService {
 	}
 
 	@Override
-	public Map selectAskView(Map map) {
+	public Map selectAskUserView(int ask_no) {
 		// TODO Auto-generated method stub
-		return null;
+		return template.selectOne("BbsUserSelectOne",ask_no);
 	}
 
 	@Override
-	public int askWrite(Map map) {
+	public Map selectAskPartnerView(int ask_no) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.selectOne("BbsPartnerSelectOne",ask_no);
 	}
 
 	@Override
-	public int askEdit(Map map) {
+	public int getTotalCount(Map map) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.selectOne("getTotalCount",map);
 	}
 
 	@Override
-	public int askDelite(Map map) {
+	public int askReply(Map map) {
 		// TODO Auto-generated method stub
-		return 0;
+		return template.update("BbsASKReply",map);
+	}
+
+	@Override
+	public int askPartnerReply(Map map) {
+		// TODO Auto-generated method stub
+		return template.update("BbsPartnerASKReply",map);
 	}
 
 }

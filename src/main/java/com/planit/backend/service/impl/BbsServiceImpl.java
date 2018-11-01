@@ -71,30 +71,37 @@ public class BbsServiceImpl implements BbsService {
 
 
 	@Override
-	public Map selectAskView(Map map) {
+	public Map selectAskUserView(int ask_no) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.selectAskUserView(ask_no);
 	}
 
 
 	@Override
-	public int askWrite(Map map) {
+	public Map selectAskPartnerView(int ask_no) {
 		// TODO Auto-generated method stub
-		return 0;
+		return dao.selectAskPartnerView(ask_no);
 	}
 
 
 	@Override
-	public int askEdit(Map map) {
+	public int getTotalCount(Map map) {
 		// TODO Auto-generated method stub
-		return 0;
+		return dao.getTotalCount(map);
 	}
 
 
 	@Override
-	public int askDelite(Map map) {
+	public int askReply(Map map) {
 		// TODO Auto-generated method stub
-		return 0;
+		return dao.askReply(map);
+	}
+
+
+	@Override
+	public int askPartnerReply(Map map) {
+		// TODO Auto-generated method stub
+		return dao.askPartnerReply(map);
 	}
 
 }
