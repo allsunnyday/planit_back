@@ -21,6 +21,8 @@ public class PartnerDTO {
 	private String status;
 	private Date bookdate;
 	
+	private String planner_id;
+	
 	
 	public String getP_id() {
 		return p_id;
@@ -117,6 +119,12 @@ public class PartnerDTO {
 	}
 	public void setBookdate(Date bookdate) {
 		this.bookdate = bookdate;
+	}
+	public String getPlanner_id() {
+		return planner_id;
+	}
+	public void setPlanner_id(String planner_id) {
+		this.planner_id = planner_id;
 	}
 	
 	

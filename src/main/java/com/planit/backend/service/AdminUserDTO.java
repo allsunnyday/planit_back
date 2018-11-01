@@ -24,7 +24,6 @@ public class AdminUserDTO {
 	private String review_id;
 	private String liked;
 	
-	
 
 	public String getId() {
 		return id;

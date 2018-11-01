@@ -4,61 +4,78 @@
 <!-- **********************************************************************************************************************************************************
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
+<style>
+#dddd{
+    border: 1px solid #4195fc; /* some kind of blue border */
+    /* other CSS styles */
+    /* round the corners */
+    -webkit-border-radius: 20px;
+       -moz-border-radius: 20px;
+            border-radius: 20px;
+    /* make it glow! */
+    -webkit-box-shadow: 0px 0px 4px #4195fc;
+       -moz-box-shadow: 0px 0px 4px #4195fc;
+            box-shadow: 0px 0px 4px #4195fc; /* some variation of blue for the shadow */
+}
+</style>
 <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
         <div class="row">
-          <div class="col-lg-9 main-chart">
+          <div class="col-lg-12 main-chart">
             <!--CUSTOM CHART START -->
             <div class="border-head">
-              <h3>USER VISITS <small>show details click <a href="<c:url value='/Planit/Analysis/Details.do'/> ">here</a></small></h3>
-              
+              <h3>PLANIT </h3>
             </div>
-            <div class="custom-bar-chart">
+            <ul>
+            	<li>총 가입자 :&nbsp;${memberCount}명</li>
+            </ul>
+            <div class="col-md-4col-sm-4 custom-bar-chart" >
               <ul class="y-axis">
-                <li><span>10.000</span></li>
-                <li><span>8.000</span></li>
-                <li><span>6.000</span></li>
-                <li><span>4.000</span></li>
-                <li><span>2.000</span></li>
+                <li><span>9</span></li>
+                <li><span>7</span></li>
+                <li><span>5</span></li>
+                <li><span>3</span></li>
+                <li><span>1</span></li>
                 <li><span>0</span></li>
               </ul>
+              
+              
               <div class="bar">
-                <div class="title">JAN</div>
-                <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
-              </div>
-              <div class="bar ">
-                <div class="title">FEB</div>
-                <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
-              </div>
-              <div class="bar ">
-                <div class="title">MAR</div>
-                <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
-              </div>
-              <div class="bar ">
-                <div class="title">APR</div>
-                <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
+                <div class="title" style="font-size:1em;" >MAN</div>
+                <div id="man" class="value tooltips" data-original-title="M" data-toggle="tooltip" data-placement="top">${gender}</div>
               </div>
               <div class="bar">
-                <div class="title">MAY</div>
-                <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
+                <div class="title" style="font-size:1em">WOMAN</div>
+                <div class="value tooltips" data-original-title="W" data-toggle="tooltip" data-placement="top">50%</div>
               </div>
-              <div class="bar ">
-                <div class="title">JUN</div>
-                <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
-              </div>
-              <div class="bar">
-                <div class="title">JUL</div>
-                <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
-              </div>
-            </div>
+             
+               <div class="col-sm-4 col-xs-2">
+                     <div  id="dddd"class="weather pn">
+                  <a href="<c:url value='/Planit/Admin/AdminPlan.do'/>">
+                  <i class="fa fa-pencil-square-o fa-4x"></i>
+                  <h2>planner</h2>
+                  <h4>총 ${plannerCount}개 </h4>
+                  </a>
+                </div>
+               </div>
+
+               <div class="col-sm-4 col-xs-2">
+                 <div id="dddd"class="weather pn">
+                  	<i class="fa fa-question-circle fa-4x"></i>
+                		  <h2>문의 갯수</h2>
+                 		 	<h4>총${noticeCount}개</h4>
+	                </div>
+	              </div>
+	            </div>
+             
             <!--custom chart end-->
             <div class="row mt">
               <!-- SERVER STATUS PANELS -->
-              <div class="col-md-4 col-sm-4 mb">
+              <div  class="col-md-6 col-sm-6 mb">
                 <div class="grey-panel pn donut-chart">
                   <div class="grey-header">
-                    <h5>SERVER LOAD</h5>
+                    <h5>ㅇㅇㅇ</h5>
                   </div>
                   <canvas id="serverstatus01" height="120" width="120"></canvas>
                   <script>
@@ -85,47 +102,22 @@
                 <!-- /grey-panel -->
               </div>
               <!-- /col-md-4-->
-              <div class="col-md-4 col-sm-4 mb">
-                <div class="darkblue-panel pn">
-                  <div class="darkblue-header">
-                    <h5>DROPBOX STATICS</h5>
-                  </div>
-                  <canvas id="serverstatus02" height="120" width="120"></canvas>
-                  <script>
-                    var doughnutData = [{
-                        value: 60,
-                        color: "#1c9ca7"
-                      },
-                      {
-                        value: 40,
-                        color: "#f68275"
-                      }
-                    ];
-                    var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-                  </script>
-                  <p>April 17, 2014</p>
-                  <footer>
-                    <div class="pull-left">
-                      <h5><i class="fa fa-hdd-o"></i> 17 GB</h5>
-                    </div>
-                    <div class="pull-right">
-                      <h5>60% Used</h5>
-                    </div>
-                  </footer>
-                </div>
-                <!--  /darkblue panel -->
-              </div>
               <!-- /col-md-4 -->
-              <div class="col-md-4 col-sm-4 mb">
+              <div class="col-md-6 col-sm-6 mb">
                 <!-- REVENUE PANEL -->
-                <div class="green-panel pn">
+                <div id="ddd"class="green-panel pn">
                   <div class="green-header">
-                    <h5>REVENUE</h5>
+                    <h5>리뷰 조회</h5>
                   </div>
                   <div class="chart mt">
-                    <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
+<%--                   <c:forEach items="${review }" var="record"> --%>
+                    <div class="sparkline" data-type="line" data-resize="true" 
+                    data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" 
+                    data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" 
+                    data-spot-radius="4" data-data="[0,9,0,8,0,7,16,5,4]"></div>
+<%--                     </c:forEach> --%>
                   </div>
-                  <p class="mt"><b>$ 17,980</b><br/>Month Income</p>
+                  <p class="mt"><b>인기많은 리뷰 : abc</b><br/>Month Income</p>
                 </div>
               </div>
               <!-- /col-md-4 -->
@@ -133,297 +125,163 @@
             <!-- /row -->
             <div class="row">
               <!-- WEATHER PANEL -->
-              <div class="col-md-4 mb">
-                <div class="weather pn">
-                  <i class="fa fa-cloud fa-4x"></i>
-                  <h2>11º C</h2>
-                  <h4>BUDAPEST</h4>
-                </div>
-              </div>
+<!--               <div class="col-md-4 mb"> -->
+<!--                 <div class="weather pn"> -->
+<!--                   <i class="fa fa-cloud fa-4x"></i> -->
+<!--                   <h2>11º C</h2> -->
+<!--                   <h4>BUDAPEST</h4> -->
+<!--                 </div> -->
+<!--               </div> -->
               <!-- /col-md-4-->
               <!-- DIRECT MESSAGE PANEL -->
-              <div class="col-md-8 mb">
-                <div class="message-p pn">
-                  <div class="message-header">
-                    <h5>DIRECT MESSAGE</h5>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3 centered hidden-sm hidden-xs">
-                      <img src="img/ui-danro.jpg" class="img-circle" width="65">
-                    </div>
-                    <div class="col-md-9">
-                      <p>
-                        <name>Dan Rogers</name>
-                        sent you a message.
-                      </p>
-                      <p class="small">3 hours ago</p>
-                      <p class="message">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                      <form class="form-inline" role="form">
-                        <div class="form-group">
-                          <input type="text" class="form-control" id="exampleInputText" placeholder="Reply Dan">
-                        </div>
-                        <button type="submit" class="btn btn-default">Send</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <!-- /Message Panel-->
-              </div>
+<!--               <div class="col-md-8 mb"> -->
+<!--                 <div class="message-p pn"> -->
+<!--                   <div class="message-header"> -->
+<!--                     <h5>DIRECT MESSAGE</h5> -->
+<!--                   </div> -->
+<!--                   <div class="row"> -->
+<!--                     <div class="col-md-3 centered hidden-sm hidden-xs"> -->
+<!--                       <img src="img/ui-danro.jpg" class="img-circle" width="65"> -->
+<!--                     </div> -->
+<!--                     <div class="col-md-9"> -->
+<!--                       <p> -->
+<!--                         <name>Dan Rogers</name> -->
+<!--                         sent you a message. -->
+<!--                       </p> -->
+<!--                       <p class="small">3 hours ago</p> -->
+<!--                       <p class="message">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p> -->
+<!--                       <form class="form-inline" role="form"> -->
+<!--                         <div class="form-group"> -->
+<!--                           <input type="text" class="form-control" id="exampleInputText" placeholder="Reply Dan"> -->
+<!--                         </div> -->
+<!--                         <button type="submit" class="btn btn-default">Send</button> -->
+<!--                       </form> -->
+<!--                     </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 /Message Panel -->
+<!--               </div> -->
               <!-- /col-md-8  -->
             </div>
             <div class="row">
-              <!-- TWITTER PANEL -->
-              <div class="col-md-4 mb">
-                <div class="twitter-panel pn">
-                  <i class="fa fa-twitter fa-4x"></i>
-                  <p>Dashio is here! Take a look and enjoy this new Bootstrap Dashboard theme.</p>
-                  <p class="user">@Alvrz_is</p>
-                </div>
-              </div>
-              <!-- /col-md-4 -->
-              <div class="col-md-4 mb">
-                <!-- WHITE PANEL - TOP USER -->
-                <div class="white-panel pn">
-                  <div class="white-header">
-                    <h5>TOP USER</h5>
-                  </div>
-                  <p><img src="img/ui-zac.jpg" class="img-circle" width="50"></p>
-                  <p><b>Zac Snider</b></p>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p class="small mt">MEMBER SINCE</p>
-                      <p>2012</p>
-                    </div>
-                    <div class="col-md-6">
-                      <p class="small mt">TOTAL SPEND</p>
-                      <p>$ 47,60</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /col-md-4 -->
-              <div class="col-md-4 mb">
-                <!-- INSTAGRAM PANEL -->
-                <div class="instagram-panel pn">
-                  <i class="fa fa-instagram fa-4x"></i>
-                  <p>@THISISYOU<br/> 5 min. ago
-                  </p>
-                  <p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
-                </div>
-              </div>
-              <!-- /col-md-4 -->
-            </div>
-            <!-- /row -->
-            <div class="row">
-              <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                <div class="product-panel-2 pn">
+               <div   class="col-lg-4 col-md-4 col-sm-4 mb">
+                <div  id="dddd"class="product-panel-2 pn">
                   <div class="badge badge-hot">HOT</div>
-                  <img src="img/product.jpg" width="200" alt="">
-                  <h5 class="mt">Flat Pack Heritage</h5>
-                  <h6>TOTAL SALES: 1388</h6>
+                 
+                  <img src="data:image/png;base64,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" width="200" alt="">
+                   <c:forEach var="record" items="${hotTour}">
+                  <h4 class="mt">인기 여행지&nbsp;:&nbsp;${record.title }</h4>
+                  <h6>TOTAL VIEW: ${record.liked_t_id}</h6>
+                  </c:forEach>
+                  <button class="btn btn-small btn-theme04">FULL REPORT</button>
+                </div>
+                <div  id="dddd"class="product-panel-2 pn">
+                  <div class="badge badge-hot">HOT</div>
+                  <img src="data:image/png;base64,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" width="200" alt="">
+                   <c:forEach var="record" items="${hotPlanner}">
+                  <h4 class="mt">인기 플래너:${record.planner_id }</h4>
+                  <h6>TOTAL VIEW: ${record.liked}</h6>
+                   </c:forEach>
+                  <button class="btn btn-small btn-theme04">FULL REPORT</button>
+                </div>
+                <div  id="dddd"class="product-panel-2 pn">
+                  <div class="badge badge-hot">HOT</div>
+                  <img src="data:image/png;base64,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" width="200" alt="">
+                  <h4 class="mt">인기 리뷰:${hotPlanner.id }</h4>
+                  <h6>TOTAL VIEW: ${hotPlanner.liked}</h6>
                   <button class="btn btn-small btn-theme04">FULL REPORT</button>
                 </div>
               </div>
               <!-- /col-md-4 -->
-              <!--  PROFILE 02 PANEL -->
-              <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                <div class="content-panel pn">
-                  <div id="profile-02">
-                    <div class="user">
-                      <img src="img/friends/fr-06.jpg" class="img-circle" width="80">
-                      <h4>DJ SHERMAN</h4>
-                    </div>
-                  </div>
-                  <div class="pr2-social centered">
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                  </div>
-                </div>
-                <!-- /panel -->
-              </div>
-              <!--/ col-md-4 -->
-              <div class="col-md-4 col-sm-4 mb">
-                <div class="green-panel pn">
-                  <div class="green-header">
-                    <h5>DISK SPACE</h5>
-                  </div>
-                  <canvas id="serverstatus03" height="120" width="120"></canvas>
-                  <script>
-                    var doughnutData = [{
-                        value: 60,
-                        color: "#2b2b2b"
-                      },
-                      {
-                        value: 40,
-                        color: "#fffffd"
-                      }
-                    ];
-                    var myDoughnut = new Chart(document.getElementById("serverstatus03").getContext("2d")).Doughnut(doughnutData);
-                  </script>
-                  <h3>60% USED</h3>
-                </div>
-              </div>
+<!--               <div class="col-md-3 mb"> -->
+<!--                 WHITE PANEL - TOP USER -->
+<!--                 <div class="white-panel pn"> -->
+<!--                   <div class="white-header"> -->
+<!--                     <h5>가장많은 좋아요를 받은 USER</h5> -->
+<!--                   </div> -->
+<!--                   <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfZD4kj1BLbrzo1NyHPmWzfjcAq6BMVgzYsydmxs33UKs-XI2V" class="img-circle" width="50"></p> -->
+<!--                   <p><b>Zac Snider</b></p> -->
+<!--                   <div class="row"> -->
+<!--                     <div class="col-md-6"> -->
+<!--                       <p class="small mt" style="color: black">가입일자</p> -->
+<!--                       <p>2012-07-07</p> -->
+<!--                     </div> -->
+<!--                     <div class="col-md-6"> -->
+<!--                       <p class="small mt" style="color: black">TOTAL 좋아요 수</p> -->
+<!--                       <p>454,684,654</p> -->
+<!--                     </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--               /col-md-4 -->
+<!--               <div class="col-md-3 col-sm-4 custom-bar-chart" > -->
+<!--               <ul class="y-axis"> -->
+<!--                 <li><span>9</span></li> -->
+<!--                 <li><span>7</span></li> -->
+<!--                 <li><span>5</span></li> -->
+<!--                 <li><span>3</span></li> -->
+<!--                 <li><span>1</span></li> -->
+<!--                 <li><span>0</span></li> -->
+<!--               </ul> -->
+              
+              
+<!--               <div class="bar"> -->
+<!--                 <div class="title" style="font-size:1em;" >MAN</div> -->
+<%--                 <div id="man" class="value tooltips" data-original-title="M" data-toggle="tooltip" data-placement="top">${gender}</div> --%>
+<!--               </div> -->
+<!--               <div class="bar"> -->
+<!--                 <div class="title" style="font-size:1em">WOMAN</div> -->
+<!--                 <div class="value tooltips" data-original-title="W" data-toggle="tooltip" data-placement="top">50%</div> -->
+<!--               </div> -->
+<!--               <div class="bar"> -->
+<!--                 <div class="title" style="font-size:1em;" >MAN</div> -->
+<%--                 <div id="man" class="value tooltips" data-original-title="M" data-toggle="tooltip" data-placement="top">${gender}</div> --%>
+<!--               </div> -->
+<!--               <div class="bar"> -->
+<!--                 <div class="title" style="font-size:1em">WOMAN</div> -->
+<!--                 <div class="value tooltips" data-original-title="W" data-toggle="tooltip" data-placement="top">50%</div> -->
+<!--               </div> -->
+<!--               <div class="bar"> -->
+<!--                 <div class="title" style="font-size:1em;" >MAN</div> -->
+<%--                 <div id="man" class="value tooltips" data-original-title="M" data-toggle="tooltip" data-placement="top">${gender}</div> --%>
+<!--               </div> -->
+<!--               <div class="bar"> -->
+<!--                 <div class="title" style="font-size:1em">WOMAN</div> -->
+<!--                 <div class="value tooltips" data-original-title="W" data-toggle="tooltip" data-placement="top">50%</div> -->
+<!--               </div> -->
+<!--               /col-md-4 -->
+<!--             </div> -->
+<!--             </div> -->
+<!--             /row -->
+<!--             <div class="row" > -->
+            
+<!--               / col-md-4 -->
+<!--               <div class="col-md-4 col-sm-4 mb"> -->
+<!--                 <div class="green-panel pn"> -->
+<!--                   <div class="green-header"> -->
+<!--                     <h5>DISK SPACE</h5> -->
+<!--                   </div> -->
+<%--                   <canvas id="serverstatus03" height="120" width="120"></canvas> --%>
+<!--                   <script> -->
+<!-- //                     var doughnutData = [{ -->
+<!-- //                         value: 60, -->
+<!-- //                         color: "#2b2b2b" -->
+<!-- //                       }, -->
+<!-- //                       { -->
+<!-- //                         value: 40, -->
+<!-- //                         color: "#fffffd" -->
+<!-- //                       } -->
+<!-- //                     ]; -->
+<!-- //                     var myDoughnut = new Chart(document.getElementById("serverstatus03").getContext("2d")).Doughnut(doughnutData); -->
+<!--                   </script> -->
+<!--                   <h3>60% USED</h3> -->
+<!--                 </div> -->
+<!--               </div> -->
               <!-- /col-md-4 -->
             </div>
             <!-- /row -->
           </div>
           <!-- /col-lg-9 END SECTION MIDDLE -->
-          <!-- **********************************************************************************************************************************************************
-              RIGHT SIDEBAR CONTENT
-              *********************************************************************************************************************************************************** -->
-          <div class="col-lg-3 ds">
-            <!--COMPLETED ACTIONS DONUTS CHART-->
-            <div class="donut-main">
-              <h4>COMPLETED ACTIONS & PROGRESS</h4>
-              <canvas id="newchart" height="130" width="130"></canvas>
-              <script>
-                var doughnutData = [{
-                    value: 70,
-                    color: "#4ECDC4"
-                  },
-                  {
-                    value: 30,
-                    color: "#fdfdfd"
-                  }
-                ];
-                var myDoughnut = new Chart(document.getElementById("newchart").getContext("2d")).Doughnut(doughnutData);
-              </script>
-            </div>
-            <!--NEW EARNING STATS -->
-            <div class="panel terques-chart">
-              <div class="panel-body">
-                <div class="chart">
-                  <div class="centered">
-                    <span>TODAY EARNINGS</span>
-                    <strong>$ 890,00 | 15%</strong>
-                  </div>
-                  <br>
-                  <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,564,455]"></div>
-                </div>
-              </div>
-            </div>
-            <!--new earning end-->
-            <!-- RECENT ACTIVITIES SECTION -->
-            <h4 class="centered mt">RECENT ACTIVITY</h4>
-            <!-- First Activity -->
-            <div class="desc">
-              <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-              </div>
-              <div class="details">
-                <p>
-                  <muted>Just Now</muted>
-                  <br/>
-                  <a href="#">Paul Rudd</a> purchased an item.<br/>
-                </p>
-              </div>
-            </div>
-            <!-- Second Activity -->
-            <div class="desc">
-              <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-              </div>
-              <div class="details">
-                <p>
-                  <muted>2 Minutes Ago</muted>
-                  <br/>
-                  <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-                </p>
-              </div>
-            </div>
-            <!-- Third Activity -->
-            <div class="desc">
-              <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-              </div>
-              <div class="details">
-                <p>
-                  <muted>3 Hours Ago</muted>
-                  <br/>
-                  <a href="#">Diana Kennedy</a> purchased a year subscription.<br/>
-                </p>
-              </div>
-            </div>
-            <!-- Fourth Activity -->
-            <div class="desc">
-              <div class="thumb">
-                <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-              </div>
-              <div class="details">
-                <p>
-                  <muted>7 Hours Ago</muted>
-                  <br/>
-                  <a href="#">Brando Page</a> purchased a year subscription.<br/>
-                </p>
-              </div>
-            </div>
-            <!-- USERS ONLINE SECTION -->
-            <h4 class="centered mt">TEAM MEMBERS ONLINE</h4>
-            <!-- First Member -->
-            <div class="desc">
-              <div class="thumb">
-                <img class="img-circle" src="img/ui-divya.jpg" width="35px" height="35px" align="">
-              </div>
-              <div class="details">
-                <p>
-                  <a href="#">DIVYA MANIAN</a><br/>
-                  <muted>Available</muted>
-                </p>
-              </div>
-            </div>
-            <!-- Second Member -->
-            <div class="desc">
-              <div class="thumb">
-                <img class="img-circle" src="img/ui-sherman.jpg" width="35px" height="35px" align="">
-              </div>
-              <div class="details">
-                <p>
-                  <a href="#">DJ SHERMAN</a><br/>
-                  <muted>I am Busy</muted>
-                </p>
-              </div>
-            </div>
-            <!-- Third Member -->
-            <div class="desc">
-              <div class="thumb">
-                <img class="img-circle" src="img/ui-danro.jpg" width="35px" height="35px" align="">
-              </div>
-              <div class="details">
-                <p>
-                  <a href="#">DAN ROGERS</a><br/>
-                  <muted>Available</muted>
-                </p>
-              </div>
-            </div>
-            <!-- Fourth Member -->
-            <div class="desc">
-              <div class="thumb">
-                <img class="img-circle" src="img/ui-zac.jpg" width="35px" height="35px" align="">
-              </div>
-              <div class="details">
-                <p>
-                  <a href="#">Zac Sniders</a><br/>
-                  <muted>Available</muted>
-                </p>
-              </div>
-            </div>
-            <!-- CALENDAR-->
-            <div id="calendar" class="mb">
-              <div class="panel green-panel no-margin">
-                <div class="panel-body">
-                  <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
-                    <div class="arrow"></div>
-                    <h3 class="popover-title" style="disadding: none;"></h3>
-                    <div id="date-popover-content" class="popover-content"></div>
-                  </div>
-                  <div id="my-calendar"></div>
-                </div>
-              </div>
-            </div>
-            <!-- / calendar -->
-          </div>
-          <!-- /col-lg-3 -->
         </div>
         <!-- /row -->
       </section>
