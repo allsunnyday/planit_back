@@ -11,9 +11,74 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  -->
 <mapper namespace="mybatis.Notice">
 	<select id="BbsNoticeList" resultType="java.util.Map">
-	select N.*,E.name
+	select N.*,E.name,E.e_id
 	from notice N join emp E on N.emp_no=E.emp_no
 	order by postdate desc
 	</select>
 	
+	<select id="BbsNoticeView" resultType="java.util.Map">
+	select N.*,E.name,E.e_id
+	from notice N join emp E on N.emp_no=E.emp_no
+	where no=#{no}
+	</select>
+	
+	<update id="BbsNoticeEdit">
+	 update notice set title=#{title} , content=#{content} 
+    where no=#{no}
+	</update>
+	
+	<delete id="BbsNoticeDelete" >
+	 delete from notice where no=#{no}
+	</delete>
+	
+	<insert id="BbsNoticeWrite">
+	insert into notice values (SEQ_NOTICE_NO.nextval,#{title},#{content},SYSDATE,#{emp_no})
+	</insert>
+	
+	<select id="BbsGetEmpID" resultType="java.util.Map" parameterType="java.util.Map">
+	select emp_no from emp where e_id=#{e_id}
+	</select>
+	
+	<select id="BbsUserAskList" resultType="java.util.Map" parameterType="java.util.Map">
+	select * from
+      (select a.*,rownum r from(select a.*, name from u_ask_planit a join member m on a.id=m.id
+		 <if test="status != null">
+   		 where status=#{status}
+   		 </if>
+	 order by askdate desc)a)
+     where  r between #{start} and #{end}
+	</select>
+	<select id="BbsPartnerAskList" resultType="java.util.Map" parameterType="java.util.Map">
+   	select * from
+      (select a.*,rownum r from(select a.* , name from p_ask_planit a join partner p on a.p_id=p.p_id 
+		 <if test="status != null">
+   		 where status=#{status}
+   		 </if>
+	 order by askdate desc)a)
+     where  r between #{start} and #{end}
+	</select>
+	<select id="BbsUserSelectOne" parameterType="java.util.Map" resultType="java.util.Map">
+		select a.*, name from u_ask_planit a join member m on a.id=m.id
+		where ask_no=#{ask_no}
+	</select>
+	
+	<select id="BbsPartnerSelectOne" parameterType="java.util.Map" resultType="java.util.Map">
+		select a.*, name from p_ask_planit a join  partner p on a.p_id=p.p_id 
+		where ask_no=#{ask_no}
+	</select>
+	<select id="getTotalCount" resultType="int">
+      select count(*) from u_ask_planit 
+      <if test="searchWord != null">
+            and ${searhColumn} LIKE '%' || #{searchWord} || '%'
+      </if>
+   </select>
+   <update id="BbsASKReply">
+	 update u_ask_planit set title=#{title} , content=#{content} ,status=#{status}
+    where ask_no=#{ask_no}
+	</update>
+   <update id="BbsPartnerASKReply">
+	 update p_ask_planit set title=#{title} , content=#{content} ,status=#{status}
+    where ask_no=#{ask_no}
+	</update>
+
 </mapper>

@@ -263,9 +263,34 @@
               <header class="panel-heading wht-bg asklist-head">
                 
               </header>
-              <div class="panel-body minimal " id="ask-content">
-              <!-- 아래에서부터  ajax로 값을 받아온다. -->
-               
+             <div class="panel-body minimal " id="ask-content">
+	              <table class="table table-inbox table-hover">
+	              	<tr>
+	              		<td>No.</td>
+	              		<td>제목</td>
+	              		<td>작성자</td>
+	              		<td>작성일</td>
+	              	</tr>
+	              	<c:if test="${empty noticeList}" var="isEmpty">
+	              	<tr>
+	              		<td colspan="4">
+	              		등록된 공지사항이 없습니다
+	              		</td>
+	              	</tr>
+	              	</c:if>
+	              	<c:if test="${not isEmpty }">
+	              	<c:forEach var="list" items="${noticeList}" varStatus="loop">
+	              		<tr>
+	              			<td>${list.NO}</td>
+	              			<td>${list.TITLE}</td>
+	              			<td>${list.NAME}</td>
+	              			<td>${list.POSTDATE}</td>
+	              			
+	              		</tr>
+	              	</c:forEach>
+	              	</c:if>
+	              </table>
+					
                 
              <!--  -->
               </div>
