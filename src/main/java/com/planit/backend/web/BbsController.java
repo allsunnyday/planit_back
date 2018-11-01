@@ -269,7 +269,7 @@ public class BbsController {
 	}
 	@RequestMapping("/Planit/Admin/BBS/AskPartnerReplyProcess.do")
 	public String AskPartnerReplyProcess(@RequestParam Map map,Model model)throws Exception{
-		int ask_no = Integer.parseInt(map.get("ask_no").toString());
+		int ask_no =  Integer.parseInt(map.get("ask_no").toString());
 		map.put("ask_no", ask_no);
 		map.put("status","replied");
 		int isUpdate=bbsService.askPartnerReply(map);
