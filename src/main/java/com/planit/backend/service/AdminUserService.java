@@ -12,9 +12,22 @@ public interface AdminUserService {
    List<AdminUserDTO> selectReviewList(Map map);
    //즐겨찾기
    List<AdminUserDTO> selectFavoriteList(Map map);
+   //성별
+   int genderCount(Map map);
+   
+   //나이별
+   List<AdminUserDTO> selectAgeList(Map map);
+   
+   //
+   List<AdminUserDTO> hotTourList(Map map);
+   List<AdminUserDTO> hotPlannerList (Map map);
+   List<AdminUserDTO> hotReviewList(Map map);
    //총합(페이징)
    int getTotalCount(Map map);
-   
+   int plannerCount(Map map);
+   int memberCount(Map map);
+   int noticeCount(Map map);
+   int reviewCount(Map map);
    //검색
    AdminUserDTO selectOne(Map map);
    

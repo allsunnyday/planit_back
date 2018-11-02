@@ -64,6 +64,50 @@ public class AdminUserServiceImpl implements AdminUserService{
    public List<AdminUserDTO> selectFavoriteList(Map map) {
       return dao.selectFavoriteList(map);
    }
+
+   @Override
+   public int genderCount(Map map) {
+      return dao.genderCount(map);
+   }
+
+   @Override
+   public int plannerCount(Map map) {
+      return dao.plannerCount(map);
+   }
+
+   @Override
+   public int memberCount(Map map) {
+      return dao.memberCount(map);
+   }
+
+   @Override
+   public int noticeCount(Map map) {
+      return dao.noticeCount(map);
+   }
+
+   @Override
+   public List<AdminUserDTO> hotTourList(Map map) {
+      return dao.hotTourList(map);
+   }
+   @Override
+   public List<AdminUserDTO> hotPlannerList(Map map) {
+      return dao.hotPlannerList(map);
+   }
+   @Override
+   public List<AdminUserDTO> hotReviewList(Map map) {
+      return dao.hotReviewList(map);
+   }
+
+   @Override
+   public List<AdminUserDTO> selectAgeList(Map map) {
+      return dao.selectAgeList(map);
+   }
+
+   @Override
+   public int reviewCount(Map map) {
+      return dao.reviewCount(map);
+   }
+
    
    
 

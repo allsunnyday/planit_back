@@ -23,6 +23,7 @@ public class AdminUserDTO {
 	private java.sql.Date postdate;
 	private String review_id;
 	private String liked;
+	private String firstimage;
 	
 
 	public String getId() {
@@ -183,6 +184,14 @@ public class AdminUserDTO {
 
 	public void setLiked(String liked) {
 		this.liked = liked;
+	}
+
+	public String getFirstimage() {
+		return firstimage;
+	}
+
+	public void setFirstimage(String firstimage) {
+		this.firstimage = firstimage;
 	}
 
 }

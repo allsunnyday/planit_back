@@ -75,9 +75,10 @@
 						</label>
 						<hr>
 						<button id="search" class="btn btn-primary">search</button>
-					</form>
-					<button id="all" type="button" class="btn btn-primary">show
+						<button id="all" type="button" class="btn btn-primary">show
 						All</button>
+					</form>
+					
 					<br>
 				</div>
 				<!-- /form-panel -->
@@ -151,10 +152,6 @@
 			<!-- /col-md-12 -->
 		</div>
 		<!-- /row -->
-		<div class=" add-task-row">
-			<a class="btn btn-success btn-sm pull-left">Add..</a> <a
-				class="btn btn-default btn-sm pull-right">전체보기</a>
-		</div>
 	</section>
 	<!-- /wrapper -->
 </section>
