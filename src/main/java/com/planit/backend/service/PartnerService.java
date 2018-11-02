@@ -5,17 +5,17 @@ import java.util.Map;
 
 
 public interface PartnerService {
-	//
+	//파트너회원관리
 	List<PartnerDTO> selectPartnerDescList(Map map);
 
 	//이벤트 관리
 	List<PartnerDTO> selectEventList(Map map);
-	
-	List<PartnerDTO> selectReservationList();
+	List<PartnerDTO> selectEventRequestList(Map map);
+ 	//예약관리
+	List<PartnerDTO> selectReservationList(Map map);
 	
 	int getTotalCount(Map map);
 
-	List<PartnerDTO> selectPartnerAscList(Map map);
 	
 	
 }

@@ -8,7 +8,7 @@
       <section class="wrapper">
         <!-- page start-->
         <div class="row mt">
-          <div class="col-sm-3">
+         <div class="col-sm-3">
             <section class="panel">
               <div class="panel-body">
                 <a href="<c:url value='/Planit/Admin/BBS/NoticeWrite.do'/>" id="write-notice" class="btn btn-compose">
@@ -30,36 +30,32 @@
           <div class="col-sm-9 s">
             <section class="panel">
               <header class="panel-heading wht-bg asklist-head">
-          		<h2>공지사항 게시판</h2>
+          		<h5>Notice</h5>
               </header>
               <div class="panel-body minimal " id="ask-content">
-	              <table class="table table-inbox table-hover">
-	              	<tr>
-	              		<td>No.</td>
-	              		<td>제목</td>
-	              		<td>작성자</td>
-	              		<td>작성일</td>
-	              	</tr>
-	              	<c:if test="${empty noticeList}" var="isEmpty">
-	              	<tr>
-	              		<td colspan="4">
-	              		등록된 공지사항이 없습니다
-	              		</td>
-	              	</tr>
-	              	</c:if>
-	              	<c:if test="${not isEmpty }">
-	              	<c:forEach var="list" items="${noticeList}" varStatus="loop">
-	              		<tr>
-	              			<td>${list.NO}</td>
-	              			<td><a href="<c:url value='/Planit/Admin/BBS/NoticeView.do?no=${list.NO}'/>">${list.TITLE}</a></td>
-	              			<td>${list.NAME}</td>
-	              			<td>${list.POSTDATE}</td>
-	              			
-	              		</tr>
-	              	</c:forEach>
-	              	</c:if>
-	              </table>
-					
+	           <table class="table">
+				  <tr>
+				  <td>
+					${noticeView.TITLE}[${noticeView.NAME}]				  	
+				  </td>
+				  <td style="text-align: left;">
+					${noticeView.POSTDATE}			  	
+				  </td>
+				  </tr>
+				  
+				  <tr>
+				  	<td colspan="2" style="width:300px;height: 200px;">
+					${noticeView.CONTENT}			  	
+				  	
+				  	
+				  	</td>
+				  </tr>
+				</table>
+				
+				<c:if test="${SessionScope.id eq noticeView.e_id}">
+				<a class="btn btn-default" href="<c:url value='/Planit/Admin/BBS/NoticeEdit.do?no=${noticeView.NO}'/>">수정</a>
+				<a onclick="button_event();" class="btn btn-default" href="<c:url value='/Planit/Admin/BBS/NoticeDelete.do?no=${noticeView.NO}'/>">삭제</a>
+				</c:if>
                 
              <!--  -->
               </div>
@@ -72,4 +68,14 @@
     </section>
     <!-- /MAIN CONTENT -->
     <!--main content end-->
-    
+     <script type="text/javascript">
+
+	function button_event(){
+	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	    document.form.submit();
+	}else{   //취소
+	    return;
+	}
+	}
+	
+	</script>

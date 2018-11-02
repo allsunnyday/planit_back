@@ -29,17 +29,17 @@ public class PartnerDAO implements PartnerService {
 	
 	@Override
 	public int getTotalCount(Map map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.selectOne("totalCount",map);
 	}
 
 	@Override
-	public List<PartnerDTO> selectReservationList() {
-		return template.selectList("reservation");
+	public List<PartnerDTO> selectReservationList(Map map) {
+		return template.selectList("reservation",map);
 	}
 
 	@Override
-	public List<PartnerDTO> selectPartnerAscList(Map map) {
-		return template.selectList("ascList",map);
+	public List<PartnerDTO> selectEventRequestList(Map map) {
+		return template.selectList("requestEvent",map);
 	}
+
 }

@@ -47,6 +47,7 @@ public class AdminUserController {
    }
    
    
+   
    // 일반 사용자 정보 관리 화면
    @RequestMapping(value="/Planit/Admin/AdminUserInfo.do", produces="text/plain; charset=UTF-8")
    public String userInfo(@RequestParam Map map,Model model)throws Exception{
@@ -101,7 +102,7 @@ public class AdminUserController {
       return "/user/favorite/AdminFavorites.tiles";
    }
    
-   @RequestMapping(value="/Planit/Admin/AdminPlan.do",produces="text/plain; charset=UTF-8",method=RequestMethod.GET)
+   @RequestMapping("/Planit/Admin/AdminPlan.do")
    public String userPlanner(@RequestParam Map map, Model model
          ,HttpServletRequest req,
          @RequestParam(required=false,defaultValue="1") int nowPage)throws Exception{
@@ -139,34 +140,6 @@ public class AdminUserController {
       
       return "/user/planner/AdminPlanner.tiles";
    }
-   
-   
-   @ResponseBody
-   @RequestMapping(value="/Planit/Admin/AdminPlan.do",produces="text/plain; charset=UTF-8",method=RequestMethod.POST)
-   public String userInfoFavorites(@RequestParam Map map,Model model) {
-   
-      System.out.println("들어오나> "+map.get("days"));
-            
-      List<Map> collections = new Vector<Map>();
-      List<AdminUserDTO> list = new ArrayList();
-      //map.put("days", map.get("days"));
-      //System.out.println("asdasd: "+map.get("days"));
-      list=service.selectPlannerList(map);
-      
-      for(AdminUserDTO dto :list) {
-         Map record = new HashMap();
-         record.put("planner_id", dto.getPlanner_id().toString());
-         record.put("id", dto.getId());
-         record.put("days", dto.getDays().toString());
-         record.put("view_count", dto.getView_count().toString());
-         record.put("postdate", dto.getPostdate().toString());
-         collections.add(record);
-      }
-      System.out.println("사이즈:"+list.size());
-      
-      System.out.println("adsf:"+JSONArray.toJSONString(collections));
-      return JSONArray.toJSONString(collections);
-   }//////////////////
    
    
    

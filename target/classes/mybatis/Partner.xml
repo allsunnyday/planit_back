@@ -13,27 +13,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="descList" parameterType="java.util.Map" resultType="PartnerDTO">
 		select * from
-			(select a.*, rownum rw from
-				(select * from p_product pp join partner p on pp.p_id = p.p_id join u_ask_p uap on
-                uap.p_id = p.p_id join member m on m.id = uap.id join planner plan on plan.id = m.id
-                join review re on re.planner_id = plan.planner_id)a) 
-		 where  rw between #{start} and #{end}
-		 order by rating desc
+			(select a.*, rownum r from
+				(select * from partner p join p_product pp on p.p_id = pp.p_id)a)
+		where r between #{start} and #{end}
+		order by rating desc
 	</select>
 	
-		<select id="ascList" parameterType="java.util.Map" resultType="PartnerDTO">
-		select * from
-			(select a.*, rownum rw from
-				(select * from p_product pp join partner p on pp.p_id = p.p_id join u_ask_p uap on
-                uap.p_id = p.p_id join member m on m.id = uap.id join planner plan on plan.id = m.id
-                join review re on re.planner_id = plan.planner_id)a) 
-		 where  rw between #{start} and #{end}
-		 order by rating asc
+<!-- 	<select id="ascList" parameterType="java.util.Map" resultType="PartnerDTO"> -->
+<!-- 		select * from -->
+<!-- 			(select a.*, rownum r from -->
+<!-- 				(select * from partner p join p_product pp on p.p_id = pp.p_id)a) -->
+<!-- 		where r between #{start} and #{end} -->
+<!-- 		order by rating asc -->
+<!-- 	</select> -->
+	
+	<select id="requestEvent" parameterType="java.util.Map" resultType="PartnerDTO">
+		select * from event_request 
 	</select>
 	
 	<select id="eventList" parameterType="java.util.Map" resultType="PartnerDTO">
-		select * from event_request er join partner p  on p.p_id=er.p_id 
-		join p_product pp on pp.p_id = p.p_id join reservation r on r.roomcode = pp.roomcode
+		select * from event_request er 
 	</select>
 	
 	<select id="reservation" parameterType="java.util.Map" resultType="PartnerDTO">
@@ -42,6 +41,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 AND p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
 	</select>
 	
+	<select id="totalCount" parameterType="java.util.Map" resultType="Integer">
+		SELECT COUNT(*) FROM event_request	
+    	<if test="searchColumn !=null">
+    		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+    	</if>	
+	
+	</select>
 	
 
 </mapper>

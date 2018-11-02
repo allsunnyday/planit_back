@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface AdminReservationService {	
 	//Reservation목록용
-	List<AdminReservationDTO> selectReservationList();
+	List<AdminReservationDTO> selectReservationList(Map map);
 	//총합(페이징)
 	int getTotalCount(Map map);
 	//검색

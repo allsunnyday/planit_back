@@ -20,9 +20,8 @@ public class AdminUserDAO implements AdminUserService{
 
    @Override
    public List<AdminUserDTO> selectInfoList(Map map) {
-      return template.selectList("AdminUserInfoList");
+      return template.selectList("AdminUserInfoList",map);
    }
-   
    @Override
    public int getTotalCount(Map map) {
       return template.selectOne("getTotal", map);
@@ -50,14 +49,17 @@ public class AdminUserDAO implements AdminUserService{
 
    @Override
    public List<AdminUserDTO> selectPlannerList(Map map) {
-      return template.selectList("SelectPlannerList");
+      return template.selectList("SelectPlannerList",map);
    }
 
    @Override
    public List<AdminUserDTO> selectReviewList(Map map) {
-      return template.selectList("SelectReviewList");
+      return template.selectList("SelectReviewList",map);
    }
-   
+   @Override
+   public List<AdminUserDTO> selectFavoriteList(Map map) {
+      return template.selectList("SelectFavoriteList",map);
+   }
    
 
 }
