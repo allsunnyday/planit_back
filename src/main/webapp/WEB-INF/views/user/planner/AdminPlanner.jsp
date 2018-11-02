@@ -11,7 +11,7 @@
  $(function(){
 		
 	 $('#search').click(function(){
-		 alert('ttt: '+ $('#searchForm input:checked').val())
+		// alert('ttt: '+ $('#searchForm input:checked').val())
 		 $.ajax({
 			 url:"<c:url value='/Planit/Admin/AdminPlan.do'/>",
 			 data: {days:$('#searchForm input:checked').val()},
@@ -132,10 +132,6 @@
 			<!-- /col-md-12 -->
 		</div>
 		<!-- /row -->
-		<div class=" add-task-row">
-			<a class="btn btn-success btn-sm pull-left" href="#">Add..</a> 
-			<a class="btn btn-default btn-sm pull-right" href="l#">전체보기</a>
-		</div>
 	</section>
 	<!-- /wrapper -->
 </section>

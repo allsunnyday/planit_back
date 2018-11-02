@@ -57,16 +57,17 @@ public class AdminReservationController {
 				
 	@ResponseBody
 	@RequestMapping(value="/Planit/Admin/Book/List.do",produces="text/plain; charset=UTF-8", method=RequestMethod.POST)
-	public String ajaxReservation(@RequestParam Map map, @RequestParam(value="status") String sta)throws Exception{
+	public String ajaxReservation(@RequestParam Map map,Model model /*@RequestParam(value="status") String sta*/)throws Exception{
 		
 		  System.out.println("들들들?:"+map.get("status"));
 		  
-	      map.put("status", map.get("status").toString());
-	      System.out.println(sta);
+//	      map.put("status", map.get("status").toString());
+//	      System.out.println(sta);
 	      List<Map> collections = new Vector<Map>(); 
 	      List<AdminReservationDTO> list = new ArrayList();
-	      System.out.println("sta"+sta);
-	      map.put("status", sta);
+//	      System.out.println("sta"+sta);
+//	      map.put("status", sta);
+	      System.out.println("list"+list);
 	      list = service.selectReservationList(map);
 	      for(AdminReservationDTO dto :list) {
 				Map record = new HashMap();

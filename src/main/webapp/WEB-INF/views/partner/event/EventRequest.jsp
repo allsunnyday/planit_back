@@ -35,7 +35,7 @@ $(function(){
             <section class="panel">
               <header class="panel-heading wht-bg">
                 <h4 class="gen-case">
-                    이벤트 목록
+                    이벤트 요청 목록
                     <form action="#" class="pull-right mail-src-position">
                       <div class="input-append">
                         <input type="text" class="form-control " placeholder="Search Mail">
@@ -53,29 +53,36 @@ $(function(){
                 <!--  선택에 따라 변경될 내용  -->
                 <div class="table-inbox-wrap ">
                   <table class="table table-inbox table-hover">
-                    <tbody>
+                   <tbody>
                       <tr class="">
                         <td class="inbox-small-cells">
-                          <input type="checkbox" class="mail-checkbox">
                         </td>
                         <td class="view-message  dont-show">파트너사명</td>
                         <td class="view-message ">이벤트명</td>
                         <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip">status</i></td>
                         <td class="view-message  text-right">기한(18/09-19/09) </td>
                       </tr>
-                      
-                      <c:forEach var="record" items="${list}">
-	                      <tr class="unread">
-	                        <td class="inbox-small-cells">
-	                          <input type="checkbox" class="mail-checkbox">
-	                        </td>
-	                        <td class="view-message dont-show"><a href="mail_view.html">${record.p_id }</a></td>
-	                        <td class="view-message"><a href="mail_view.html">${record.title }</a></td>
-	                        <td class="view-message inbox-small-cells">${record.status }</td>
-	                        <td class="view-message text-right">${record.reqdate}</td>
-	                      </tr>
-                      </c:forEach>
-
+                      <c:if test="${empty list}" var="isEmpty">
+								<tr>
+									<td colspan="30"
+										style="text-align: center; font-size: large; font-weight: bold;">결과가
+										없습니다</td>
+								</tr>
+							</c:if>
+						<c:if test="${not isEmpty}">
+							<form action="#" id="eventList">
+	                      <c:forEach var="record" items="${list}">
+		                      <tr >
+		                        <td class="inbox-small-cells">
+		                        </td>
+		                        <td class="view-message dont-show"><a href="mail_view.html">${record.p_id }</a></td>
+		                        <td class="view-message">${record.title }</td>
+		                        <td class="view-message inbox-small-cells">${record.status }</td>
+		                        <td class="view-message text-right">${record.reqdate}</td>
+		                      </tr>
+                      		</c:forEach>
+                      		</form>
+						</c:if>
                     </tbody>
                   </table>
                 </div>

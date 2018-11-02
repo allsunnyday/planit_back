@@ -41,6 +41,7 @@
                		 <ul class="nav nav-pills nav-stacked mail-nav">
                  		 <li class="active"><a href="<c:url value='/Planit/Admin/Event/List.do?'/>"> 
                  			 <i class="fa fa-inbox"></i> 진행중인 이벤트 
+                 			 
                  			  <span class="label label-theme pull-right inbox-notification">${totalRecordCount }</span>
                  			  </a></li>
                 		  <li><!--id="click_"--><a href="<c:url value='/Planit/Admin/Event/Request.do'/>"> 
@@ -76,7 +77,6 @@
                     <tbody>
                       <tr class="">
                         <td class="inbox-small-cells">
-                          <input type="checkbox" class="mail-checkbox">
                         </td>
                         <td class="view-message  dont-show">파트너사명</td>
                         <td class="view-message ">이벤트명</td>
@@ -93,12 +93,11 @@
 						<c:if test="${not isEmpty}">
 							<form action="#" id="eventList">
 	                      <c:forEach var="record" items="${list}">
-		                      <tr class="unread">
+		                      <tr >
 		                        <td class="inbox-small-cells">
-		                          <input type="checkbox" class="mail-checkbox">
 		                        </td>
-		                        <td class="view-message dont-show"	    ><a href="mail_view.html">${record.p_id }</a></td>
-		                        <td class="view-message"><a href="mail_view.html">${record.title }</a></td>
+		                        <td class="view-message dont-show"><a href="mail_view.html">${record.p_id }</a></td>
+		                        <td class="view-message">${record.title }</td>
 		                        <td class="view-message inbox-small-cells">${record.status }</td>
 		                        <td class="view-message text-right">${record.reqdate}</td>
 		                      </tr>

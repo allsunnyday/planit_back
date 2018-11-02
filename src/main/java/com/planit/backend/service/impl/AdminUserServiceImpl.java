@@ -66,8 +66,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	}
 
 	@Override
-	public List<AdminUserDTO> selectGenderList(Map map) {
-		return dao.selectGenderList(map);
+	public int genderCount(Map map) {
+		return dao.genderCount(map);
 	}
 
 	@Override
@@ -96,6 +96,16 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@Override
 	public List<AdminUserDTO> hotReviewList(Map map) {
 		return dao.hotReviewList(map);
+	}
+
+	@Override
+	public List<AdminUserDTO> selectAgeList(Map map) {
+		return dao.selectAgeList(map);
+	}
+
+	@Override
+	public int reviewCount(Map map) {
+		return dao.reviewCount(map);
 	}
 
 	

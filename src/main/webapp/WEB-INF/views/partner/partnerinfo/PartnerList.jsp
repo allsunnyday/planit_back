@@ -24,7 +24,7 @@
 					<c:forEach var="record" items="${desclist}">
 					<div class="room-box">
 						<h5 class="text-primary">
-							업체명: <a href="<c:url value='/Planit/Admin/partner/View.do'/>" > ${record.roomtitle } </a>
+							업체명: <a href="<c:url value='#'/>" > ${record.roomtitle } </a>
 						</h5>
 						<p>${record.address }</p>
 						<p>
@@ -43,20 +43,33 @@
 			</aside>
 			<aside class="right-side">
 				<div class="user-head">
-					<a href="#" class="chat-tools btn-theme"><i class="fa fa-cog"></i>
-					</a> <a href="#" class="chat-tools btn-theme03"><i
-						class="fa fa-key"></i> </a>
+					<h3>진행중인 이벤트 ▼</h3>
+					
 				</div>
+				<c:if test="${empty list}" var="isEmpty">
+				<div style="padding-top:20%; text-align: center">
+								<tr>
+									<td colspan="3"
+										style="text-align: center; font-size: large; font-weight: bold;">진행중인 이벤트가
+										없습니다</td>
+								</tr>
+								</div>
+				</c:if>
+				<c:if test="${not isEmpty}">
 				<div class="invite-row">
 					<h4 class="pull-left">진행 이벤트</h4>
 				</div>
 				<ul class="chat-available-user">
-					<li><a href="#"> <img class="img-circle"
-							src="img/friends/fr-02.jpg" width="32"> 이벤트명 <span
-							class="text-muted">1h:02m</span>
+					<li><a href="#"> 
+					<c:forEach var="record" items="${list}" varStatus="loop">
+					<img class="img-circle"src="img/friends/fr-02.jpg" width="32">
+					<span style="font-weight:2em">
+					${record.title }
+					</span> 
+					</c:forEach>
 					</a></li>
-					
 				</ul>
+				</c:if>
 			</aside>
 		</div>
 		<!-- page end-->

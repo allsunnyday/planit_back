@@ -58,10 +58,6 @@
             
         </div>
         <!-- /row -->
-      		   <div class=" add-task-row">
-                  <a class="btn btn-success btn-sm pull-left" href="#">Add..</a>
-                  <a class="btn btn-default btn-sm pull-right" href="l#">전체보기</a>
-                </div>
                 <div class="row">
                 <div class="col-md-11">${pagingString}</div>
                 </div>

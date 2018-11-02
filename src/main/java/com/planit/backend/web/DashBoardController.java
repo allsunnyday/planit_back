@@ -1,5 +1,6 @@
 package com.planit.backend.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,24 +49,24 @@ public class DashBoardController {
 	
 		//총가입자수
 		int memberCount = userService.memberCount(map);
-		model.addAttribute("gender",memberCount);
+		model.addAttribute("memberCount",memberCount);
 		
-		List<AdminUserDTO> gender = userService.selectGenderList(map);
-		if(map.get("gender") == "M") {
-			session.setAttribute("man", map.put("gender", gender).toString());
-		}
-		//System.out.println("dd"+gender);
-		model.addAttribute("gender1",gender);
-		
+//        int man = userService.genderCount(map);
+//        model.addAttribute("man",man);
+//        System.out.println("man:"+man);
 		
 		//플래너갯수
 		int plannerCount = userService.plannerCount(map);
 		List<AdminUserDTO> planner = userService.selectPlannerList(map);
 		model.addAttribute("plannerCount",plannerCount);
-		
+		//문의갯수
 		int noticeCount = userService.noticeCount(map);
 		model.addAttribute("noticeCount",noticeCount);
-		
+		int reviewCount = userService.reviewCount(map);
+		model.addAttribute("reviewCount",reviewCount);
+		System.out.println("reviewCount"+reviewCount);
+		System.out.println("noticeCount"+noticeCount);
+		System.out.println("plannerCount"+plannerCount);
 		//리뷰조회수
 		int index=0;
 		List<AdminUserDTO> reviews = userService.selectReviewList(map);
@@ -80,7 +81,7 @@ public class DashBoardController {
 		model.addAttribute("review",review);
 		
 		
-		//인기여행지 view_count빼오기
+		// view_count빼오기
 		List<AdminUserDTO> hotTour = userService.hotTourList(map);
 		model.addAttribute("hotTour",hotTour);
 		List<AdminUserDTO> hotPlanner = userService.hotPlannerList(map);
@@ -90,6 +91,21 @@ public class DashBoardController {
 		
 		
 		
+		//
+//		List<AdminUserDTO> age = userService.selectAgeList(map);
+//		model.addAttribute("age",age);
+//		if(list != null){
+//			for(int i=0; i<list.size(); i++) {
+//			switch(list.size()/10*10) {	
+//			case 0: 
+//				return "10";
+//			case 1:
+//				return "20";
+//			case 2:
+//				return "30";
+//				}	
+//			}
+//		}
 		
 		return "analysis/Dashboard.tiles";
 	}

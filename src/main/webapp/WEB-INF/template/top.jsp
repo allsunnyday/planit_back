@@ -57,10 +57,10 @@
               </a>
             <ul class="sub">
               <li><a href="<c:url value='/Planit/Admin/AdminUserInfo.do'/> ">회원정보</a></li>
+               <li><a href="<c:url value='/Planit/Admin/AdminPlan.do'/> ">플래너</a></li>
+               <li><a href="<c:url value='/Planit/Admin/Book/List.do'/>">숙박예약관리</a></li>
               <li><a href="<c:url value='/Planit/Admin/AdminFavorites.do'/> ">즐겨찾기</a></li>
-              <li><a href="<c:url value='/Planit/Admin/AdminPlan.do'/> ">플래너</a></li>
               <li><a href="<c:url value='/Planit/Admin/AdminReview.do'/> ">리뷰</a></li>
-              <li><a href="<c:url value='/Planit/Admin/Book/List.do'/>">숙박예약관리</a></li>
             </ul>
           </li>
           <li class="sub-menu">

@@ -105,10 +105,6 @@
           <!-- /col-md-12 -->
         </div>
         <!-- /row -->
-      		   <div class=" add-task-row">
-                  <a class="btn btn-success btn-sm pull-left" href="#">Add..</a>
-                  <a class="btn btn-default btn-sm pull-right" href="l#">전체보기</a>
-                </div>
       </section>
       <!-- /wrapper -->
     </section>
