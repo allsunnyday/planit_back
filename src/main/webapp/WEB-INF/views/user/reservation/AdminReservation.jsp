@@ -7,26 +7,26 @@
 	***********************************	
  -->
  <script>
-  $(function(){
-	  $('#search').click(function(){
-		  //alert('ttt: '+$('#searchForm input:checked').val()))
-		  $.ajax({
-			  url:'<c:url value="/Planit/Admin/Book/List.do"/>',
-			  data:{status:$('#searchForm input:checked').val()},
-			  datatType:'json',
-			  type:'post',
-			  success:function(data){
-			    	 displayReservation(data,'#checklist'); 
-			     },
-			  error:function(request, status, error){
-			    	 console.log('error:'+error);
-			     }
-		  })
-	  });
-  });
-		 var displayReservation = function(data){
-			 consoloe.log(JSON.stringify(data))
-		 }
+//   $(function(){
+// 	  $('#search').click(function(){
+// 		  //alert('ttt: '+$('#searchForm input:checked').val()))
+// 		  $.ajax({
+// 			  url:'<c:url value="/Planit/Admin/Book/List.do"/>',
+// 			  data:{status:$('#searchForm input:checked').val()},
+// 			  datatType:'json',
+// 			  type:'post',
+// 			  success:function(data){
+// 			    	 displayReservation(data,'#checklist'); 
+// 			     },
+// 			  error:function(request, status, error){
+// 			    	 console.log('error:'+error);
+// 			     }
+// 		  })
+// 	  });
+//   });
+// 		 var displayReservation = function(data){
+// 			 consoloe.log(JSON.stringify(data))
+// 		 }
  
  
  </script>
@@ -46,8 +46,8 @@
 					    <label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox2" value="cancel"> cancel</label> 
 					    <label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox3" value="paid"> paid</label> 
 						<hr>
-						<button id="search" class="btn btn-default">조회</button>
-						<button id="searchAll" class="btn btn-primary">전체 조회</button>
+<!-- 						<button id="search" class="btn btn-default">조회</button> -->
+<!-- 						<button id="searchAll" class="btn btn-primary">전체 조회</button> -->
 					</form>
 				<br>
             </div>
