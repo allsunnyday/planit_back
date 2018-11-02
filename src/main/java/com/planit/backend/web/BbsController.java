@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.planit.backend.service.AskService;
+import com.planit.backend.service.BbsService;
 import com.planit.backend.service.PartnerAskDTO;
 import com.planit.backend.service.UserAskDTO;
 
@@ -25,7 +26,8 @@ public class BbsController {
 	
 	@Resource(name="askService")
 	private AskService askService;
-	
+	@Resource(name="bbsService")
+	private BbsService bbsService;
 	// 이동
 	@RequestMapping("/Planit/Admin/BBS/AskList.do")
 	public String gotoAskList(@RequestParam Map map	// 데이터를 보내기 위한 모델
@@ -39,7 +41,12 @@ public class BbsController {
 //    <li><a href="<c:url value='/Planit/Admin/BBS/AskList.do'/> ">문의게시판</a></li>
 //    <li><a href="<c:url value='/Planit/Admin/BBS/RequestUpList.do'/>">정보수정건의</a></li>
 	@RequestMapping("/Planit/Admin/BBS/NoticeList.do")
-	public String gotoNoticeList()throws Exception{
+	public String gotoNoticeList(Model model)throws Exception{
+		System.out.println("여기들어오긴 하냐");
+		List<Map> noticeList=bbsService.selectNoticeList();
+		System.out.println("noticeList:"+noticeList==null?"없다":"있다");
+		model.addAttribute("noticeList", noticeList);
+		
 		return "bbs/notice/NoticeBbsList.tiles";
 	}
 	

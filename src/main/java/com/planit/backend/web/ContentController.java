@@ -28,6 +28,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.planit.backend.service.ContentDTO;
 import com.planit.backend.service.ContentService;
@@ -50,6 +51,7 @@ public class ContentController {
 		
 		return "contents/UpdateList.tiles";
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/tourapi/AjaxJson.do",produces="text/plain; charset=UTF-8")
@@ -200,6 +202,7 @@ public class ContentController {
 					+jsonobj.get("firstimage2")+","
 					+jsonobj.get("sigungucode")+","
 					+jsonobj.get("zipcode")
+					
 					);
 			fw.newLine();
 			/// contentDTO
@@ -220,6 +223,7 @@ public class ContentController {
 			dto.setFirstimage2(jsonobj.get("firstimage2")==null?"":jsonobj.get("firstimage2").toString());
 			dto.setSigungucode(jsonobj.get("sigungucode")==null?"":jsonobj.get("sigungucode").toString());
 			dto.setZipcode(jsonobj.get("zipcode")==null?"":jsonobj.get("zipcode").toString());
+			
 			contents.add(dto);
 		}
 		

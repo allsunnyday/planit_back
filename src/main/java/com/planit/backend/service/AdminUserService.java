@@ -6,7 +6,12 @@ import java.util.Map;
 public interface AdminUserService {	
 	//Info목록용
 	List<AdminUserDTO> selectInfoList(Map map);
-	
+
+	//플래너
+	List<AdminUserDTO> selectPlannerList(Map map);
+	//리뷰
+	List<AdminUserDTO> selectReviewList(Map map);
+
 	//총합(페이징)
 	int getTotalCount(Map map);
 	
@@ -17,5 +22,6 @@ public interface AdminUserService {
 	int insert(AdminUserDTO dto);
 	int update(AdminUserDTO dto);
 	int delete(AdminUserDTO dto);
+
 	
 }

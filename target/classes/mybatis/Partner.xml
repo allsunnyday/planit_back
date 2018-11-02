@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	*변경사항*
+	mapper 파일의 완전한 경로 . xml은 생략
+	ibatis와는 다르게 id값에 '.'를 사용하지 못함
+	namespace: 위치를 적어준다.
+ -->
+<mapper namespace="mybatis.Partner">
+	
+	<select id="descList" parameterType="java.util.Map" resultType="PartnerDTO">
+		select * from
+			(select a.*, rownum rw from
+				(select * from p_product pp join partner p on pp.p_id = p.p_id join u_ask_p uap on
+                uap.p_id = p.p_id join member m on m.id = uap.id join planner plan on plan.id = m.id
+                join review re on re.planner_id = plan.planner_id)a) 
+		 where  rw between #{start} and #{end}
+		 order by rating desc
+	</select>
+	
+		<select id="ascList" parameterType="java.util.Map" resultType="PartnerDTO">
+		select * from
+			(select a.*, rownum rw from
+				(select * from p_product pp join partner p on pp.p_id = p.p_id join u_ask_p uap on
+                uap.p_id = p.p_id join member m on m.id = uap.id join planner plan on plan.id = m.id
+                join review re on re.planner_id = plan.planner_id)a) 
+		 where  rw between #{start} and #{end}
+		 order by rating asc
+	</select>
+	
+	<select id="eventList" parameterType="java.util.Map" resultType="PartnerDTO">
+		select * from event_request er join partner p  on p.p_id=er.p_id 
+		join p_product pp on pp.p_id = p.p_id join reservation r on r.roomcode = pp.roomcode
+	</select>
+	
+	<select id="reservation" parameterType="java.util.Map" resultType="PartnerDTO">
+			select r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id
+		 FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id
+		 AND p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
+	</select>
+	
+	
+
+</mapper>
