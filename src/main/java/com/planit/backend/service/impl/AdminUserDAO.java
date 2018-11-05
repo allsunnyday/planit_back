@@ -97,6 +97,42 @@ public class AdminUserDAO implements AdminUserService{
 	public int reviewCount(Map map) {
 		return template.selectOne("reviewCount",map);
 	}
+	@Override
+	public int gender1Count(Map map) {
+		return template.selectOne("genderCount1",map);
+	}
+	@Override
+	public int seoulCount(Map map) {
+		return template.selectOne("seoulCount",map);
+	}
+	@Override
+	public int gyeonggiCount(Map map) {
+		return template.selectOne("gyeonggiCount",map);
+	}
+	@Override
+	public int incheonCount(Map map) {
+		return template.selectOne("incheonCount",map);
+	}
+	@Override
+	public int gangwonCount(Map map) {
+		return template.selectOne("gangwonCount",map);
+	}
+	@Override
+	public int gyeongsangCount(Map map) {
+		return template.selectOne("gyeongsangCount",map);
+	}
+	@Override
+	public int jeollaCount(Map map) {
+		return template.selectOne("jeollaCount",map);
+	}
+	@Override
+	public int jejuCount(Map map) {
+		return template.selectOne("jejuCount",map);
+	}
+	@Override
+	public int chungcheongCount(Map map) {
+		return template.selectOne("chungcheongCount",map);
+	}
 	
 
 }

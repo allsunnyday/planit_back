@@ -45,7 +45,7 @@ public class DashBoardController {
 			session.setAttribute("master", admin.getE_id());
 		}
 		session.setAttribute("admin", admin.getName());
-		//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 	
 		//총가입자수
 		int memberCount = userService.memberCount(map);
@@ -67,18 +67,19 @@ public class DashBoardController {
 		System.out.println("reviewCount"+reviewCount);
 		System.out.println("noticeCount"+noticeCount);
 		System.out.println("plannerCount"+plannerCount);
+		
 		//리뷰조회수
-		int index=0;
-		List<AdminUserDTO> reviews = userService.selectReviewList(map);
-		String review[] = new String[reviews.size()];
-		for(AdminUserDTO dto : reviews){
-			if(index<=reviews.size())
-				index++;
-		}
-//		map.put("review", review[i]);
-		System.out.println(review);
-		System.out.println(reviews);
-		model.addAttribute("review",review);
+//		int index=0;
+//		List<AdminUserDTO> reviews = userService.selectReviewList(map);
+//		String review[] = new String[reviews.size()];
+//		for(AdminUserDTO dto : reviews){
+//			if(index<=reviews.size())
+//				index++;
+//		}
+////		map.put("review", review[i]);
+//		System.out.println(review);
+//		System.out.println(reviews);
+//		model.addAttribute("review",review);
 		
 		
 		// view_count빼오기
@@ -89,6 +90,34 @@ public class DashBoardController {
 		List<AdminUserDTO> hotReview = userService.hotReviewList(map);
 		model.addAttribute("hotReview",hotReview);
 		
+		int male = userService.genderCount(map);
+		model.addAttribute("male",male);
+		int female = userService.gender1Count(map);
+		model.addAttribute("female",female);
+		
+		int seoul = userService.seoulCount(map);
+		model.addAttribute("seoul",seoul);
+		
+		int incheon = userService.incheonCount(map);
+		model.addAttribute("incheon",incheon);
+		
+		int gyeonggi = userService.gyeonggiCount(map);
+		model.addAttribute("gyeonggi",gyeonggi);
+		
+		int gangwon = userService.gangwonCount(map);
+		model.addAttribute("gangwon",gangwon);
+		
+		int gyeongsang = userService.gyeongsangCount(map);
+		model.addAttribute("gyeongsang",gyeongsang);
+		
+		int jeolla = userService.jeollaCount(map);
+		model.addAttribute("jeolla",jeolla);
+		
+		int jeju = userService.jejuCount(map);
+		model.addAttribute("jeju",jeju);
+		
+		int chungcheong = userService.chungcheongCount(map);
+		model.addAttribute("chungcheong",chungcheong);
 		
 		
 		//

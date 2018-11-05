@@ -38,20 +38,20 @@
           <div class="col-lg-12 main-chart">
             <!--CUSTOM CHART START -->
             <div class="border-head">
-              <h3>PLANIT </h3>
+              <h3>PLANIT 이용자수 >> <span style="color:red; font-size:2em;">${memberCount }</span> 명</h3>
             </div>
             <ul>
             	<li>
-            	 총 가입자 :&nbsp;${memberCount}명
+<%--             	<span style="color:red; font-size:2em; font-style:oblique;"> 총 가입자 :&nbsp;${memberCount}명</span> --%>
             	</li>
             </ul>
             <div class="col-md-4col-sm-4 custom-bar-chart" >
                 <ul class="y-axis">
-                <li><span>30</span></li>
+                <li><span>100</span></li>
+                <li><span>80</span></li>
+                <li><span>60</span></li>
+                <li><span>40</span></li>
                 <li><span>20</span></li>
-                <li><span>15</span></li>
-                <li><span>10</span></li>
-                <li><span>5</span></li>
                 <li><span>0</span></li>
                
               </ul>
@@ -59,11 +59,11 @@
               
               <div class="bar">
                 <div class="title" style="font-size:1em;" >MAN</div>
-                <div  class="value tooltips" data-original-title="M" data-toggle="tooltip" data-placement="top">42%</div>
+                <div  class="value tooltips" data-original-title="${male }" data-toggle="tooltip" data-placement="top">${male }%</div>
               </div>
               <div class="bar">
                 <div class="title" style="font-size:1em">WOMAN</div>
-                <div class="value tooltips" data-original-title="W" data-toggle="tooltip" data-placement="top">40%</div>
+                <div class="value tooltips" data-original-title="${female }" data-toggle="tooltip" data-placement="top">${female }%</div>
               </div>
              
                <div class="col-sm-4 col-xs-2">
@@ -88,95 +88,94 @@
 	            </div>
              
             <!--custom chart end-->
-            <div class="row mt">
-              <!-- SERVER STATUS PANELS -->
-              <div class="col-md-3 col-sm-3 mb">
-                <div class="grey-panel pn donut-chart">
-                  <div class="grey-header">
-                    <h5>나이별</h5>
-                  </div>
-                  <canvas id="serverstatus01" height="120" width="120"></canvas>
-                  <script>
-                    var doughnutData = [{
-                        value: 40,
-                        color: "#FF6B6B"
-                      },
-                      {
-                        value: 20,
-                        color: "#ff7e6a"
-                      },
-                      {
-                      value: 30,
-                      color: "#7da5a3"
-                    },
-                    {
-                      value: 10,
-                      color: "#4a094c"
-                    }
-                    ];
-                    var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-                  </script>
-                  <div class="row">
-                    <div class="col-sm-6 col-xs-6 goleft">
-                      <p>Usage<br/>Increase:</p>
-                    </div>
-                    <div class="col-sm-6 col-xs-6">
-                    </div>
-                  </div>
-                </div>
-                <!-- /grey-panel -->
-              </div>
-              <!-- /col-md-4-->
-              <div class="col-md-3 col-sm-3 mb">
-                <div class="darkblue-panel pn">
-                  <div class="darkblue-header">
-                    <h5>DROPBOX STATICS</h5>
-                  </div>
-                  <canvas id="serverstatus02" height="120" width="120"></canvas>
-                  <script>
-                    var doughnutData = [{
-                        value: 60,
-                        color: "#1c9ca7"
-                      },
-                      {
-                        value: 40,
-                        color: "#f68275"
-                      }
-                    ];
-                    var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-                  </script>
-                  <p>April 17, 2014</p>
-<!--                   <footer> -->
-<!--                     <div class="pull-left"> -->
-<!--                       <h5><i class="fa fa-hdd-o"></i> 17 GB</h5> -->
+<!--             <div class="row mt"> -->
+<!--               SERVER STATUS PANELS -->
+<!--               <div class="col-md-3 col-sm-3 mb"> -->
+<!--                 <div class="grey-panel pn donut-chart"> -->
+<!--                   <div class="grey-header"> -->
+<!--                     <h5>나이별</h5> -->
+<!--                   </div> -->
+<%--                   <canvas id="serverstatus01" height="120" width="120"></canvas> --%>
+<!--                   <script> -->
+<!--                      var doughnutData = [{ -->
+<!--                          value: 40, -->
+<!--                        color: "#FF6B6B" -->
+<!-- //                       }, -->
+<!-- //                       { -->
+<!-- //                         value: 20, -->
+<!-- //                         color: "#ff7e6a" -->
+<!-- //                       }, -->
+<!-- //                       { -->
+<!-- //                       value: 30, -->
+<!-- //                       color: "#7da5a3" -->
+<!-- //                     }, -->
+<!-- //                     { -->
+<!-- //                       value: 10, -->
+<!-- //                       color: "#4a094c" -->
+<!-- //                     } -->
+<!-- //                     ]; -->
+<!-- //                     var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData); -->
+<!--                   </script> -->
+<!--                   <div class="row"> -->
+<!--                     <div class="col-sm-6 col-xs-6 goleft"> -->
+<!--                       <p>Usage<br/>Increase:</p> -->
 <!--                     </div> -->
-<!--                     <div class="pull-right"> -->
-<!--                       <h5>60% Used</h5> -->
+<!--                     <div class="col-sm-6 col-xs-6"> -->
 <!--                     </div> -->
-<!--                   </footer> -->
-                </div>
-                <!--  /darkblue panel -->
-              </div>
-              <!-- /col-md-4 -->
-              <div class="col-md-6 col-sm-6 mb">
-                <!-- REVENUE PANEL -->
-                <div id="ddd"class="green-panel pn">
-                  <div class="green-header">
-                    <h5>????</h5>
-                  </div>
-                  <div class="chart mt">
-<%--                   <c:forEach items="${review }" var="record"> --%>
-                    <div class="sparkline" data-type="line" data-resize="true" 
-                    data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" 
-                    data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" 
-                    data-spot-radius="4" data-data="[0,9,0,8,0,7,16,5,4]"></div>
-<%--                     </c:forEach> --%>
-                  </div>
-                  <p class="mt"><b>? : ?</b><br/>Month Income</p>
-                </div>
-              </div>
-              <!-- /col-md-4 -->
-            </div>
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 /grey-panel -->
+<!--               </div> -->
+<!--               /col-md-4 -->
+<!--               <div class="col-md-3 col-sm-3 mb"> -->
+<!--                 <div class="darkblue-panel pn"> -->
+<!--                   <div class="darkblue-header"> -->
+<!--                   </div> -->
+<%--                   <canvas id="serverstatus02" height="120" width="120"></canvas> --%>
+<!--                   <script> -->
+<!-- //                     var doughnutData = [{ -->
+<!-- //                         value: 60, -->
+<!-- //                         color: "#1c9ca7" -->
+<!-- //                       }, -->
+<!-- //                       { -->
+<!-- //                         value: 40, -->
+<!-- //                         color: "#f68275" -->
+<!-- //                       } -->
+<!-- //                     ]; -->
+<!-- //                     var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData); -->
+<!--                   </script> -->
+<!--                   <p>April 17, 2014</p> -->
+<!-- <!--                   <footer> --> 
+<!-- <!--                     <div class="pull-left"> --> 
+<!-- <!--                       <h5><i class="fa fa-hdd-o"></i> 17 GB</h5> --> 
+<!-- <!--                     </div> -->
+<!-- <!--                     <div class="pull-right"> --> 
+<!-- <!--                       <h5>60% Used</h5> --> 
+<!-- <!--                     </div> --> 
+<!-- <!--                   </footer> --> 
+<!--                 </div> -->
+<!--                  /darkblue panel -->
+<!--               </div> -->
+<!--               /col-md-4 -->
+<!--               <div class="col-md-6 col-sm-6 mb"> -->
+<!--                 REVENUE PANEL -->
+<!--                 <div id="ddd"class="green-panel pn"> -->
+<!--                   <div class="green-header"> -->
+<!--                     <h5>????</h5> -->
+<!--                   </div> -->
+<!--                   <div class="chart mt"> -->
+<%-- <%--                   <c:forEach items="${review }" var="record"> --%> 
+<!--                     <div class="sparkline" data-type="line" data-resize="true"  -->
+<!--                     data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff"  -->
+<!--                     data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff"  -->
+<!--                     data-spot-radius="4" data-data="[0,9,0,8,0,7,16,5,4]"></div> -->
+<%-- <%--                     </c:forEach> --%> 
+<!--                   </div> -->
+<!--                   <p class="mt"><b>? : ?</b><br/>Month Income</p> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--               /col-md-4 -->
+<!--             </div> -->
             <!-- /row -->
             <div class="row">
               <!-- WEATHER PANEL -->
@@ -222,23 +221,25 @@
                <div class="col-lg-4 col-md-4 col-sm-4 mb">
                	 <div  id="ddddd"class="product-panel-2 pn" >
                   	<div class="badge badge-hot">HOT</div>
+                  	
                  		<c:forEach var="record" items="${hotTour}">
-                  			<img src="${record.firstimage }" width="200" alt="">
+                  			<img src="${record.firstimage }" width="235" alt=""">
                  			 <h4 class="mt">인기 여행지&nbsp;:&nbsp;${record.title }</h4>
-                 			 <h6>TOTAL VIEW: ${record.liked_t_id}</h6>
+                 			 <h6>TOTAL VIEW: ${record.viewcount}</h6>
                   			</c:forEach>
-                  		<button class="btn btn-small btn-theme04">FULL REPORT</button>
+<!--                   		<button class="btn btn-small btn-theme04">FULL REPORT</button> -->
                 	</div>
                 </div>
             <div class="col-lg-4 col-md-4 col-sm-4 mb">
                 <div  id="ddddd"class="product-panel-2 pn">
                   <div class="badge badge-hot">HOT</div>
                  	 <img src="data:image/png;base64,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" width="235" alt="">
-                 		<c:forEach var="record" items="${hotPlanner}">
-                  			<h4 class="mt">인기 플래너&nbsp;:&nbsp;${record.id }</h4>
+                 		
+                  			<h4 class="mt">가장 많이 이용하는 유저&nbsp;:&nbsp;${hotPlanner}</h4>
+                  			<c:forEach var="record" items="${hotPlanner}">
                  			 <h6>TOTAL VIEW&nbsp;:&nbsp; ${record.liked}</h6>
                   		 </c:forEach>
-                 			 <button class="btn btn-small btn-theme04">FULL REPORT</button>
+<!--                  			 <button class="btn btn-small btn-theme04">FULL REPORT</button> -->
                		 </div>
                 </div>
                 
@@ -250,7 +251,7 @@
                  					 <h4 class="mt">인기 리뷰&nbsp;:&nbsp;${record.title }</h4>
                   					<h6>TOTAL like&nbsp;:&nbsp;${record.liked } </h6>
                   				 </c:forEach>
-                  			<button class="btn btn-small btn-theme04">FULL REPORT</button>
+<!--                   			<button class="btn btn-small btn-theme04">FULL REPORT</button> -->
                 	</div>
              	 </div>
               
@@ -344,8 +345,67 @@
             <!-- /row -->
           </div>
           <!-- /col-lg-9 END SECTION MIDDLE -->
+         
         </div>
-        <!-- /row -->
+        		<div id="chart_div" ></div>
+				<div id="chart_div1" style="width:100%;height:700px"></div>
+				
       </section>
     </section>
-    <!--main content end-->
+
+   
+    <!--******************** 구글차트 ************************88-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script>
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['서울', ${seoul}],
+          ['경기도',${gyeonggi}],
+          ['인천',${incheon}],
+          ['강원도',${gangwon}],
+          ['경상도',${gyeongsang}],
+          ['전라도',${jeolla}],
+          ['제주도', ${jeju}],
+          ['충청도', ${chungcheong}]
+        ]);
+        var options = {'title':'PLANIT 사용자들이 다니는 관광지 비율(planner로 직접 다닌)',
+                       'width':2500,
+                       'height':400,
+                       'backgroundColor':'#EAEAEA'};
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+   //*******************************숙박업체 등록현황***********************************************************/////
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        var data = google.visualization.arrayToDataTable([
+         ['Month', '아주 좋은 방', '스탠다드 베이직', '아주 아주 좋은 방', '좋은 방'],
+         ['2018/09',  165,      938,         522,             998    ],
+         ['2018/10',  135,      1120,        599,             1268   ],
+         ['2018/11',  157,      1167,        587,             807    ],
+         ['2018/12',  139,      1110,        615,             968    ],
+      ]);
+
+    var options = {
+      title : '파트너 숙소 등록 업체 ',
+      vAxis: {title: '등록 현황'},
+      hAxis: {title: '숙박업소 등록일'},
+      seriesType: 'bars',
+      series: {5: {type: 'line'}},
+      backgroundColor:"#EAEAEA"
+    };
+
+    var chart = new google.visualization.ComboChart(document.getElementById('chart_div1'));
+    chart.draw(data, options);
+  }
+
+</script>

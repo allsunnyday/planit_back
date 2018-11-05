@@ -34,7 +34,7 @@ public class AdminUserController {
 	@Value("${BLOCK_SIZE}")
 	private int blockPage;
 	
-	//회원 정보 삭제
+//+++++++++++++++++++++ 회원정보삭제?+++++++++++++++++++++++++++
 	@RequestMapping("/Planit/Admin/AdminUserDelete.do")
 	public String deleteInfo(@RequestParam Map map) throws Exception{
 		AdminUserDTO dto = new AdminUserDTO();
@@ -46,20 +46,8 @@ public class AdminUserController {
 		return "/Planit/Admin/AdminUserInfo.do";
 	}
 	
-	
-	// 일반 사용자 정보 관리 화면
-	@RequestMapping(value="/Planit/Admin/AdminUserInfo.do", produces="text/plain; charset=UTF-8")
-	public String userInfo(@RequestParam Map map,Model model)throws Exception{
-		System.out.println("userInfo호출");
-		List<AdminUserDTO> list = service.selectInfoList(map);
-		model.addAttribute("list", list);
 		
-		return "/user/info/AdminUserInfo.tiles";
-	}
-	
-	
-	
-	// 사용자 즐겨찾기 
+ //+++++++++++++++++++++ 즐겨찾기+++++++++++++++++++++++++++ 
 	@RequestMapping("/Planit/Admin/AdminFavorites.do")
 	public String userFavorite(@RequestParam Map map, Model model
 			,HttpServletRequest req,
@@ -67,7 +55,6 @@ public class AdminUserController {
 		
 		System.out.println("들어오는지");
 		
-	
 		// 이 페이지에 맞게 바꾸기
 		if(map.get("searchColumn")!= null) {
 			model.addAttribute("searchColumn",map.get("searchColumn"));
@@ -96,11 +83,12 @@ public class AdminUserController {
 		model.addAttribute("nowPage", nowPage);
 		
 		model.addAttribute("list",list);
-		
-		
+	
 		return "/user/favorite/AdminFavorites.tiles";
 	}
+
 	
+ //+++++++++++++++++++++ PLANNER GET+++++++++++++++++++++++++++
 	@RequestMapping(value="/Planit/Admin/AdminPlan.do",produces="text/plain; charset=UTF-8",method=RequestMethod.GET)
 	public String userPlanner(@RequestParam Map map, Model model
 			,HttpServletRequest req,
@@ -133,14 +121,11 @@ public class AdminUserController {
 		model.addAttribute("nowPage", nowPage);
 		
 		model.addAttribute("list",list);
-		
-		
-		
-		
+			
 		return "/user/planner/AdminPlanner.tiles";
 	}
 	
-	
+//+++++++++++++++++++++ PLANNER POST+++++++++++++++++++++++++++
 	@ResponseBody
 	@RequestMapping(value="/Planit/Admin/AdminPlan.do",produces="text/plain; charset=UTF-8",method=RequestMethod.POST)
 	public String userInfoFavorites(@RequestParam Map map,Model model) {
@@ -158,7 +143,7 @@ public class AdminUserController {
 			record.put("planner_id", dto.getPlanner_id().toString());
 			record.put("id", dto.getId());
 			record.put("days", dto.getDays().toString());
-			record.put("view_count", dto.getView_count().toString());
+			record.put("view_count", dto.getViewcount().toString());
 			record.put("postdate", dto.getPostdate().toString());
 			collections.add(record);
 		}
@@ -169,6 +154,7 @@ public class AdminUserController {
 	}//////////////////
 	
 	
+//+++++++++++++++++++++ 사용자 리뷰+++++++++++++++++++++++++++
 	
 	@RequestMapping("/Planit/Admin/AdminReview.do")
 	public String userReview(@RequestParam Map map, Model model
@@ -212,17 +198,45 @@ public class AdminUserController {
 	
 
    
-   // 일반 사용자 정보 관리 화면
+//+++++++++++++++++++++ 일반 사용자 검색 조회 GET+++++++++++++++++++++++++++
+	
    @RequestMapping(value="/Planit/Admin/AdminUserInfo.do", produces="text/plain; charset=UTF-8", method=RequestMethod.GET)
-   public String userInfo(Model model, @RequestParam Map map)throws Exception{
+   public String userInfo(@RequestParam Map map, Model model
+			,HttpServletRequest req,
+			@RequestParam(required=false,defaultValue="1") int nowPage)throws Exception{
       System.out.println("userInfo호출");
+      
+      if(map.get("searchColumn")!= null) {
+			model.addAttribute("searchColumn",map.get("searchColumn"));
+			model.addAttribute("searchWord",map.get("searchWord"));
+		}
+		int totalCount = service.getTotalCount(map);
+		int totalPage = (int)Math.ceil(((double)totalCount/pageSize));
+		int start = (nowPage-1)*pageSize+1;
+		int end  = nowPage*pageSize;
+		map.put("start", start);
+		map.put("end", end);
       List<AdminUserDTO> list = service.selectInfoList(map);
-      model.addAttribute("list", list);
+      String pagingString = CommonUtil.pagingBootStrapStyle(
+				totalCount,
+				pageSize, 
+				blockPage, 
+				nowPage, 
+				req.getContextPath()+"/Planit/Admin/AdminUserInfo.do?");
+
+		model.addAttribute("list", list);
+		model.addAttribute("pagingString", pagingString);
+		model.addAttribute("totalRecordCount", totalCount);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("nowPage", nowPage);
+        model.addAttribute("list", list);
       
       
       return "/user/info/AdminUserInfo.tiles";
    }
-   //일반 사용자 검색 조회
+   
+//+++++++++++++++++++++ 일반 사용자 검색 조회 POST+++++++++++++++++++++++++++
+   
    @ResponseBody
    @RequestMapping(value="/Planit/Admin/AdminUserInfo.do", produces="text/plain; charset=UTF-8",method=RequestMethod.POST)
    public String userInfoAjax(@RequestParam Map map, @RequestParam(value="age") List<String> ages) {

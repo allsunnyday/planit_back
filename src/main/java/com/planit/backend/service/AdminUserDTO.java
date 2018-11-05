@@ -19,7 +19,7 @@ public class AdminUserDTO {
 	private String title;
 	private String planner_id;
 	private String days;
-	private String view_count;
+	private String viewcount;
 	private java.sql.Date postdate;
 	private String review_id;
 	private String liked;
@@ -154,12 +154,12 @@ public class AdminUserDTO {
 		this.days = days;
 	}
 
-	public String getView_count() {
-		return view_count;
+	public String getViewcount() {
+		return viewcount;
 	}
 
-	public void setView_count(String view_count) {
-		this.view_count = view_count;
+	public void setViewcount(String viewcount) {
+		this.viewcount = viewcount;
 	}
 
 	public java.sql.Date getPostdate() {

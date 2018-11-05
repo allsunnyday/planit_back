@@ -46,5 +46,17 @@ public class PartnerServiceImpl implements PartnerService{
 	}
 
 
+	@Override
+	public  PartnerDTO eventView(Map map) {
+		return dao.eventView(map);
+	}
+
+
+	@Override
+	public int update(Map map) {
+		return dao.update(map);
+	}
+
+
 
 }

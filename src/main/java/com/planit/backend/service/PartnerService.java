@@ -16,6 +16,7 @@ public interface PartnerService {
 	
 	int getTotalCount(Map map);
 
-	
+	int update(Map map);
+	PartnerDTO eventView(Map map);
 	
 }

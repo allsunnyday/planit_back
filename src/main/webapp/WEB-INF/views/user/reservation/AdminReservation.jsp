@@ -7,27 +7,37 @@
 	***********************************	
  -->
  <script>
-//   $(function(){
-// 	  $('#search').click(function(){
-// 		  //alert('ttt: '+$('#searchForm input:checked').val()))
-// 		  $.ajax({
-// 			  url:'<c:url value="/Planit/Admin/Book/List.do"/>',
-// 			  data:{status:$('#searchForm input:checked').val()},
-// 			  datatType:'json',
-// 			  type:'post',
-// 			  success:function(data){
-// 			    	 displayReservation(data,'#checklist'); 
-// 			     },
-// 			  error:function(request, status, error){
-// 			    	 console.log('error:'+error);
-// 			     }
-// 		  })
-// 	  });
-//   });
-// 		 var displayReservation = function(data){
-// 			 consoloe.log(JSON.stringify(data))
-// 		 }
- 
+  $(function(){
+	  $('#search').click(function(){
+		  //alert('ttt: '+$('#searchForm input:checked').val())
+		  $.ajax({
+			  url:'<c:url value="/Planit/Admin/Book/List.do?"/>',
+			  data:{status:$('#searchForm input:checked').val()},
+			  datatType:'json',
+			  type:'post',
+			  success:function(data){
+			    	 displayReservation(data,'#checklist'); 
+			     },
+			  error:function(request, status, error){
+			    	 console.log('error:'+error);
+			     }
+		  })
+	  });
+  });
+		 var displayReservation = function(data){
+			 consoloe.log(JSON.stringify(data))
+		 }
+  //전체 체크/해제
+	$(function(){ 
+		  $("#allCheck").click(function(){
+			   if($("#allCheck").prop("checked")) { 
+				    $("input[type=checkbox]").prop("checked",true); 
+				    } 
+			   else { 
+				    $("input[type=checkbox]").prop("checked",false); 
+				    } 
+			   }) 
+		  }) 
  
  </script>
  <!--main content start-->
@@ -46,8 +56,8 @@
 					    <label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox2" value="cancel"> cancel</label> 
 					    <label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox3" value="paid"> paid</label> 
 						<hr>
-<!-- 						<button id="search" class="btn btn-default">조회</button> -->
-<!-- 						<button id="searchAll" class="btn btn-primary">전체 조회</button> -->
+						<button id="search" class="btn btn-default">조회</button>
+						<button id="searchAll" class="btn btn-primary">전체 조회</button>
 					</form>
 				<br>
             </div>
@@ -64,7 +74,9 @@
               <table class="table table-striped table-advance table-hover">
                 <thead>
                   <tr>
-                  	<th></th>
+                  	<th>
+					<input type="checkbox" class="list-child" id="allCheck" />
+					</th>
                     <th><i class="fa fa-bullhorn"></i> Reservation_ID</th>
                     <th><i class="fa fa-bullhorn"></i> Client_ID</th>
                     <th><i class="fa fa-bullhorn"></i> Partner_ID</th>
@@ -77,7 +89,7 @@
                 <tbody>
                 <c:if test="${empty list}" var="isEmpty">
 					<tr>
-						<td colspan="3" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
+						<td colspan="30" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
 					</tr>
 				</c:if>
 				<c:if test="${not isEmpty}">
@@ -85,14 +97,12 @@
 					<c:forEach var="record" items="${list}" varStatus="loop">
 	                  <tr>
 	                 	<td><input type="checkbox" class="list-child" name="chklst" value="${record.reservation_id}" /></td>
-	                    <td class="hidden-phone" >${record.reservation_id}</td>
-	                    <td>
-	                      <a href="#"  style="text-align: center;">${record.id}</a>
-	                    </td>
-	                    <td class="hidden-phone" >${record.p_id}</td>
-	                    <td class="hidden-phone" >${record.roomtitle}</td>
-	                    <td class="hidden-phone" >${record.status}</td>
-	                    <td class="hidden-phone" >${record.bookdate}</td>
+	                    <td >${record.reservation_id}</td>
+	                    <td> ${record.id}</td>
+	                    <td >${record.p_id}</td>
+	                    <td >${record.roomtitle}</td>
+	                    <td >${record.status}</td>
+	                    <td >${record.bookdate}</td>
 	                  </tr>
                   	</c:forEach>
 				</form>

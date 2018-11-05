@@ -14,6 +14,7 @@ public interface AdminUserService {
 	List<AdminUserDTO> selectFavoriteList(Map map);
 	//성별
 	int genderCount(Map map);
+	int gender1Count(Map map);
 	
 	//나이별
 	List<AdminUserDTO> selectAgeList(Map map);
@@ -35,6 +36,17 @@ public interface AdminUserService {
 	int insert(AdminUserDTO dto);
 	int update(AdminUserDTO dto);
 	int delete(AdminUserDTO dto);
+	
+	
+	int seoulCount(Map map);
+	int gyeonggiCount(Map map);
+	int incheonCount(Map map);
+	int gangwonCount(Map map);
+	int gyeongsangCount(Map map);
+	int jeollaCount(Map map);
+	int jejuCount(Map map);
+	int chungcheongCount(Map map);
+	
 
 	
 }

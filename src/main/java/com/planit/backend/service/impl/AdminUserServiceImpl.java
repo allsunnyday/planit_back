@@ -108,6 +108,51 @@ public class AdminUserServiceImpl implements AdminUserService{
 		return dao.reviewCount(map);
 	}
 
+	@Override
+	public int gender1Count(Map map) {
+		return dao.gender1Count(map);
+	}
+
+	@Override
+	public int seoulCount(Map map) {
+		return dao.seoulCount(map);
+	}
+
+	@Override
+	public int gyeonggiCount(Map map) {
+		return dao.gyeonggiCount(map);
+	}
+
+	@Override
+	public int incheonCount(Map map) {
+		return dao.incheonCount(map);
+	}
+
+	@Override
+	public int gangwonCount(Map map) {
+		return dao.gangwonCount(map);
+	}
+
+	@Override
+	public int gyeongsangCount(Map map) {
+		return dao.gyeongsangCount(map);
+	}
+
+	@Override
+	public int jeollaCount(Map map) {
+		return dao.jeollaCount(map);
+	}
+
+	@Override
+	public int jejuCount(Map map) {
+		return dao.jejuCount(map);
+	}
+
+	@Override
+	public int chungcheongCount(Map map) {
+		return dao.chungcheongCount(map);
+	}
+
 	
 	
 

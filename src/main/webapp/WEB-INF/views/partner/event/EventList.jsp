@@ -40,12 +40,11 @@
 <!--                  <form id="eventForm" action="#" > -->
                		 <ul class="nav nav-pills nav-stacked mail-nav">
                  		 <li class="active"><a href="<c:url value='/Planit/Admin/Event/List.do?'/>"> 
-                 			 <i class="fa fa-inbox"></i> 진행중인 이벤트 
+                 			 <i class="fa fa-inbox"></i>  이벤트 요청건
                  			 
-                 			  <span class="label label-theme pull-right inbox-notification">${totalRecordCount }</span>
                  			  </a></li>
                 		  <li><!--id="click_"--><a href="<c:url value='/Planit/Admin/Event/Request.do'/>"> 
-                		  <i class="fa fa-envelope-o"></i> 이벤트 요청건</a></li>
+                		  <i class="fa fa-envelope-o"></i> 진행중인 이벤트</a></li>
               		  </ul>
 <!--                    </form> -->
               </div>
@@ -59,50 +58,42 @@
                     이벤트 목록
                     <form action="#" class="pull-right mail-src-position">
                       <div class="input-append">
-                        <input type="text" class="form-control " placeholder="Search Mail">
                       </div>
                     </form>
                   </h4>
               </header>
               <div class="panel-body minimal">
                 <div class="mail-option">
-                  <div class="chk-all">
-                    <span>총 :&nbsp ${totalRecordCount }개</span>
-                </div>
                 </div>
                 
                 <!--  선택에 따라 변경될 내용  -->
                 <div class="table-inbox-wrap ">
-                  <table class="table table-inbox table-hover">
+                  <table class="table table-hover">
                     <tbody>
-                      <tr class="">
-                        <td class="inbox-small-cells">
-                        </td>
-                        <td class="view-message  dont-show">파트너사명</td>
-                        <td class="view-message ">이벤트명</td>
-                        <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip">status</i></td>
-                        <td class="view-message  text-right">기한(18/09-19/09) </td>
+                      <tr>
+                        <td >No.</td>
+                        <td >파트너id</td>
+                        <td >이벤트명</td>
+                        <td ><i class="fa fa-paperclip">status</i></td>
+                        <td >이벤트 요청일 </td>
                       </tr>
                       <c:if test="${empty list}" var="isEmpty">
-								<tr>
-									<td colspan="30"
-										style="text-align: center; font-size: large; font-weight: bold;">결과가
-										없습니다</td>
-								</tr>
-							</c:if>
+							<tr>
+								<td colspan="30"
+									style="text-align: center; font-size: large; font-weight: bold;">결과가
+									없습니다</td>
+							</tr>
+					  </c:if>
 						<c:if test="${not isEmpty}">
-							<form action="#" id="eventList">
-	                      <c:forEach var="record" items="${list}">
+	                      		<c:forEach var="record" items="${list}" >
 		                      <tr >
-		                        <td class="inbox-small-cells">
-		                        </td>
-		                        <td class="view-message dont-show"><a href="mail_view.html">${record.p_id }</a></td>
-		                        <td class="view-message">${record.title }</td>
-		                        <td class="view-message inbox-small-cells">${record.status }</td>
-		                        <td class="view-message text-right">${record.reqdate}</td>
+		                        <td >${record.req_no }</td>
+		                        <td >${record.p_id }</td>
+		                        <td ><a href="<c:url value='/Planit/Admin/Event/EventView.do?req_no=${record.req_no}'/>">${record.title }</a></td>
+		                        <td >${record.status }</td>
+		                        <td >${record.reqdate}</td>
 		                      </tr>
                       		</c:forEach>
-                      		</form>
 						</c:if>
                     </tbody>
                   </table>

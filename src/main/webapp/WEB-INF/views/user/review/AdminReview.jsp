@@ -47,7 +47,7 @@
 	                    <td class="hidden-phone" >${record.id}</td>
 	                    <td class="hidden-phone" >${record.name}</td>
 	                    <td class="hidden-phone" >${record.title}</td>
-	                    <td class="hidden-phone" >${record.view_count}</td>
+	                    <td class="hidden-phone" >${record.viewcount}</td>
 	                    <td class="hidden-phone" >${record.postdate}</td>
 	                  </tr>
                   	</c:forEach>

@@ -34,37 +34,27 @@
 	</select>
 	
 	<select id="AdminUserReservationList" parameterType="java.util.Map" resultType="AdminReservationDTO">
-		<if test="status !=null and status == refund">
-			SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM
-			planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND
-			p.planner_id=r.planner_id AND r.roomcode=pp.roomcode and status=#{status}
+		<if test="status != null">
+			select * from p_product pp join reservation r on pp.roomcode=r.roomcode
+			join planner p on p.planner_id = r.planner_id       
+			<if test="status!=null">
+		        	where status=#{status}
+			</if>
 		</if>
-		<if test="status !=null and status == cancel">
-			SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM
-			planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND
-			p.planner_id=r.planner_id AND r.roomcode=pp.roomcode and status=#{status}
-		</if>
-		<if test="status !=null and status == paid">
-			SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM
-			planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND
-			p.planner_id=r.planner_id AND r.roomcode=pp.roomcode and status=#{status}
-		</if>
+		
 		<if test="status == null">
-			SELECT r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id FROM
-			planner p, member m, reservation r, p_product pp WHERE p.id=m.id AND
-			p.planner_id=r.planner_id AND r.roomcode=pp.roomcode 
+			select * from p_product pp join reservation r on pp.roomcode=r.roomcode
+			join planner p on p.planner_id = r.planner_id 
 		</if>
 	</select>
 
 	<select id="hotTour" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from liked_tour lt join content c on lt.contentid = c.contentid
-		where liked_t_id = (select max(liked_t_id) as lt from liked_tour)
+<!-- 		select max(viewcount) from content  -->
+		select title,viewcount,firstimage from content where viewcount=(select max(viewcount) from content)
 	</select>
 	
 	<select id="hotPlanner" parameterType="java.util.Map" resultType="AdminUserDTO">
-<!-- 		select * from  planner where view_count = (select max(view_count) as p from planner) -->
-<!-- 		select MAX(view_count),id from planner group by view_count -->
-		select MAX(liked),id from planner group by id
+		select MAX(id) from planner
 	</select>
 	
 	<select id="hotReview" parameterType="java.util.Map" resultType="AdminUserDTO">
@@ -72,22 +62,47 @@
 	</select>
 	
 
-	
-	
 
-
+	<!--*************대쉬보드 문의 수******************** -->
 	<select id="noticeCount"  parameterType="java.util.Map" resultType="int">
 		select count(*) from u_ask_planit
 	</select>
 
-<!-- 	<select id="genderlist" parameterType="java.util.Map" resultType="AdminUserDTO"> -->
-<!-- 			select * from member -->
-<!-- 			<if test="gender == m">	 -->
-<!-- 				where gender= #{gender} -->
-<!-- 			</if> -->
-<!-- 	</select> -->
+	<select id="genderCount" parameterType="java.util.Map" resultType="int">
+			select count(gender) from member where gender='M'
+	</select>
+	<select id="genderCount1" parameterType="java.util.Map" resultType="int">
+		select count(gender) from member where gender='F'
+	</select>
 
 
+	<select id="seoulCount" parameterType="java.util.Map" resultType="int">
+		select count(areacode) from planner where areacode=1
+	</select>
+	<select id="gyeongsangCount" parameterType="java.util.Map" resultType="int">
+		select count(areacode) from planner where areacode=4 or areacode=6 or areacode=7 or areacode=35 or areacode=36
+	</select>
+	<select id="incheonCount" parameterType="java.util.Map" resultType="int">
+		select count(areacode) from planner where areacode=2
+	</select>
+	<select id="gangwonCount" parameterType="java.util.Map" resultType="int">
+		select count(areacode) from planner where areacode=32
+	</select>
+	<select id="gyeonggiCount" parameterType="java.util.Map" resultType="int">
+		select count(areacode) from planner where areacode=31
+	</select>
+	<select id="jeollaCount" parameterType="java.util.Map" resultType="int">
+		select count(areacode) from planner where areacode=5 or areacode=37 or areacode=38
+	</select>
+	<select id="jejuCount" parameterType="java.util.Map" resultType="int">
+		select count(areacode) from planner where areacode=39
+	</select>
+	<select id="chungcheongCount" parameterType="java.util.Map" resultType="int">
+		select count(areacode) from planner where areacode=3 or areacode=33 or areacode=34
+	</select>
+	
+	
+	<!--*************페이징/검색******************** -->
 	<select id="getTotal" parameterType="java.util.Map" resultType="int">
 		select count(*) from liked_tour 
 		<if test="searchColumn !=null">
@@ -95,23 +110,27 @@
 		</if>
 	</select>
 	
+	
+	<!--*************대쉬보드에 총 플래너 수******************** -->
 	<select id="getPlannerTotal" parameterType="java.util.Map" resultType="int">
 		select count(*) from planner 
 	</select>
 
+
+	<!--*************대쉬보드에 총 가입자 수******************** -->
 	<select id="memberCount" parameterType="java.util.Map" resultType="int">
 		select count(*) from member 
 	</select>	
 	
+	
+	<!--*************대쉬보드에 총 리뷰카운트******************** -->
 	<select id="reviewCount" parameterType="java.util.Map" resultType="int">
 		select count(*) from review 
 	</select>	
 	
 	
-
-
 	
-
+	<!--*************사용자 정보 값 ajax******************** -->
 	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
 		SELECT * FROM MEMBER
 		<if test="gender!=null and ages==null">
@@ -135,14 +154,13 @@
 		ORDER BY regidate
 	</select>
 
-
+	<!--**************즐겨찾기에서 뿌려줄******************** -->
 	<select id="SelectFavoriteList" parameterType="java.util.Map" resultType="AdminUserDTO">
 		select * from liked_tour lt join member m on m.id = lt.id join content c on c.contentid = lt.contentid
 	</select>
 	
-	<select id="genderlist" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select * from member 
-	</select>
+	
+
 
 
 

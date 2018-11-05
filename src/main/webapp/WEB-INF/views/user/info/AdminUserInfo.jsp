@@ -34,8 +34,21 @@
 			});
 			tableString +="";
 			$(target).html(tableString); */
-		} 
+	 }
 	 
+	 //전체 체크/해제
+	$(function(){ 
+		  $("#allCheck").click(function(){
+			   if($("#allCheck").prop("checked")) { 
+				    $("input[type=checkbox]").prop("checked",true); 
+				   } 
+			   else { 
+				    $("input[type=checkbox]").prop("checked",false); 
+				   } 
+			   }) 
+		  }) 
+	 
+
 </script>
 <!--main content start-->
 <section id="main-content">
@@ -97,7 +110,9 @@
 					<table class="table table-striped table-advance table-hover">
 						<thead>
 							<tr>
-								<th></th>
+								<th>
+								<input type="checkbox" class="list-child" id="allCheck" />
+								</th>
 								<th><i class="fa fa-rocket"></i> ID</th>
 								<th class="hidden-phone"><i class="fa fa-user"></i> Name</th>
 								<th class="hidden-phone"><i class="fa fa-envelope-o"></i>
@@ -131,21 +146,12 @@
 											<td class="hidden-phone">${record.gender}</td>
 											<td class="hidden-phone">${record.age}</td>
 											<td class="hidden-phone">${record.regidate}</td>
-											<!-- <td>
-	                      <button class="btn btn-primary btn-xs" title="edit"><i class="fa fa-pencil"></i></button>
-	                      <button class="btn btn-success btn-xs" title="profile"><i class="fa fa-check"></i></button>
-	                      <button class="btn btn-danger btn-xs" title="delete"><i class="fa fa-trash-o "></i></button>
-	                    </td> -->
 										</tr>
 									</c:forEach>
 								</form>
 							</c:if>
 						</tbody>
-
 					</table>
-					<div class="row">
-						<div class="col-md-12">${pagingString}</div>
-					</div>
 				</div>
 				<!-- /content-panel -->
 			</div>

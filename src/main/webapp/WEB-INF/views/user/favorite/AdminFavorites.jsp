@@ -6,7 +6,19 @@
 			일반 사용자 관리 화면
 	***********************************	
  -->
-
+<script>
+//전체 체크/해제
+$(function(){ 
+	  $("#allCheck").click(function(){
+		   if($("#allCheck").prop("checked")) { 
+			    $("input[type=checkbox]").prop("checked",true); 
+			    } 
+		   else { 
+			    $("input[type=checkbox]").prop("checked",false); 
+			    } 
+		   }) 
+	  }) 
+</script>
  
  
  <!--main content start-->
@@ -23,7 +35,9 @@
               <table class="table table-striped table-advance table-hover">
                 <thead>
                   <tr>
-                  	<th></th>
+                  	<th>
+					<input type="checkbox" class="list-child" id="allCheck" />
+					</th>
                     <th><i class="fa fa-star"></i> ID</th>
                     <th class="hidden-phone"><i class="fa fa-star-o"></i> Name</th>
                     <th><i calss="fa fa-map"></i>즐겨찾기 목록</th>                    

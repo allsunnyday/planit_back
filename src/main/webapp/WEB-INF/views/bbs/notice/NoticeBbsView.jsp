@@ -35,11 +35,8 @@
               <div class="panel-body minimal " id="ask-content">
 	           <table class="table">
 				  <tr>
-				  <td>
-					${noticeView.TITLE}[${noticeView.NAME}]				  	
-				  </td>
-				  <td style="text-align: left;">
-					${noticeView.POSTDATE}			  	
+				  <td>${noticeView.TITLE}[${noticeView.NAME}]	 </td>
+				  <td style="text-align: left;">${noticeView.POSTDATE}			  	
 				  </td>
 				  </tr>
 				  

@@ -44,7 +44,17 @@
 //  		});//each
 //  		$('#comments').html(commentString);
  	}///////////displayPlanner
-
+ 	 //전체 체크/해제
+	$(function(){ 
+		  $("#allCheck").click(function(){
+			   if($("#allCheck").prop("checked")) { 
+				    $("input[type=checkbox]").prop("checked",true); 
+				    } 
+			   else { 
+				    $("input[type=checkbox]").prop("checked",false); 
+				    } 
+			   }) 
+		  }) 
  
  </script>
 <!--main content start-->
@@ -64,7 +74,7 @@
 						<hr>
 						<label class="col-sm-2 col-sm-2 control-label">여행 일수</label>
 						<label class="checkbox-inline"> <input type="radio" name="days" id="inlineCheckbox1" value="1"> 당일치기</label>
-					    <label class="checkbox-inline"> <input type="radio" name="days" id="inlineCheckbox2" value="4"> 5일 미만</label> 
+<!-- 					    <label class="checkbox-inline"> <input type="radio" name="days" id="inlineCheckbox2" value="4"> 5일 미만</label>  -->
 					    <label class="checkbox-inline"> <input type="radio" name="days" id="inlineCheckbox3" value="9"> 10일 미만</label> 
 					    <label class="checkbox-inline"> <input type="radio" name="days" id="inlineCheckbox4" value="10"> 10일 이상</label>
 						<hr>
@@ -88,7 +98,9 @@
 					<table class="table table-striped table-advance table-hover">
 						<thead>
 							<tr>
-								<th></th>
+								<th>
+									<input type="checkbox" class="list-child" id="allCheck" />
+								</th>
 								<th><i class="fa fa-rocket"></i> Planner_ID</th>
 								<th><i class="fa fa-rocket"></i> ID</th>
 								<th><i class="fa fa-star"></i> Days</th>
@@ -117,7 +129,7 @@
 											</td>
 											<td class="hidden-phone">${record.id}</td>
 											<td class="hidden-phone">${record.days}</td>
-											<td class="hidden-phone">${record.view_count}</td>
+											<td class="hidden-phone">${record.viewcount}</td>
 											<td class="hidden-phone">${record.postdate}</td>
 										</tr>
 									</c:forEach>

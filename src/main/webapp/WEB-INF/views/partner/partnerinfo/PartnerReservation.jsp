@@ -3,15 +3,15 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 
 	*************************************
-			파트너 사용자 관리 화면
+			일반 사용자 관리 화면
 	***********************************	
  -->
-  <script>
+ <script>
   $(function(){
 	  $('#search').click(function(){
-		  alert('ttt: '+$('#searchForm input:checked').val()))
+		  //alert('ttt: '+$('#searchForm input:checked').val())
 		  $.ajax({
-			  url:'<c:url value="/Planit/Admin/Reservation/List.do"/>',
+			  url:'<c:url value="/Planit/Admin/Reservation/List.do?"/>',
 			  data:{status:$('#searchForm input:checked').val()},
 			  datatType:'json',
 			  type:'post',
@@ -25,9 +25,19 @@
 	  });
   });
 		 var displayReservation = function(data){
-			 consoloe.log(JSON.stringify(data));
+			 consoloe.log(JSON.stringify(data))
 		 }
- 
+  //전체 체크/해제
+	$(function(){ 
+		  $("#allCheck").click(function(){
+			   if($("#allCheck").prop("checked")) { 
+				    $("input[type=checkbox]").prop("checked",true); 
+				    } 
+			   else { 
+				    $("input[type=checkbox]").prop("checked",false); 
+				    } 
+			   }) 
+		  }) 
  
  </script>
  <!--main content start-->
@@ -39,30 +49,23 @@
           <div class="col-lg-12">
             <div class="form-panel">
               <h4 class="mb"><i class="fa fa-angle-right"></i> 검 색</h4>
-               <form id="searchForm" action="#">
-              <hr>
-                	 <label class="col-sm-2 col-sm-2 control-label">status별</label>
-	              <label class="checkbox-inline ">
-	                <input type="radio" name="status" id="inlineCheckbox1" value="option1"> Refund
-	                </label>
-	              <label class="checkbox-inline">
-	                <input type="radio" name="status" id="inlineCheckbox2" value="option2"> Cancel
-	                </label>
-	              <label class="checkbox-inline">
-	                <input type="radio" name="status" id="inlineCheckbox3" value="option3"> paid
-	                </label>
-                <hr>
-                <button id="search" class="btn btn-default">조회</button>
-				<button id="searchAll" class="btn btn-primary">전체 조회</button>
-				 </form>
-             
-           
-              <br>
+              		<form id="searchForm" action="#">
+						<hr>
+						<label class="col-sm-2 col-sm-2 control-label">status별</label>
+						<label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox1" value="refund"> refund</label>
+					    <label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox2" value="cancel"> cancel</label> 
+					    <label class="checkbox-inline"> <input type="radio" name="status" id="inlineCheckbox3" value="paid"> paid</label> 
+						<hr>
+						<button id="search" class="btn btn-default">조회</button>
+						<button id="searchAll" class="btn btn-primary">전체 조회</button>
+					</form>
+				<br>
             </div>
             <!-- /form-panel -->
           </div>
           <!-- /col-lg-12 -->
       	</div>
+      	<!-- 결과 를 뿌려주는 곳  -->
         <h3><i class="fa fa-angle-right"></i> 결과 </h3>
         <!-- SORTABLE TO DO LIST -->
        <div class="row mt">
@@ -71,10 +74,12 @@
               <table class="table table-striped table-advance table-hover">
                 <thead>
                   <tr>
-                  	<th></th>
-                    <th><i class="fa fa-bullhorn"></i> Partner_ID </th>
-                    <th><i class="fa fa-bullhorn"></i> Client_ID</th>
+                  	<th>
+					<input type="checkbox" class="list-child" id="allCheck" />
+					</th>
+					<th><i class="fa fa-bullhorn"></i> Partner_ID</th>
                     <th><i class="fa fa-bullhorn"></i> Reservation_ID</th>
+                    <th><i class="fa fa-bullhorn"></i> Client_ID</th>
                     <th class="hidden-phone"><i class="fa fa-question-circle"></i> RoomTitle</th>
                     <th class="hidden-phone"><i class="fa fa-question-circle"></i> Status</th>
                     <th class="hidden-phone"><i class="fa fa-question-circle"></i> Bookdate</th>
@@ -84,23 +89,23 @@
                 <tbody>
                 <c:if test="${empty list}" var="isEmpty">
 					<tr>
-						<td colspan="3" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
+						<td colspan="30" style="text-align: center; font-size: large; font-weight: bold;">결과가 없습니다</td>
 					</tr>
 				</c:if>
 				<c:if test="${not isEmpty}">
-				<form action="#" id="checklist">
-					<c:forEach var="record" items="${list}">
+				<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
+					<c:forEach var="record" items="${list}" varStatus="loop">
 	                  <tr>
 	                 	<td><input type="checkbox" class="list-child" name="chklst" value="${record.p_id}" /></td>
-	                    <td class="hidden-phone" >${record.p_id}</td>
-	                    <td> <a href="#"  style="text-align: center;">${record.reservation_id}</a></td>
-	                    <td class="hidden-phone" >${record.reservation_id}</td>
-	                    <td class="hidden-phone" >${record.roomtitle}</td>
-	                    <td class="hidden-phone" >${record.status}</td>
-	                    <td class="hidden-phone" >${record.bookdate}</td>
+	                    <td >${record.p_id}</td>
+	                    <td> ${record.id}</td>
+	                    <td >${record.reservation_id}</td>
+	                    <td >${record.roomtitle}</td>
+	                    <td >${record.status}</td>
+	                    <td >${record.bookdate}</td>
 	                  </tr>
                   	</c:forEach>
-                  	</form>
+				</form>
 				</c:if>
                 </tbody>
               </table>
@@ -109,6 +114,7 @@
           </div>
           <!-- /col-md-12 -->
         </div>
+        <!-- /row -->
       </section>
       <!-- /wrapper -->
     </section>

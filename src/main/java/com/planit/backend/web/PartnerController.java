@@ -81,6 +81,19 @@ public class PartnerController {
 		return "partner/event/EventList.tiles";
 	}
 	
+	
+	@RequestMapping("/Planit/Admin/Event/EventView.do")
+	public String eventView(@RequestParam Map map,Model model) throws Exception{
+		System.out.println("이벤트뷰"+map.get("req_no"));
+		
+		PartnerDTO list = service.eventView(map);
+		System.out.println("asdasdsads"+list.getStatus().toString());
+		model.addAttribute("list",list);
+		System.out.println("11:"+list);
+		System.out.println("test"+list.getReq_no());
+		return "partner/event/EventView.tiles";
+	}
+	
 	/******************기업회원 리스트 ********************/
 	@RequestMapping("/Planit/Admin/partner/List.do")
 	public String partnerList(Model model,
@@ -122,39 +135,40 @@ public class PartnerController {
 	}
 	
 	@RequestMapping(value="/Planit/Admin/Reservation/List.do",produces="text/plain; charset=UTF-8", method=RequestMethod.GET)
-	public String reservateion(Model model,Map map
-			)throws Exception{
-		System.out.println("예약:"+map.get("roomtitle"));
+	public String reservateion(Model model,Map map)throws Exception{
 		List<PartnerDTO> list = service.selectReservationList(map);
 		model.addAttribute("list", list);
+		System.out.println("DASfad:"+list);
 		return "partner/partnerinfo/PartnerReservation.tiles";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/Planit/Admin/Reservation/List.do",produces="text/plain; charset=UTF-8", method=RequestMethod.POST)
-	public String ajaxReservation(@RequestParam Map map, @RequestParam(value="status") String sta)throws Exception{
+	public String ajaxReservation(@RequestParam Map map)throws Exception{
 		
 		  System.out.println("들들들?:"+map.get("status"));
 		  
-	      map.put("status", map.get("status").toString());
-	      System.out.println(sta);
+//	      map.put("status", map.get("status").toString());
+//	      System.out.println(sta);
 	      List<Map> collections = new Vector<Map>(); 
 	      List<PartnerDTO> list = new ArrayList();
-	      System.out.println("sta"+sta);
-	      map.put("status", sta);
+//	      System.out.println("sta"+sta);
+//	      map.put("status", sta);
+	      
 	      list = service.selectReservationList(map);
-	      for(PartnerDTO dto : list) {
+	      System.out.println("list"+list);
+	      for(PartnerDTO dto :list) {
+	    	  
 				Map record = new HashMap();
-				record.put("p_id",dto.getP_id());
-				record.put("planner_id",dto.getPlanner_id().toString());
-				record.put("Reservation_id",dto.getReservation_id().toString());
-				record.put("roomtitle", dto.getRoomtitle());
-				record.put("status", dto.getStatus());
+				record.put("id",dto.getId().toString());
+				record.put("p_id",dto.getP_id().toString());
+				record.put("reservation_id",dto.getReservation_id().toString());
+				record.put("roomtitle",dto.getRoomtitle().toString());
+				record.put("status",dto.getStatus().toString());
 				record.put("bookdate",dto.getBookdate().toString());
-				
-				
 			}
-	      System.out.println(list.size());
+	      System.out.println("사이즈"+list.size());
+	      System.out.println("list"+list);
 	      System.out.println("dd  "+JSONArray.toJSONString(collections));
 	      return JSONArray.toJSONString(collections);
 	}
@@ -173,9 +187,18 @@ public class PartnerController {
 		return "partner/event/EventRequest.tiles";
 	}
 	
-	@RequestMapping("/Planit/Admin/partner/View.do")
-	public String partnerView()throws Exception{
-		return "partner/partnerinfo/PartnerView.tiles";
+
+	
+	
+	//**********
+	@RequestMapping("/Planit/Admin/Event/eventSuccess.do")
+	public String eventSuccess(@RequestParam Map map,Model model,HttpServletRequest req) throws Exception{
+		
+		int successFail = service.update(map);
+		model.addAttribute("successFail",successFail);
+		model.addAttribute("WHERE","SUCCESS");
+		
+		return "partner/event/Message";
 	}
 	
 }

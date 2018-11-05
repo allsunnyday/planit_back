@@ -28,17 +28,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 	</select> -->
 	
 	<select id="requestEvent" parameterType="java.util.Map" resultType="PartnerDTO">
-		select * from event_request 
+		
+		select * from event_request where status='accepted' order by reqdate
+		 
 	</select>
 	
 	<select id="eventList" parameterType="java.util.Map" resultType="PartnerDTO">
-		select * from event_request er 
+		select * from event_request where status='waited'  order by reqdate
+	</select>
+	
+	<select id="eventView"  parameterType="java.util.Map" resultType="PartnerDTO">
+		select * from event_request where req_no=#{req_no}
 	</select>
 	
 	<select id="reservation" parameterType="java.util.Map" resultType="PartnerDTO">
-			select r.*, m.id as id, pp.roomtitle as roomtitle, pp.p_id as p_id
-		 FROM planner p, member m, reservation r, p_product pp WHERE p.id=m.id
-		 AND p.planner_id=r.planner_id AND r.roomcode=pp.roomcode
+		<if test="status != null">
+			select * from p_product pp join reservation r on pp.roomcode=r.roomcode
+			join planner p on p.planner_id = r.planner_id       
+			<if test="status!=null">
+		        	where status=#{status}
+			</if>
+		</if>
+		
+		<if test="status == null">
+			select * from p_product pp join reservation r on pp.roomcode=r.roomcode
+			join planner p on p.planner_id = r.planner_id 
+		</if>
 	</select>
 	
 	<select id="totalCount" parameterType="java.util.Map" resultType="Integer">
@@ -46,8 +61,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	<if test="searchColumn !=null">
     		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
     	</if>	
-	
 	</select>
 	
+	<update id="successUpdate" parameterType="java.util.Map">
+		update event_request set status='accepted', reqdate=sysdate where req_no=#{req_no}	
+	</update>
 
 </mapper>

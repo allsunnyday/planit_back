@@ -42,4 +42,14 @@ public class PartnerDAO implements PartnerService {
 		return template.selectList("requestEvent",map);
 	}
 
+	@Override
+	public PartnerDTO eventView(Map map) {
+		return template.selectOne("eventView",map);
+	}
+
+	@Override
+	public int update(Map map) {
+		return template.update("successUpdate",map);
+	}
+
 }

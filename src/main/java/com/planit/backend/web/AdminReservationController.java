@@ -32,6 +32,7 @@ public class AdminReservationController {
 	public String userReservation(@RequestParam Map map, Model model)throws Exception{
 		List<AdminReservationDTO> list = service.selectReservationList(map);
 		model.addAttribute("list", list);
+		System.out.println("asdaf:"+list);
 		return "/user/reservation/AdminReservation.tiles";
 	}
 	
@@ -67,18 +68,21 @@ public class AdminReservationController {
 	      List<AdminReservationDTO> list = new ArrayList();
 //	      System.out.println("sta"+sta);
 //	      map.put("status", sta);
-	      System.out.println("list"+list);
+	      
 	      list = service.selectReservationList(map);
+	      System.out.println("list"+list);
 	      for(AdminReservationDTO dto :list) {
+	    	  
 				Map record = new HashMap();
-				record.put("id",dto.getId());
-				record.put("p_id",dto.getP_id());
+				record.put("id",dto.getId().toString());
+				record.put("p_id",dto.getP_id().toString());
 				record.put("reservation_id",dto.getReservation_id().toString());
-				record.put("roomtitle",dto.getRoomtitle());
-				record.put("status",dto.getStatus());
+				record.put("roomtitle",dto.getRoomtitle().toString());
+				record.put("status",dto.getStatus().toString());
 				record.put("bookdate",dto.getBookdate().toString());
 			}
-	      System.out.println(list.size());
+	      System.out.println("사이즈"+list.size());
+	      System.out.println("list"+list);
 	      System.out.println("dd  "+JSONArray.toJSONString(collections));
 	      return JSONArray.toJSONString(collections);
 	}

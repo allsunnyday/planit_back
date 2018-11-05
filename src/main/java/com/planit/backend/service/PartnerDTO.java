@@ -20,8 +20,10 @@ public class PartnerDTO {
 	private String reservation_id;
 	private String status;
 	private Date bookdate;
-	
+	private String req_no;
 	private String planner_id;
+	private String content;
+	private String id;
 	
 	
 	public String getP_id() {
@@ -125,6 +127,24 @@ public class PartnerDTO {
 	}
 	public void setPlanner_id(String planner_id) {
 		this.planner_id = planner_id;
+	}
+	public String getReq_no() {
+		return req_no;
+	}
+	public void setReq_no(String req_no) {
+		this.req_no = req_no;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	
