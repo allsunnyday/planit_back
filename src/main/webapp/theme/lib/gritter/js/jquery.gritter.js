@@ -7,18 +7,18 @@
  *
  * Date: February 24, 2012
  * Version: 1.7.4
- */
+ 
 
 (function($){
  	
-	/**
+	*//**
 	* Set it up as an object under the jQuery namespace
-	*/
+	*//*
 	$.gritter = {};
 	
-	/**
+	*//**
 	* Set up global options that the user can over-ride
-	*/
+	*//*
 	$.gritter.options = {
 		position: 'bottom-right',
 		class_name: '', // could be set to 'gritter-light' to use white notifications
@@ -27,10 +27,10 @@
 		time: 6000 // hang on the screen for...
 	}
 	
-	/**
+	*//**
 	* Add a gritter notification to the screen
 	* @see Gritter#add();
-	*/
+	*//*
 	$.gritter.add = function(params){
 
 		try {
@@ -46,26 +46,26 @@
 		
 	}
 	
-	/**
+	*//**
 	* Remove a gritter notification from the screen
 	* @see Gritter#removeSpecific();
-	*/
+	*//*
 	$.gritter.remove = function(id, params){
 		Gritter.removeSpecific(id, params || {});
 	}
 	
-	/**
+	*//**
 	* Remove all notifications
 	* @see Gritter#stop();
-	*/
+	*//*
 	$.gritter.removeAll = function(params){
 		Gritter.stop(params || {});
 	}
 	
-	/**
+	*//**
 	* Big fat Gritter object
 	* @constructor (not really since its object literal)
-	*/
+	*//*
 	var Gritter = {
 		
 		// Public - options to over-ride with $.gritter.options in "add"
@@ -83,11 +83,11 @@
 		_tpl_item: '<div id="gritter-item-[[number]]" class="gritter-item-wrapper [[item_class]]" style="display:none"><div class="gritter-top"></div><div class="gritter-item">[[close]][[image]]<div class="[[class_name]]">[[title]]<p>[[text]]</p></div><div style="clear:both"></div></div><div class="gritter-bottom"></div></div>',
 		_tpl_wrap: '<div id="gritter-notice-wrapper"></div>',
 		
-		/**
+		*//**
 		* Add a gritter notification to the screen
 		* @param {Object} params The object that contains all the options for drawing the notification
 		* @return {Integer} The specific numeric id to that gritter notification
-		*/
+		*//*
 		add: function(params){
 			// Handle straight text
 			if(typeof(params) == 'string'){
@@ -188,13 +188,13 @@
 		
 		},
 		
-		/**
+		*//**
 		* If we don't have any more gritter notifications, get rid of the wrapper using this check
 		* @private
 		* @param {Integer} unique_id The ID of the element that was just deleted, use it for a callback
 		* @param {Object} e The jQuery element that we're going to perform the remove() action on
 		* @param {Boolean} manual_close Did we close the gritter dialog with the (X) button
-		*/
+		*//*
 		_countRemoveWrapper: function(unique_id, e, manual_close){
 			
 			// Remove it then run the callback function
@@ -208,14 +208,14 @@
 		
 		},
 		
-		/**
+		*//**
 		* Fade out an element after it's been on the screen for x amount of time
 		* @private
 		* @param {Object} e The jQuery element to get rid of
 		* @param {Integer} unique_id The id of the element to remove
 		* @param {Object} params An optional list of params to set fade speeds etc.
 		* @param {Boolean} unbind_events Unbind the mouseenter/mouseleave events if they click (X)
-		*/
+		*//*
 		_fade: function(e, unique_id, params, unbind_events){
 
 			var params = params || {},
@@ -250,12 +250,12 @@
 						
 		},
 		
-		/**
+		*//**
 		* Perform actions based on the type of bind (mouseenter, mouseleave) 
 		* @private
 		* @param {Object} e The jQuery element
 		* @param {String} type The type of action we're performing: mouseenter or mouseleave
-		*/
+		*//*
 		_hoverState: function(e, type){
 			
 			// Change the border styles and add the (X) close button when you hover
@@ -279,13 +279,13 @@
 			
 		},
 		
-		/**
+		*//**
 		* Remove a specific notification based on an ID
 		* @param {Integer} unique_id The ID used to delete a specific notification
 		* @param {Object} params A set of options passed in to determine how to get rid of it
 		* @param {Object} e The jQuery element that we're "fading" then removing
 		* @param {Boolean} unbind_events If we clicked on the (X) we set this to true to unbind mouseenter/mouseleave
-		*/
+		*//*
 		removeSpecific: function(unique_id, params, e, unbind_events){
 			
 			if(!e){
@@ -298,12 +298,12 @@
 			
 		},
 		
-		/**
+		*//**
 		* If the item is fading out and we hover over it, restore it!
 		* @private
 		* @param {Object} e The HTML element to remove
 		* @param {Integer} unique_id The ID of the element
-		*/
+		*//*
 		_restoreItemIfFading: function(e, unique_id){
 			
 			clearTimeout(this['_int_id_' + unique_id]);
@@ -311,10 +311,10 @@
 			
 		},
 		
-		/**
+		*//**
 		* Setup the global options - only once
 		* @private
-		*/
+		*//*
 		_runSetup: function(){
 		
 			for(opt in $.gritter.options){
@@ -324,12 +324,12 @@
 			
 		},
 		
-		/**
+		*//**
 		* Set the notification to fade out after a certain amount of time
 		* @private
 		* @param {Object} item The HTML element we're dealing with
 		* @param {Integer} unique_id The ID of the element
-		*/
+		*//*
 		_setFadeTimer: function(e, unique_id){
 			
 			var timer_str = (this._custom_timer) ? this._custom_timer : this.time;
@@ -339,10 +339,10 @@
 		
 		},
 		
-		/**
+		*//**
 		* Bring everything to a halt
 		* @param {Object} params A list of callback functions to pass when all notifications are removed
-		*/  
+		*//*  
 		stop: function(params){
 			
 			// callbacks (if passed)
@@ -358,13 +358,13 @@
 		
 		},
 		
-		/**
+		*//**
 		* An extremely handy PHP function ported to JS, works well for templating
 		* @private
 		* @param {String/Array} search A list of things to search for
 		* @param {String/Array} replace A list of things to replace the searches with
 		* @return {String} sa The output
-		*/  
+		*//*  
 		_str_replace: function(search, replace, subject, count){
 		
 			var i = 0, j = 0, temp = '', repl = '', sl = 0, fl = 0,
@@ -401,10 +401,10 @@
 			
 		},
 		
-		/**
+		*//**
 		* A check to make sure we have something to wrap our notices with
 		* @private
-		*/  
+		*//*  
 		_verifyWrapper: function(){
 		  
 			if($('#gritter-notice-wrapper').length == 0){
@@ -416,3 +416,4 @@
 	}
 	
 })(jQuery);
+*/
