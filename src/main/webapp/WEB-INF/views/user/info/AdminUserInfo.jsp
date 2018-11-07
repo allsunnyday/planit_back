@@ -9,9 +9,10 @@
 <script>
 	 $(function() {
 		$("#search").click(function() {
+			//alert('ttt: '+ $('#searchForm').serialize());
 			$.ajax({
 				url: "<c:url value='/Planit/Admin/AdminUserInfo.do'/>",
-				data: $('#searchForm').serialize(),
+				data: {ages:$('#searchForm').serialize()},
 				dataType: "json",
 				type:'post',
 				success: function(data) {
@@ -25,7 +26,7 @@
 		});
 	}); 
 	 function searchAjax(data, target) {
-			console.log('서버로부터 받은 데이터:', data);
+			console.log(JSON.stringify(data));
 			/* $.each(data, function(index, element) {
 				$.each(data, function(key, value) {
 					tableString+='<tr> <td><input type="checkbox" class="list-child" name="chklst" value="'+id+'"/></td>';
@@ -36,17 +37,17 @@
 			$(target).html(tableString); */
 	 }
 	 
-	 //전체 체크/해제
-	$(function(){ 
-		  $("#allCheck").click(function(){
-			   if($("#allCheck").prop("checked")) { 
-				    $("input[type=checkbox]").prop("checked",true); 
-				   } 
-			   else { 
-				    $("input[type=checkbox]").prop("checked",false); 
-				   } 
-			   }) 
-		  }) 
+// 	 //전체 체크/해제
+// 	$(function(){ 
+// 		  $("#allCheck").click(function(){
+// 			   if($("#allCheck").prop("checked")) { 
+// 				    $("input[type=checkbox]").prop("checked",true); 
+// 				   } 
+// 			   else { 
+// 				    $("input[type=checkbox]").prop("checked",false); 
+// 				   } 
+// 			   }) 
+// 		  }) 
 	 
 
 </script>
@@ -67,20 +68,20 @@
 						<hr>
 						<label class="col-sm-2 col-sm-2 control-label">나이대별</label> <label
 							class="checkbox-inline "> <input type="checkbox"
-							name="age" id="inlineCheckbox1" value="10"> 10대
+							name="ages" id="inlineCheckbox1" value="1"> 10대
 						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="age" id="inlineCheckbox2" value="20"> 20대
+							name="ages" id="inlineCheckbox2" value="2"> 20대
 						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="age" id="inlineCheckbox3" value="30"> 30대
+							name="ages" id="inlineCheckbox3" value="3"> 30대
 						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="age" id="inlineCheckbox4" value="40"> 40대
+							name="ages" id="inlineCheckbox4" value="4"> 40대
 						</label> <label class="checkbox-inline"> <input type="checkbox"
-							name="age" id="inlineCheckbox5" value="50"> 50대
+							name="ages" id="inlineCheckbox5" value="5"> 50대
 						</label>
 						<hr>
 						<label class="col-sm-2 col-sm-2 control-label">성별</label> <label
 							class="checkbox-inline "> <input type="checkbox"
-							name="gender" id="inlineCheckbox1" value="W"><i
+							name="gender" id="inlineCheckbox1" value="F"><i
 							class="fa fa-female"></i> 여성
 						</label> <label class="checkbox-inline"> <input type="checkbox"
 							name="gender" id="inlineCheckbox2" value="M"><i
@@ -88,8 +89,7 @@
 						</label>
 						<hr>
 						<button id="search" class="btn btn-primary">search</button>
-						<button id="all" type="button" class="btn btn-primary">show
-						All</button>
+						<button id="all" type="button" class="btn btn-primary">show All</button>
 					</form>
 					
 					<br>
@@ -110,25 +110,22 @@
 					<table class="table table-striped table-advance table-hover">
 						<thead>
 							<tr>
-								<th>
-								<input type="checkbox" class="list-child" id="allCheck" />
-								</th>
+<!-- 								<th> -->
+<!-- 								<input type="checkbox" class="list-child" id="allCheck" /> -->
+<!-- 								</th> -->
 								<th><i class="fa fa-rocket"></i> ID</th>
-								<th class="hidden-phone"><i class="fa fa-user"></i> Name</th>
-								<th class="hidden-phone"><i class="fa fa-envelope-o"></i>
-									Email</th>
-								<th class="hidden-phone"><i class="fa fa-female"></i>
-									Gender</th>
-								<th class="hidden-phone"><i class="fa fa-rocket"></i> Age</th>
-								<th class="hidden-phone"><i class="fa fa-calendar-o"></i>
-									Regidate</th>
+								<th ><i class="fa fa-user"></i> Name</th>
+								<th ><i class="fa fa-envelope-o"></i>Email</th>
+								<th style="text-align:center;"><i class="fa fa-female"></i>Gender</th>
+								<th ><i class="fa fa-rocket"></i> Age</th>
+								<th ><i class="fa fa-calendar-o"></i>Regidate</th>
 								<!--  <th></th> -->
 							</tr>
 						</thead>
 						<tbody>
 							<c:if test="${empty list}" var="isEmpty">
 								<tr>
-									<td colspan="3"
+									<td colspan="30"
 										style="text-align: center; font-size: large; font-weight: bold;">결과가
 										없습니다</td>
 								</tr>
@@ -137,15 +134,14 @@
 								<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
 									<c:forEach var="record" items="${list}" varStatus="loop">
 										<tr>
-											<td><input type="checkbox" class="list-child"
-												name="chklst" value="${record.id}" /></td>
-											<td><a href="#" style="text-align: center;">${record.id}</a>
-											</td>
-											<td class="hidden-phone">${record.name}</td>
-											<td class="hidden-phone">${record.email}</td>
-											<td class="hidden-phone">${record.gender}</td>
-											<td class="hidden-phone">${record.age}</td>
-											<td class="hidden-phone">${record.regidate}</td>
+<!-- 											<td><input type="checkbox" class="list-child" -->
+<%-- 												name="chklst" value="${record.id}" /></td> --%>
+											<td>${record.id}</td>
+											<td >${record.name}</td>
+											<td >${record.email}</td>
+											<td style="text-align: center;" >${record.gender}</td>
+											<td >${record.age}</td>
+											<td >${record.regidate}</td>
 										</tr>
 									</c:forEach>
 								</form>

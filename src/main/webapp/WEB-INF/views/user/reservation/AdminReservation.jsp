@@ -84,7 +84,7 @@
                     <th class="hidden-phone"><i class="fa fa-question-circle"></i> Status</th>
                     <th class="hidden-phone"><i class="fa fa-question-circle"></i> Bookdate</th>
                     <th></th>
-                  </tr>
+                  </tr> 
                 </thead>
                 <tbody>
                 <c:if test="${empty list}" var="isEmpty">

@@ -97,25 +97,18 @@ public class DashBoardController {
 		
 		int seoul = userService.seoulCount(map);
 		model.addAttribute("seoul",seoul);
-		
 		int incheon = userService.incheonCount(map);
 		model.addAttribute("incheon",incheon);
-		
 		int gyeonggi = userService.gyeonggiCount(map);
 		model.addAttribute("gyeonggi",gyeonggi);
-		
 		int gangwon = userService.gangwonCount(map);
 		model.addAttribute("gangwon",gangwon);
-		
 		int gyeongsang = userService.gyeongsangCount(map);
 		model.addAttribute("gyeongsang",gyeongsang);
-		
 		int jeolla = userService.jeollaCount(map);
 		model.addAttribute("jeolla",jeolla);
-		
 		int jeju = userService.jejuCount(map);
 		model.addAttribute("jeju",jeju);
-		
 		int chungcheong = userService.chungcheongCount(map);
 		model.addAttribute("chungcheong",chungcheong);
 		

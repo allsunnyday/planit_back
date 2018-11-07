@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="hotPlanner" parameterType="java.util.Map" resultType="AdminUserDTO">
-		select MAX(id) from planner
+		select id,liked from planner where id=(select max(id) from planner)
 	</select>
 	
 	<select id="hotReview" parameterType="java.util.Map" resultType="AdminUserDTO">
@@ -72,7 +72,7 @@
 			select count(gender) from member where gender='M'
 	</select>
 	<select id="genderCount1" parameterType="java.util.Map" resultType="int">
-		select count(gender) from member where gender='F'
+			select count(gender) from member where gender='F'
 	</select>
 
 
@@ -104,7 +104,14 @@
 	
 	<!--*************페이징/검색******************** -->
 	<select id="getTotal" parameterType="java.util.Map" resultType="int">
-		select count(*) from liked_tour 
+		select count(*) from liked_tour
+		<if test="searchColumn !=null">
+			WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+		</if>
+	</select>
+	
+	<select id="fCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from liked_tour lt join member m on m.id = lt.id join content c on c.contentid = lt.contentid
 		<if test="searchColumn !=null">
 			WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
 		</if>
@@ -132,27 +139,16 @@
 	
 	<!--*************사용자 정보 값 ajax******************** -->
 	<select id="AdminUserInfoList" parameterType="java.util.Map" resultType="AdminUserDTO">
-		SELECT * FROM MEMBER
-		<if test="gender!=null and ages==null">
-			WHERE gender = #{gender}
+		select * from member
+		<if test="gender == M and age !=null ">
+			 where gender='M' and age like #{ages}||'%'
 		</if>
-		<if test="gender==null and ages!=null">
-			WHERE trunc(age/10,0)*10
-			<foreach collection="ages" item="element" index="i"
-				open="IN(" separator="," close=")">
-				#{element}
-			</foreach>
+		<if test="gender == F and age !=null ">
+			 where gender='F' and age like #{ages}||'%'
 		</if>
-
-		<if test="ages!=null and gender!=null">
-			WHERE gender=#{gender} AND trunc(age/10,0)*1
-			<foreach collection="ages" item="element" index="i"
-				open="IN(" separator="," close=")">
-				#{element}
-			</foreach>
-		</if>
-		ORDER BY regidate
 	</select>
+
+
 
 	<!--**************즐겨찾기에서 뿌려줄******************** -->
 	<select id="SelectFavoriteList" parameterType="java.util.Map" resultType="AdminUserDTO">

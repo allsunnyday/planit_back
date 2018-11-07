@@ -14,18 +14,10 @@
                 <ul class="nav nav-pills nav-stacked mail-nav">
                   <li class="user-ask active">
                   	<a href="<c:url value='/Planit/Admin/BBS/UserAskList.do'/>" id="user-ask" > <i class="fa fa-inbox"></i> 사용자 문의 게시판  
-                  	<span class="label label-theme pull-right inbox-notification new-u-num">${uWatiedNumber}</span></a>
                   </li>
-                  <li class="partner-ask ">
-                  	<a href="<c:url value='/Planit/Admin/BBS/PartnerAskList.do'/>" id="partner-ask" > <i class="fa fa-envelope-o"></i> 기업 문의 게시판 
-                  	<span class="label label-theme pull-right inbox-notification new-p-num">${pWatiedNumber}</span></a>
+                  <li class="active">
+                  	<a href="<c:url value='/Planit/Admin/BBS/AskReplyComplete.do'/>"> <i class="fa fa-file-text-o"></i> 답변 완료 게시판  </a>
                   </li>
-                  <li>
-                  	<a href="<c:url value='/Planit/Admin/BBS/AskReplyComplete.do'/>"> <i class="fa fa-file-text-o"></i> 답변 완료 게시판  <span class="label label-info pull-right inbox-notification">8</span></a>
-                  </li>
-                  <!-- <li>
-                  	<a href="#"> <i class="fa fa-exclamation-circle"></i> 이벤트 관련 공지사항 </a>
-                  </li> -->
                 </ul>
               </div>
             </section>

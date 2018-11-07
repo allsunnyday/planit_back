@@ -192,7 +192,7 @@ public class PartnerController {
 	
 	//**********
 	@RequestMapping("/Planit/Admin/Event/eventSuccess.do")
-	public String eventSuccess(@RequestParam Map map,Model model,HttpServletRequest req) throws Exception{
+	public String eventSuccess(@RequestParam Map map,Model model) throws Exception{
 		
 		int successFail = service.update(map);
 		model.addAttribute("successFail",successFail);

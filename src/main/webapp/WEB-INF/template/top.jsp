@@ -44,7 +44,7 @@
               <span>관리자</span>
               </a>
             <ul class="sub">
-              <li><a href="<c:url value='/Planit/admin/Profile.do'/>">프로파일</a></li>
+<%--               <li><a href="<c:url value='/Planit/admin/Profile.do'/>">프로파일</a></li> --%>
               <c:if test="${not empty sessionScope.master}">
               <li><a href="<c:url value='/Planit/admin/Employee.do'/>">직원</a></li>
               </c:if>
@@ -63,18 +63,18 @@
               <li><a href="<c:url value='/Planit/Admin/AdminReview.do'/> ">리뷰</a></li>
             </ul>
           </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-book"></i>
-              <span>파트너관리</span>
-              </a>
-            <ul class="sub">
-              <li><a href="<c:url value='/Planit/Admin/partner/List.do'/> ">기업회원</a></li>
-              <li><a href="<c:url value='/Planit/Admin/Event/List.do'/> ">이벤트관리</a></li>
-              <li><a href="<c:url value='/Planit/Admin/Reservation/List.do'/> ">숙박예약관리</a></li>
+<!--           <li class="sub-menu"> -->
+<!--             <a href="javascript:;"> -->
+<!--               <i class="fa fa-book"></i> -->
+<!--               <span>파트너관리</span> -->
+<!--               </a> -->
+<!--             <ul class="sub"> -->
+<%--               <li><a href="<c:url value='/Planit/Admin/partner/List.do'/> ">기업회원</a></li> --%>
+<%--               <li><a href="<c:url value='/Planit/Admin/Event/List.do'/> ">이벤트관리</a></li> --%>
+<%--               <li><a href="<c:url value='/Planit/Admin/Reservation/List.do'/> ">숙박예약관리</a></li> --%>
               
-            </ul>
-          </li>
+<!--             </ul> -->
+<!--           </li> -->
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-book"></i>
@@ -92,19 +92,19 @@
             <ul class="sub">
               <li><a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>">공지사항</a></li>
               <li><a href="<c:url value='/Planit/Admin/BBS/AskList.do'/> ">문의게시판</a></li>
-              <li><a href="<c:url value='/Planit/Admin/BBS/RequestUpList.do'/>">정보수정건의</a></li>
+<%--               <li><a href="<c:url value='/Planit/Admin/BBS/RequestUpList.do'/>">정보수정건의</a></li> --%>
             </ul>
           </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-th"></i>
-              <span>포토북</span>
-              </a>
-            <ul class="sub">
-              <li><a href="<c:url value='/planit/photobook/List.do'/> ">포토북</a></li>
-              <li><a href="#">디자인등록</a></li>
-            </ul>
-          </li>
+<!--           <li class="sub-menu"> -->
+<!--             <a href="javascript:;"> -->
+<!--               <i class="fa fa-th"></i> -->
+<!--               <span>포토북</span> -->
+<!--               </a> -->
+<!--             <ul class="sub"> -->
+<%--               <li><a href="<c:url value='/planit/photobook/List.do'/> ">포토북</a></li> --%>
+<!--               <li><a href="#">디자인등록</a></li> -->
+<!--             </ul> -->
+<!--           </li> -->
         </ul>
         <!-- sidebar menu end-->
       </div>

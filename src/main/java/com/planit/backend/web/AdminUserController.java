@@ -62,7 +62,7 @@ public class AdminUserController {
 		}
 		
 		
-		int totalCount = service.getTotalCount(map);
+		int totalCount = service.favoritesCount(map);
 		int totalPage = (int)Math.ceil(((double)totalCount/pageSize));
 		int start = (nowPage-1)*pageSize+1;
 		int end  = nowPage*pageSize;
@@ -239,35 +239,29 @@ public class AdminUserController {
    
    @ResponseBody
    @RequestMapping(value="/Planit/Admin/AdminUserInfo.do", produces="text/plain; charset=UTF-8",method=RequestMethod.POST)
-   public String userInfoAjax(@RequestParam Map map, @RequestParam(value="age") List<String> ages) {
-      System.out.println("ajax로 들어옴");
+   public String userInfoAjax(@RequestParam Map map /*@RequestParam(value="age") List<String> ages*/) {
+   
+	   System.out.println("ajax로 들어옴");
       
-      map.put("gender", map.get("gender").toString());//성별 넣기
-      System.out.println(ages);
+    
+//      System.out.println(ages);
       List<Map> collections = new Vector<Map>(); //파라미터 넘기기용 map
       List<AdminUserDTO> list = new ArrayList();//값 parsing용
       
-//      String[] ageArray = ages.spliterator(",");
-      /*
-      for(int i=0; i<ages.size(); i++) { 
-         map.put("age", ages);
-      }*/
-      
-       System.out.println("ages"+ages);
-        /* for (String str : ages) {
-            System.out.println(str);
-            map.put("ages", str);
-         }*/
-       map.put("ages", ages);
+//       System.out.println("ages"+ages);
+//      map.put("gender", map.get("gender").toString());//성별 넣기
+//       map.put("ages", map.get("ages").toString());
 
+      System.out.println("ADfad:"+map.get("ages"));
+      
       list = service.selectInfoList(map);
       for(AdminUserDTO dto: list) {
          Map record = new HashMap();
          record.put("id", dto.getId());
          record.put("name", dto.getName());
          record.put("email", dto.getEmail());
-         record.put("gender", dto.getGender());
-         record.put("age", dto.getAge().toString());
+         record.put("gender", dto.getGender().toString());
+         record.put("ages", dto.getAge().toString());
          record.put("regidate", dto.getRegidate().toString());
          collections.add(record);
       }

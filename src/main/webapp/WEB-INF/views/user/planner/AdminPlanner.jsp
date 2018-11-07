@@ -45,16 +45,16 @@
 //  		$('#comments').html(commentString);
  	}///////////displayPlanner
  	 //전체 체크/해제
-	$(function(){ 
-		  $("#allCheck").click(function(){
-			   if($("#allCheck").prop("checked")) { 
-				    $("input[type=checkbox]").prop("checked",true); 
-				    } 
-			   else { 
-				    $("input[type=checkbox]").prop("checked",false); 
-				    } 
-			   }) 
-		  }) 
+// 	$(function(){ 
+// 		  $("#allCheck").click(function(){
+// 			   if($("#allCheck").prop("checked")) { 
+// 				    $("input[type=checkbox]").prop("checked",true); 
+// 				    } 
+// 			   else { 
+// 				    $("input[type=checkbox]").prop("checked",false); 
+// 				    } 
+// 			   }) 
+// 		  }) 
  
  </script>
 <!--main content start-->
@@ -98,16 +98,14 @@
 					<table class="table table-striped table-advance table-hover">
 						<thead>
 							<tr>
-								<th>
-									<input type="checkbox" class="list-child" id="allCheck" />
-								</th>
-								<th><i class="fa fa-rocket"></i> Planner_ID</th>
+<!-- 								<th> -->
+<!-- 									<input type="checkbox" class="list-child" id="allCheck" /> -->
+<!-- 								</th> -->
+								<th style="text-align: center;"> <i class="fa fa-rocket"></i> Planner_ID</th>
 								<th><i class="fa fa-rocket"></i> ID</th>
-								<th><i class="fa fa-star"></i> Days</th>
-								<th class="hidden-phone"><i class="fa fa-eye"></i>
-									ViewCount</th>
-								<th class="hidden-phone"><i class="fa fa-calendar-o"></i>
-									PostDate</th>
+								<th style="text-align: center;"><i class="fa fa-star"></i> Days</th>
+								<th style="text-align: center;"><i class="fa fa-eye"></i>ViewCount</th>
+								<th style="text-align: right;"><i class="fa fa-calendar-o"></i>PostDate</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -122,15 +120,14 @@
 							<c:if test="${not isEmpty}">
 								<form action="/Planit/Admin/AdminUserDelete.do" id="checklist">
 									<c:forEach var="record" items="${list}" varStatus="loop">
-										<tr>
-											<td><input type="checkbox" class="list-child"
-												name="chklst" value="${record.planner_id}" /></td>
-											<td><a href="#" style="text-align: center;">${record.planner_id}</a>
-											</td>
-											<td class="hidden-phone">${record.id}</td>
-											<td class="hidden-phone">${record.days}</td>
-											<td class="hidden-phone">${record.viewcount}</td>
-											<td class="hidden-phone">${record.postdate}</td>
+<!-- 										<tr> -->
+<!-- 											<td><input type="checkbox" class="list-child" -->
+<%-- 												name="chklst" value="${record.planner_id}" /></td> --%>
+											<td style="text-align: center;">${record.planner_id}</td>
+											<td >${record.id}</td>
+											<td style="text-align: center;">${record.days}</td>
+											<td style="text-align: center;">${record.view_count}</td>
+											<td style="text-align: right;">${record.postdate}</td>
 										</tr>
 									</c:forEach>
 								</form>

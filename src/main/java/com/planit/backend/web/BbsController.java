@@ -61,9 +61,9 @@ public class BbsController {
 		System.out.println("여기들어오긴 하냐");
 		
 		List<Map> noticeList=bbsService.selectNoticeList();
-		for(Map list:noticeList) {
-			list.put("POSTDATE", list.get("POSTDATE").toString().subSequence(0, 10));
-		}
+//		for(Map list:noticeList) {
+//			list.put("POSTDATE", list.get("POSTDATE").toString().subSequence(0, 10));
+//		}
 		System.out.println("noticeList:"+noticeList==null?"없다":"있다");
 		model.addAttribute("noticeList", noticeList);
 		
@@ -173,6 +173,16 @@ public class BbsController {
 		return "bbs/ask/AskBbsList.tiles";
 	}
 	
+	
+	
+	@RequestMapping("/Planit/Admin/BBS/AskReplyComplete.do")
+	public String AskReplyColplete(Model model,@RequestParam Map map) throws Exception{
+		//---------[데이터베이스에서 값 가져오기]-----------
+		List<UserAskDTO> reply = askService.selectAskReply(map);
+		//----------[모델저장해서 내보내기]--------------
+		model.addAttribute("userAskList", reply);
+		return "bbs/ask/AskReplyComplete.tiles";
+	}
 //[문의게시판 파트너 문의 페이지]
 	@RequestMapping("/Planit/Admin/BBS/PartnerAskList.do")
 	public String gotoPartnerAskList(Model model,//리퀘스트 영역 저장용
@@ -257,13 +267,12 @@ public class BbsController {
 	}
 	@RequestMapping("/Planit/Admin/BBS/AskReplyProcess.do")
 	public String AskReplyProcess(@RequestParam Map map,Model model)throws Exception{
-		int ask_no = Integer.parseInt(map.get("ask_no").toString());
-		map.put("ask_no", ask_no);
-		map.put("status","replied");
-			//회원이 질문한 경우
-			map.put("table","u_ask_planit");
-			int isUpdate=bbsService.askReply(map);
-			return "forward:/Planit/Admin/BBS/UserAskList.do";
+		
+			int successFail = askService.update(map);
+			model.addAttribute("successFail",successFail);
+			model.addAttribute("WHERE","SUCCESS");
+			
+			return "bbs/ask/Message";
 	
 		
 	}
@@ -277,70 +286,7 @@ public class BbsController {
 		
 		
 	}
+
+	
 }
-/*
- * 
-	
-	@ResponseBody
-	@RequestMapping(value="/planit/bbs/asklist.do", produces="text/plain; charset=UTF-8")
-	public String askList(@RequestParam Map map, HttpServletRequest req) throws Exception{
-			System.out.println(map.get("whoAsk"));
-		
-			if(map.get("whoAsk").equals("user")) {
-				List<Map> userAsks = askService.selectAskList(map);
-				int userAskNum = 0;
-				for(Map record: userAsks) {
-					record.put("ASKDATE", record.get("ASKDATE").toString());
-					if(record.get("STATUS").toString().equals("waited")) userAskNum++;
-				}
-				Map numMap = new HashMap();
-				numMap.put("userAskNum", userAskNum);
-				map.put("status", "waited");
-				numMap.put("partnerAskNum", askService.selectPartnerAskList(map).size());
-				userAsks.add(numMap);
-				return JSONArray.toJSONString(userAsks);
-			}
-			else {
-				List<Map> partnerAsk = askService.selectPartnerAskList(map);
-				int partnerAskNum = 0;
-				for(Map record: partnerAsk) {
-					record.put("ASKDATE", record.get("ASKDATE").toString());
-					if(record.get("STATUS").toString().equals("waited")) partnerAskNum++;
-				
-				}
-				Map numMap = new HashMap();
-				numMap.put("partnerAskNum", partnerAskNum);
-				map.put("status", "waited");
-				numMap.put("userAskNum", askService.selectAskList(map).size());
-				partnerAsk.add(numMap);
-				return JSONArray.toJSONString(partnerAsk);
-			}
-		
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/Planit/Admin/BBS/AskView.do", produces="text/plain; charset=UTF-8")
-	public String askView(@RequestParam Map map)throws Exception{
-		System.out.println(map.get("whoAsk")+"가"+map.get("ask_no")+"을 물었습니다.");
-		JSONObject json = new JSONObject();
-		if("user".equals(map.get("whoAsk").toString())) {
-			UserAskDTO record = askService.selectUserAskOne(map);
-			json.put("ask_no", record.getAsk_no());
-			json.put("title", record.getTitle());
-			json.put("id", record.getId());
-			json.put("name", record.getName());
-			json.put("content", record.getContent());
-			json.put("askdate", record.getAskdate().toString());
-		
-		}else {  //partner
-			PartnerAskDTO record = askService.selectPartnerAskOne(map);
-			json.put("ask_no", record.getAsk_no());
-			json.put("title", record.getTitle());
-			json.put("id", record.getP_id());
-			json.put("name", record.getName());
-			json.put("content", record.getContent());
-			json.put("askdate", record.getAskdate().toString());
-		}
-		
-		return json.toJSONString();
-	}*/
+

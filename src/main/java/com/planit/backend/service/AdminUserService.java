@@ -29,6 +29,7 @@ public interface AdminUserService {
 	int memberCount(Map map);
 	int noticeCount(Map map);
 	int reviewCount(Map map);
+	int favoritesCount(Map map);
 	//검색
 	AdminUserDTO selectOne(Map map);
 	

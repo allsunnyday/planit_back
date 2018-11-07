@@ -133,6 +133,10 @@ public class AdminUserDAO implements AdminUserService{
 	public int chungcheongCount(Map map) {
 		return template.selectOne("chungcheongCount",map);
 	}
+	@Override
+	public int favoritesCount(Map map) {
+		return template.selectOne("fCount",map);
+	}
 	
 
 }

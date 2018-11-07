@@ -16,11 +16,9 @@
                 </a>
                 <ul class="nav nav-pills nav-stacked mail-nav">
                   <li class="user-ask active">
-                  	<a href="#" id="user-ask" > <i class="fa fa-inbox"></i> 현재 공지된 게시글  </a>
+                  	<a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>" id="user-ask" > <i class="fa fa-inbox"></i> 현재 공지된 게시글  </a>
                   </li>
-                  <li class="partner-ask ">
-                  	<a href="#" id="partner-ask" > <i class="fa fa-envelope-o"></i> 지난 게시글 </a>
-                  </li>
+                  
                 </ul>
               </div>
             </section>
@@ -37,11 +35,11 @@
 		           	<input type="text" value=""class="form-control"name="title" placeholder="제목을 입력해주세요">
 		           </div>
 		           <div>
-		           <textarea class="form-control" rows="3" name="content" placeholder="공지사항을 입력해주세요" ></textarea>
+		           <textarea class="form-control" style="resize: none;"rows="3" name="content" placeholder="내용을 입력해주세요" ></textarea>
 		          
 		           </div>
 		           <%-- <input type="hidden" value="${noticeView.NO}" name="no"/> --%>
-		            <button type="submit" class="btn btn-round btn-default">등록</button>
+		            <button type="submit" class="btn btn-default">등록</button>
                </form>
               </div>
             </section>

@@ -11,11 +11,13 @@ public interface AskService {
 	
 	UserAskDTO selectUserAskOne(Map map);
 	
-	
+	int update(Map map);
 	//기업 사용자
 	List<Map> selectPartnerAskList(Map map);
 	PartnerAskDTO selectPartnerAskOne(Map map);
 	
 	//공통
 	List<Map> selectAskList(Map map);
+
+	List<UserAskDTO> selectAskReply(Map map);
 }

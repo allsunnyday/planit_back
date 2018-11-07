@@ -24,6 +24,7 @@ public class AdminUserDTO {
 	private String review_id;
 	private String liked;
 	private String firstimage;
+	private String view_count;
 	
 
 	public String getId() {
@@ -192,6 +193,14 @@ public class AdminUserDTO {
 
 	public void setFirstimage(String firstimage) {
 		this.firstimage = firstimage;
+	}
+
+	public String getView_count() {
+		return view_count;
+	}
+
+	public void setView_count(String view_count) {
+		this.view_count = view_count;
 	}
 
 }

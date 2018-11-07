@@ -16,11 +16,9 @@
                 </a>
                 <ul class="nav nav-pills nav-stacked mail-nav">
                   <li class="user-ask active">
-                  	<a href="#" id="user-ask" > <i class="fa fa-inbox"></i> 현재 공지된 게시글  </a>
+                  	<a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>" id="user-ask" > <i class="fa fa-inbox"></i> 현재 공지된 게시글  </a>
                   </li>
-                  <li class="partner-ask ">
-                  	<a href="#" id="partner-ask" > <i class="fa fa-envelope-o"></i> 지난 게시글 </a>
-                  </li>
+                  
                 </ul>
               </div>
             </section>
@@ -34,19 +32,14 @@
               </header>
               <div class="panel-body minimal " id="ask-content">
 	           <table class="table">
-				  <tr>
-				  <td>${noticeView.TITLE}[${noticeView.NAME}]	 </td>
-				  <td style="text-align: left;">${noticeView.POSTDATE}			  	
-				  </td>
+				   <tr>
+						  <td>제목&nbsp; :&nbsp;&nbsp; ${noticeView.TITLE}</td>
+						  <td>등록일 &nbsp; : &nbsp;&nbsp;${noticeView.POSTDATE} </td>
 				  </tr>
-				  
-				  <tr>
-				  	<td colspan="2" style="width:300px;height: 200px;">
-					${noticeView.CONTENT}			  	
-				  	
-				  	
-				  	</td>
-				  </tr>
+					  
+					  <tr>
+					  	<td colspan="5" style="width:300px;height: 200px;">${noticeView.CONTENT}</td>
+					  </tr>
 				</table>
 				
 				<c:if test="${SessionScope.id eq noticeView.e_id}">
@@ -68,11 +61,11 @@
      <script type="text/javascript">
 
 	function button_event(){
-	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-	    document.form.submit();
-	}else{   //취소
-	    return;
-	}
+		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		    document.form.submit();
+		}else{   //취소
+		    history.back();
+		}
 	}
 	
 	</script>

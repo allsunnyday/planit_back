@@ -47,5 +47,15 @@ public class AskDAO implements AskService{
 		return template.selectList("askSelectAskList", map);
 	}
 
+	@Override
+	public int update(Map map) {
+		return template.update("askUpdate",map);
+	}
+
+	@Override
+	public List<UserAskDTO> selectAskReply(Map map) {
+		return template.selectList("askReply",map);
+	}
+
 	
 }

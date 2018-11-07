@@ -16,11 +16,9 @@
                 </a>
                 <ul class="nav nav-pills nav-stacked mail-nav">
                   <li class="user-ask active">
-                  	<a href="#" id="user-ask" > <i class="fa fa-inbox"></i> 현재 공지된 게시글  </a>
+                  	<a href="<c:url value='/Planit/Admin/BBS/NoticeList.do'/>" id="user-ask" > <i class="fa fa-inbox"></i> 현재 공지된 게시글  </a>
                   </li>
-                  <li class="partner-ask ">
-                  	<a href="#" id="partner-ask" > <i class="fa fa-envelope-o"></i> 지난 게시글 </a>
-                  </li>
+                  
                 </ul>
               </div>
             </section>
@@ -41,8 +39,8 @@
 	              		<td>작성일</td>
 	              	</tr>
 	              	<c:if test="${empty noticeList}" var="isEmpty">
-	              	<tr>
-	              		<td colspan="4">
+	              	<tr style="text-align: center;">
+	              		<td colspan="2" >
 	              		등록된 공지사항이 없습니다
 	              		</td>
 	              	</tr>

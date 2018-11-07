@@ -45,4 +45,14 @@ public class AskServiceImpl implements AskService {
 		return dao.selectAskList(map);
 	}
 
+	@Override
+	public int update(Map map) {
+		return dao.update(map);
+	}
+
+	@Override
+	public List<UserAskDTO> selectAskReply(Map map) {
+		return dao.selectAskReply(map);
+	}
+
 }

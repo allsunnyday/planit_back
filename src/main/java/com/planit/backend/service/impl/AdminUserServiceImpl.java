@@ -153,6 +153,11 @@ public class AdminUserServiceImpl implements AdminUserService{
 		return dao.chungcheongCount(map);
 	}
 
+	@Override
+	public int favoritesCount(Map map) {
+		return dao.favoritesCount(map);
+	}
+
 	
 	
 
