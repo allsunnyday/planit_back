@@ -243,7 +243,7 @@ public class AdminUserController {
    
 	   System.out.println("ajax로 들어옴");
       
-    
+     
 //      System.out.println(ages);
       List<Map> collections = new Vector<Map>(); //파라미터 넘기기용 map
       List<AdminUserDTO> list = new ArrayList();//값 parsing용
